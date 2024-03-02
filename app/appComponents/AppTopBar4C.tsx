@@ -18,7 +18,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
     <Pressable
       style={{
         ...styles.topBar,
-        paddingTop: insets.top + 8,
+        paddingVertical: insets.top + 8,
         paddingHorizontal: 16,
       }}
     >
@@ -97,7 +97,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
 
 const styles = StyleSheet.create({
   topBar: {
-    backgroundColor: "white",
+    backgroundColor: colors4C.light4C,
   },
   flexRow: {
     flexDirection: "row",
