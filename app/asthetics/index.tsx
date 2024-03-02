@@ -39,3 +39,13 @@ export const borderWidth4C = {
   large4C: 3,
   extraLarge4C: 4,
 }
+
+export const fontFamily4C = {
+  primary4C: "Inter",
+  secondary4C: "Roboto",
+  tertiary4C: "Roboto",
+}
+
+
+export const imgBlurHash4C =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";

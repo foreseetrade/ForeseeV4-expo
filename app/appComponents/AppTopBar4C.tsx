@@ -6,11 +6,8 @@ import {
 } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import FeatherIcon from "@expo/vector-icons/Feather";
-import { colors4C } from "../asthetics";
+import { colors4C, imgBlurHash4C } from "../asthetics";
 import { View } from "@/components/Themed";
-
-const blurhash =
-  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
@@ -18,7 +15,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
     <Pressable
       style={{
         ...styles.topBar,
-        paddingVertical: insets.top + 8,
+        paddingTop: insets.top + 8,
         paddingHorizontal: 16,
       }}
     >
@@ -37,7 +34,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
           <Image
             style={styles.image}
             source="https://picsum.photos/seed/696/3000/2000"
-            placeholder={blurhash}
+            placeholder={imgBlurHash4C}
             contentFit="cover"
             transition={1000}
           />
