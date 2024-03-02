@@ -10,24 +10,20 @@ import {
 } from "@/app/asthetics";
 
 // @ts-ignore
-import iconTranFail from "../../../assets/icons/wallet/iconTranFailure.svg";
+import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
 
-// @ts-ignore
-import iconTranSuccess from "../../../assets/icons/wallet/iconTranSuccess.svg";
-
-// @ts-ignore
-import iconTranPending from "../../../assets/icons/wallet/iconTranPending.svg";
-
-const TransactionCard = ({
-  tranStatus,
-  tranType,
-  tranAmt,
-  tranTimestamp,
+const PredictionCard = ({
+  predStatus,
+  predType,
+  predAmt,
+  predTimestamp,
+  predTeams,
 }: {
-  tranStatus: string;
-  tranType: string;
-  tranAmt: string;
-  tranTimestamp: string;
+  predStatus: string;
+  predType: string;
+  predAmt: string;
+  predTimestamp: string;
+  predTeams: [string, string];
 }) => {
   return (
     <View
@@ -37,6 +33,7 @@ const TransactionCard = ({
         borderBottomWidth: 0.4,
         borderBottomColor: colors4C.purple4C,
         // borderRadius: borderRadius4C.small4C,
+        width: "100%",
       }}
     >
       <View
@@ -44,25 +41,20 @@ const TransactionCard = ({
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          alignContent: "center",
         }}
       >
         <View
           style={{
             flexDirection: "row",
+            justifyContent: "space-between",
+            // alignContent: "center",
             alignItems: "center",
-            gap: sizes4C.small4C,
+            gap: sizes4C.medium4C,
           }}
         >
           <Image
             style={styles.image}
-            source={
-              tranStatus === "Pending"
-                ? iconTranPending
-                : tranStatus === "Success"
-                ? iconTranSuccess
-                : iconTranFail
-            }
+            source={iconTeam}
             placeholder={imgBlurHash4C}
             contentFit="cover"
             transition={8}
@@ -76,22 +68,26 @@ const TransactionCard = ({
             }}
           >
             <Text style={{ fontSize: 14, color: colors4C.gray4C }}>
-              {tranType} {tranStatus}
+              {predType} {predStatus}
+            </Text>
+
+            <Text style={{ fontSize: 14, color: colors4C.gray4C }}>
+              {predTeams[0]} vs {predTeams[1]}
             </Text>
             <Text style={{ ...styles.textStyle, fontSize: 14 }}>
-              {tranTimestamp}
+              {predTimestamp}
             </Text>
           </View>
         </View>
         <Text style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}>
-          ₹ {tranAmt}
+          ₹ {predAmt}
         </Text>
       </View>
     </View>
   );
 };
 
-export default TransactionCard;
+export default PredictionCard;
 
 const styles = StyleSheet.create({
   image: {
