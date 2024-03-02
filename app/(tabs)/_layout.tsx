@@ -6,7 +6,8 @@ import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import AppTopBar from "../appChunks/AppTopBar";
+import { Feather } from "@expo/vector-icons";
+import AppTopBar4C from "../appChunks/AppTopBar4C";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -28,13 +29,16 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}
     >
+      {/* Bottom Navbar Tabs */}
       <Tabs.Screen
         name="index"
         options={{
-          header: () => <AppTopBar />,
+          header: () => <AppTopBar4C isNumbersVisible={true} />,
           // title: 'Tab One',
           headerTitle: "Tab One Test",
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" size={24} color={color} />
+          ),
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
