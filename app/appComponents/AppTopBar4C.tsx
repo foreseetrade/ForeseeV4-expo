@@ -17,6 +17,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
         ...styles.topBar,
         paddingTop: insets.top + 8,
         paddingHorizontal: 16,
+        paddingBottom: 8,
       }}
     >
       <Pressable
@@ -99,12 +100,12 @@ const styles = StyleSheet.create({
   flexRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    // gap: 8,
   },
   flexColumn: {
     flexDirection: "column",
     alignItems: "center",
-    gap: 4,
+    gap: 8,
   },
   image: {
     width: 32,

@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MatchCard from "../appComponents/appCards/MatchCard";
+import MatchPredCard from "../appComponents/appCards/MatchPredCard";
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text>HomeScreen</Text>
-      <MatchCard />
+      {/* <MatchCard /> */}
+      <MatchPredCard winPercentage={75} /> 
     </View>
   );
 };
