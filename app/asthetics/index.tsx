@@ -10,6 +10,8 @@ export const colors4C = {
   blue4C: "#243F76",
   yellow4C: "#FAB11C",
   green4C: "#2BBC93",
+  black4C: "#323232",
+  white4C: "#FFFFFF",
 };
 
 export const sizes4C = {
