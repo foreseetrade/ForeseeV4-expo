@@ -3,17 +3,18 @@ import { View, Text } from "react-native";
 import { borderRadius4C, colors4C, spacing4C } from "@/app/asthetics";
 import { StyleSheet } from "react-native";
 
-const WalBalanceCard = () => {
+const WalBalanceCard = ({ cardHeight }: { cardHeight: number }) => {
   return (
     <View
       style={{
-        backgroundColor: colors4C.purple4C,
         flexDirection: "column",
-        padding: spacing4C.small4C,
         alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: colors4C.purple4C,
+        padding: spacing4C.small4C,
         borderRadius: borderRadius4C.small4C,
         // width: "88%",
-        // height: 120,
+        height: cardHeight,
       }}
     >
       <Text style={{ ...styles.textStyle4C, fontSize: 16, paddingVertical: 2 }}>

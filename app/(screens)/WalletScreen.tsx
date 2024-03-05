@@ -20,7 +20,7 @@ const WalletScreen = () => {
       }}
     >
       {/* <Text>WalletScreen</Text> */}
-      <WalBalanceCard />
+      <WalBalanceCard cardHeight={104} />
       <View
         style={{
           flexDirection: "row",
@@ -31,16 +31,19 @@ const WalletScreen = () => {
         }}
       >
         <TranButton
+          navigateTo="/(wallet)/TopupScreen"
           btnText="Topup"
           leftIcon={<Feather name="send" size={16} color={colors4C.blue4C} />}
         />
         <TranButton
+          navigateTo="/(wallet)/WithdrawScreen"
           btnText="Withdraw"
           leftIcon={
             <Feather name="arrow-down" size={16} color={colors4C.blue4C} />
           }
         />
         <TranButton
+          navigateTo="/(wallet)/AllTransactionsScreen"
           btnText="History"
           leftIcon={
             <Feather name="file-text" size={16} color={colors4C.blue4C} />
