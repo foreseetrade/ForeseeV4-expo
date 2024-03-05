@@ -5,6 +5,7 @@ import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import CardWithChevron from "../appComponents/appCards/CardWithChevron";
 import { Feather } from "@expo/vector-icons";
 import TranButton from "../appComponents/appButtons/TranButton";
+import StatButton from "../appComponents/appButtons/StatButton";
 
 const ProfileScreen = () => {
   const cardData = [
@@ -44,7 +45,13 @@ const ProfileScreen = () => {
 
   return (
     <>
-      <View style={{ padding: sizes4C.small4C, gap: sizes4C.small4C }}>
+      <View
+        style={{
+          // padding: sizes4C.small4C,
+          gap: sizes4C.small4C,
+          borderRadius: sizes4C.small4C,
+        }}
+      >
         <View style={styles.imgWrap}>
           <View style={styles.imageBg}>
             <Image
@@ -63,18 +70,39 @@ const ProfileScreen = () => {
             </Text>
           </View>
         </View>
-        <View style={{ gap: sizes4C.small4C, flexDirection: "row" }}>
-         
-        </View>
-        {cardData.map((data, index) => (
-          <CardWithChevron
-            key={index}
-            leftIcon={data.leftIcon}
-            rightIcon={data.rightIcon}
-            cardText={data.cardText}
-            navigateTo={data.navigateTo}
+        <View style={styles.statButtonContainer}>
+          {/* <Text>HomeScreen</Text> */}
+          {/* <MatchCard /> */}
+          {/* <MatchPredCard winPercentage={75} />  */}
+          {/* <NumberPad /> */}
+          <StatButton
+            btnStatText={"4200"}
+            leftIcon={
+              <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
+            }
+            btnText={"Trades Won"}
+            rightIcon={null}
           />
-        ))}
+          <StatButton
+            btnStatText={"4200"}
+            leftIcon={
+              <Feather name="credit-card" size={16} color={colors4C.blue4C} />
+            }
+            btnText={"Wallet Balance"}
+            rightIcon={null}
+          />
+        </View>
+        <View style={styles.chevronsContainer}>
+          {cardData.map((data, index) => (
+            <CardWithChevron
+              key={index}
+              leftIcon={data.leftIcon}
+              rightIcon={data.rightIcon}
+              cardText={data.cardText}
+              navigateTo={data.navigateTo}
+            />
+          ))}
+        </View>
       </View>
     </>
   );
@@ -89,7 +117,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     backgroundColor: colors4C.purple4C,
-    padding: sizes4C.small4C,
+    marginBottom: -48,
+    // padding: sizes4C.small4C,
+    // borderRadius: sizes4C.small4C,
   },
   imageStyle: { width: 100, height: 100, borderRadius: 360 },
   textStyle: { color: colors4C.white4C, fontSize: 14 },
@@ -100,5 +130,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     gap: sizes4C.small4C,
     height: 240,
+    // borderRadius: sizes4C.small4C,
+  },
+  statButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    // gap: ,
+    padding: sizes4C.small4C,
+    // backgroundColor: "red",
+    // borderWidth: 0.4,
+    borderColor: colors4C.purple4C,
+    borderRadius: sizes4C.small4C,
+  },
+  chevronsContainer: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    gap: sizes4C.small4C,
+    paddingHorizontal: sizes4C.small4C,
   },
 });

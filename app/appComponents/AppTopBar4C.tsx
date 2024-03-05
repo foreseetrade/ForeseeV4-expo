@@ -8,6 +8,7 @@ import { Image } from "expo-image";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import { colors4C, imgBlurHash4C } from "../asthetics";
 import { View } from "@/components/Themed";
+import { Link, router } from "expo-router";
 
 const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
@@ -27,11 +28,12 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
           alignItems: "center",
         }}
       >
-        <Pressable
+        {/* <Pressable
           onPress={() => {
-            console.log("pressed Image");
+            router.navigate("/(screeens)/ProfileScreen");
           }}
-        >
+        > */}
+        <Link href={"/(screens)/ProfileScreen"}>
           <Image
             style={styles.image}
             source="https://picsum.photos/seed/696/3000/2000"
@@ -39,7 +41,8 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
             contentFit="cover"
             transition={1000}
           />
-        </Pressable>
+        </Link>
+        {/* </Pressable> */}
         <Pressable
           style={{
             flexDirection: "row",

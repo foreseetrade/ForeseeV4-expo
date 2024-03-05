@@ -3,26 +3,18 @@ import React from "react";
 import MatchCard from "../appComponents/appCards/MatchCard";
 import MatchPredCard from "../appComponents/appCards/MatchPredCard";
 import NumberPad from "../appComponents/appUtils/NumberPad";
-import { sizes4C } from "../asthetics";
+import { colors4C, sizes4C } from "../asthetics";
+import StatButton from "../appComponents/appButtons/StatButton";
+import { Feather } from "@expo/vector-icons";
 
 const HomeScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>HomeScreen</Text>
-      {/* <MatchCard /> */}
-      {/* <MatchPredCard winPercentage={75} />  */}
-      <NumberPad />
-    </View>
+  return (<>
+  </>
+   
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    margin: 16,
-    gap: 16,
-    padding: sizes4C.medium4C,
-  },
 });
