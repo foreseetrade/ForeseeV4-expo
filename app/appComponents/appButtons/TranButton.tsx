@@ -12,9 +12,9 @@ import { colors4C, sizes4C } from "@/app/asthetics";
 const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon }: any) => {
   return (
     <>
-      <TouchableOpacity>
-        <>
-          <Link href={`${navigateTo as Href<string>}`} asChild>
+      <Link href={`${navigateTo as Href<string>}`} asChild>
+        <TouchableOpacity>
+          <>
             <View style={styles.btnWrap}>
               {/* <Image source={leftIcon} /> */}
               {leftIcon}
@@ -30,9 +30,9 @@ const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon }: any) => {
               {/* <Image source={rightIcon} /> */}
               {rightIcon}
             </View>
-          </Link>
-        </>
-      </TouchableOpacity>
+          </>
+        </TouchableOpacity>
+      </Link>
     </>
   );
 };

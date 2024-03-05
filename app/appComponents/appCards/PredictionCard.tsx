@@ -23,16 +23,13 @@ const PredictionCard = ({
   predType: string;
   predAmt: string;
   predTimestamp: string;
-  predTeams: [string, string];
+  predTeams: string[];
 }) => {
   return (
     <View
       style={{
         backgroundColor: colors4C.light4C,
         padding: spacing4C.small4C,
-        borderBottomWidth: 0.4,
-        borderBottomColor: colors4C.purple4C,
-        // borderRadius: borderRadius4C.small4C,
         width: "100%",
       }}
     >

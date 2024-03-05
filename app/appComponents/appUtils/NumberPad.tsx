@@ -71,39 +71,31 @@ const NumberPad = () => {
         </View>
 
         {/* Special buttons */}
-        <View style={styles.buttonContainer}>
-          <View style={styles.rowContainer}>
-            {specialButtons.map((button) =>
-              renderSpecialButton(button.value, button.label)
-            )}
-          </View>
+        {/* <View style={styles.buttonContainer}> */}
+        <View style={styles.rowContainer}>
+          {specialButtons.map((button) =>
+            renderSpecialButton(button.value, button.label)
+          )}
         </View>
       </View>
+      {/* </View> */}
 
-      <View style={styles.numbersWrap}>
-        <View>
-          <View style={styles.buttonContainer}>
-            <View style={styles.rowContainer}>{numberButtons.slice(0, 3)}</View>
-            <View style={styles.rowContainer}>{numberButtons.slice(3, 6)}</View>
-            <View style={styles.rowContainer}>{numberButtons.slice(6, 9)}</View>
-            <View style={styles.rowContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleClearPress}
-              >
-                <Text style={styles.buttonText}>Clear</Text>
-              </TouchableOpacity>
-              {renderNumberButton(0)}
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleBackspacePress}
-              >
-                <Text style={styles.buttonText}>⌫</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+      {/* <View> */}
+      {/* <View style={styles.buttonContainer}> */}
+      <View style={styles.rowContainer}>{numberButtons.slice(0, 3)}</View>
+      <View style={styles.rowContainer}>{numberButtons.slice(3, 6)}</View>
+      <View style={styles.rowContainer}>{numberButtons.slice(6, 9)}</View>
+      <View style={styles.rowContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleClearPress}>
+          <Text style={styles.buttonText}>Clear</Text>
+        </TouchableOpacity>
+        {renderNumberButton(0)}
+        <TouchableOpacity style={styles.button} onPress={handleBackspacePress}>
+          <Text style={styles.buttonText}>⌫</Text>
+        </TouchableOpacity>
       </View>
+      {/* </View> */}
+      {/* </View> */}
     </View>
   );
 };
@@ -111,29 +103,27 @@ const NumberPad = () => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: sizes4C.small4C,
-    // backgroundColor: colors4C.green4C,
+    // flexDirection: "column",
+    // justifyContent: "center",
+    // alignItems: "center",
+    // gap: sizes4C.small4C,
+    backgroundColor: colors4C.green4C,
   },
   inputContainer: {
+    flexDirection: "column",
+    gap: sizes4C.small4C,
+    // alignItems: "center",
     backgroundColor: colors4C.white4C,
     padding: sizes4C.small4C,
-    borderRadius: sizes4C.small4C,
-  },
-  numbersWrap: {
-    padding: sizes4C.small4C,
-    backgroundColor: colors4C.white4C,
     borderRadius: sizes4C.small4C,
   },
   displayContainer: {
     backgroundColor: colors4C.lightBlue4C,
-    borderWidth: 0.5,
+    borderWidth: 0.4,
     borderColor: colors4C.lightGray4C,
     padding: sizes4C.small4C,
-    margin: sizes4C.small4C,
-    borderRadius: 8,
+    marginHorizontal: sizes4C.small4C,
+    borderRadius: sizes4C.small4C,
     // width: "100%",
   },
   displayText: {
@@ -145,10 +135,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
   },
   rowContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignContent: "center",
+    // gap: sizes4C.small4C,
   },
   button: {
     justifyContent: "center",
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors4C.light4C,
     borderWidth: 0.2,
     borderColor: colors4C.gray4C,
-    width: 80,
+    width: 88,
     height: 40,
     margin: 8,
     borderRadius: 4,
@@ -166,14 +161,14 @@ const styles = StyleSheet.create({
     color: colors4C.blue4C,
   },
   helperButton: {
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors4C.light4C,
     borderWidth: 0.3,
     borderColor: colors4C.gray4C,
-    width: 64,
+    width: 60,
     height: 32,
-    margin: 8,
     borderRadius: 4,
   },
 
