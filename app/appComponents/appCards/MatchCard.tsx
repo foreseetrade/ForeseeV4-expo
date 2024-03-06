@@ -4,11 +4,9 @@ import { Image } from "expo-image";
 import { colors4C, imgBlurHash4C, sizes4C } from "@/app/asthetics";
 
 // @ts-ignore
-import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
-
-// @ts-ignore
 import iconIpl from "../../../assets/images/logoTeams/IplLogo.svg";
 import MatchStatusChip from "../appChips/MatchStatusChip";
+import getTeamImageUrl from "../appUtils/functions/getImageUrl";
 
 const MatchCard = ({
   showTopIcon,
@@ -113,7 +111,7 @@ const MatchCard = ({
             >
               <View style={styles.teamDiv}>
                 <Image
-                  source={iconTeam}
+                  source={getTeamImageUrl(`${teamA}Logo`)}
                   placeholder={imgBlurHash4C}
                   style={styles.teamIcon}
                 />
@@ -125,7 +123,7 @@ const MatchCard = ({
               <View style={styles.teamDiv}>
                 <Text style={styles.teamName}>{teamB}</Text>
                 <Image
-                  source={iconTeam}
+                  source={getTeamImageUrl(`${teamB}Logo`)}
                   placeholder={imgBlurHash4C}
                   style={styles.teamIcon}
                 />

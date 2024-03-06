@@ -9,8 +9,7 @@ import {
   spacing4C,
 } from "@/app/asthetics";
 
-// @ts-ignore
-import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
+import getTeamImageUrl from "../appUtils/functions/getImageUrl";
 
 const PredictionCard = ({
   predStatus,
@@ -51,7 +50,7 @@ const PredictionCard = ({
         >
           <Image
             style={styles.image}
-            source={iconTeam}
+            source={getTeamImageUrl(`${predTeams[0]}Logo`)}
             placeholder={imgBlurHash4C}
             contentFit="cover"
             transition={8}
