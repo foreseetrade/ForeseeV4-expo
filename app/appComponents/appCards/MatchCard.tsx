@@ -34,34 +34,41 @@ const MatchCard = ({
   teamBOdds,
   matchStadium,
   matchSummary,
-}: {
-  showTopIcon: boolean;
-  showScores: boolean;
-  showRRs: boolean;
-  showSummary: boolean;
-  matchNo: number;
-  tossSummary: string;
-  matchStatus: string;
-  teamA: string;
-  teamAScore: string;
-  teamAOvers: number;
-  teamACRR: number;
-  teamARRR: number;
-  teamARR: number;
-  teamAOdds: number;
-  teamB: string;
-  teamBScore: string;
-  teamBOvers: number;
-  teamBCRR: number;
-  teamBRRR: number;
-  teamBRR: number;
-  teamBOdds: number;
-  matchStadium: string;
-  matchSummary: string;
-}) => {
-  return (
-    <View>
-      <View style={{ flexDirection: "column", gap: 8 }}>
+}: any) =>
+  // {
+  // showTopIcon: boolean | any;
+  // showScores: boolean | any;
+  // showRRs: boolean | any;
+  // showSummary: boolean | any;
+  // matchNo: number | any;
+  // tossSummary: string | any;
+  // matchStatus: string | any;
+  // teamA: string | any;
+  // teamAScore: string | any;
+  // teamAOvers: number | any;
+  // teamACRR: number | any;
+  // teamARRR: number | any;
+  // teamARR: number | any;
+  // teamAOdds: number | any;
+  // teamB: string | any;
+  // teamBScore: string | any;
+  // teamBOvers: number | any;
+  // teamBCRR: number | any;
+  // teamBRRR: number | any;
+  // teamBRR: number | any;
+  // teamBOdds: number | any;
+  // matchStadium: string | any;
+  // matchSummary: string | any;
+  // }
+  {
+    return (
+      // <View>
+      <View
+        style={{
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
         {/* Line 1 Start */}
         {showTopIcon && (
           <View style={styles.ipllogoWrap}>
@@ -91,7 +98,7 @@ const MatchCard = ({
               </View>
               <Text>
                 {" "}
-                <MatchStatusChip matchStatus={matchStatus} />{" "}
+                <MatchStatusChip matchStatus={matchStatus || "Upcoming"} />{" "}
               </Text>
             </View>
             {/* Line 1 End */}
@@ -182,9 +189,9 @@ const MatchCard = ({
           {/* Line 5 End */}
         </View>
       </View>
-    </View>
-  );
-};
+      // </View>
+    );
+  };
 
 export default MatchCard;
 
@@ -205,15 +212,15 @@ const styles = StyleSheet.create({
   cardContentWrap: {
     backgroundColor: colors4C.light4C,
     borderWidth: 0.4,
-    borderColor: colors4C.gray4C,
-    borderRadius: sizes4C.medium4C,
+    borderColor: colors4C.purple4C,
+    borderRadius: sizes4C.small4C,
   },
   cardContent: {
     backgroundColor: "white",
     gap: 10,
     padding: sizes4C.medium4C,
-    borderTopLeftRadius: sizes4C.medium4C,
-    borderTopRightRadius: sizes4C.medium4C,
+    borderTopLeftRadius: sizes4C.small4C,
+    borderTopRightRadius: sizes4C.small4C,
   },
   scoreText: {
     fontSize: 24,
@@ -259,8 +266,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: sizes4C.medium4C,
     backgroundColor: colors4C.lightBlue4C,
-    borderBottomRightRadius: sizes4C.medium4C,
-    borderBottomLeftRadius: sizes4C.medium4C,
+    borderBottomRightRadius: sizes4C.small4C,
+    borderBottomLeftRadius: sizes4C.small4C,
   },
   summaryText: {
     fontSize: 16,

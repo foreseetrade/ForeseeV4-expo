@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     gap: sizes4C.small4C,
     padding: 4,
     borderRadius: sizes4C.small4C,
-    elevation: 2,
+    // elevation: 2,
+    borderWidth: 0.2,
+    borderColor: colors4C.purple4C,
     backgroundColor: colors4C.white4C,
     // Width - fit content
     alignSelf: "flex-start", // Add this line to fit the width to content length
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     gap: sizes4C.small4C,
     backgroundColor: colors4C.light4C,
-    borderWidth: 0.3,
+    borderWidth: 0.4,
     borderColor: colors4C.lightGray4C,
     padding: sizes4C.medium4C,
     borderRadius: sizes4C.small4C,
