@@ -10,20 +10,70 @@ import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
 import iconIpl from "../../../assets/images/logoTeams/IplLogo.svg";
 import MatchStatusChip from "../appChips/MatchStatusChip";
 
-const MatchCard = () => {
+const MatchCard = ({
+  showTopIcon,
+  showScores,
+  showRRs,
+  showSummary,
+  matchNo,
+  tossSummary,
+  matchStatus,
+  teamA,
+  teamAScore,
+  teamAOvers,
+  teamACRR,
+  teamARRR,
+  teamARR,
+  teamAOdds,
+  teamB,
+  teamBScore,
+  teamBOvers,
+  teamBCRR,
+  teamBRRR,
+  teamBRR,
+  teamBOdds,
+  matchStadium,
+  matchSummary,
+}: {
+  showTopIcon: boolean;
+  showScores: boolean;
+  showRRs: boolean;
+  showSummary: boolean;
+  matchNo: number;
+  tossSummary: string;
+  matchStatus: string;
+  teamA: string;
+  teamAScore: string;
+  teamAOvers: number;
+  teamACRR: number;
+  teamARRR: number;
+  teamARR: number;
+  teamAOdds: number;
+  teamB: string;
+  teamBScore: string;
+  teamBOvers: number;
+  teamBCRR: number;
+  teamBRRR: number;
+  teamBRR: number;
+  teamBOdds: number;
+  matchStadium: string;
+  matchSummary: string;
+}) => {
   return (
     <View>
       <View style={{ flexDirection: "column", gap: 8 }}>
         {/* Line 1 Start */}
-        <View style={styles.ipllogoWrap}>
-          <Image
-            style={styles.ipllogo}
-            source={iconIpl}
-            placeholder={imgBlurHash4C}
-            contentFit="cover"
-            transition={8}
-          />
-        </View>
+        {showTopIcon && (
+          <View style={styles.ipllogoWrap}>
+            <Image
+              style={styles.ipllogo}
+              source={iconIpl}
+              placeholder={imgBlurHash4C}
+              contentFit="cover"
+              transition={8}
+            />
+          </View>
+        )}
         <View style={styles.cardContentWrap}>
           <View style={styles.cardContent}>
             <View
@@ -34,14 +84,14 @@ const MatchCard = () => {
               }}
             >
               <View style={{ flexDirection: "column" }}>
-                <Text style={{ fontSize: 16 }}>Match 40</Text>
+                <Text style={{ fontSize: 16 }}>Match {matchNo}</Text>
                 <Text style={{ fontSize: 12, color: colors4C.gray4C }}>
-                  KKR opt to bowl
+                  {tossSummary}
                 </Text>
               </View>
               <Text>
                 {" "}
-                <MatchStatusChip matchStatus="Upcoming" />{" "}
+                <MatchStatusChip matchStatus={matchStatus} />{" "}
               </Text>
             </View>
             {/* Line 1 End */}
@@ -60,13 +110,13 @@ const MatchCard = () => {
                   placeholder={imgBlurHash4C}
                   style={styles.teamIcon}
                 />
-                <Text style={styles.teamName}>RCB</Text>
+                <Text style={styles.teamName}>{teamA}</Text>
               </View>
 
               <Text>V/S</Text>
 
               <View style={styles.teamDiv}>
-                <Text style={styles.teamName}>CSK</Text>
+                <Text style={styles.teamName}>{teamB}</Text>
                 <Image
                   source={iconTeam}
                   placeholder={imgBlurHash4C}
@@ -77,46 +127,58 @@ const MatchCard = () => {
             {/* Line 2 End */}
 
             {/* Line 3 Start */}
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View style={styles.teamScoreWrap}>
-                <Text style={styles.scoreText}> 48/10 </Text>
-                <Text style={styles.oversText}> (20.0) </Text>
-              </View>
+            {showScores && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View style={styles.teamScoreWrap}>
+                  <Text style={styles.scoreText}> {teamAScore} </Text>
+                  <Text style={styles.oversText}> ({teamAOvers}) </Text>
+                </View>
 
-              <View style={styles.teamScoreWrap}>
-                <Text style={styles.scoreText}> 216/5 </Text>
-                <Text style={styles.oversText}> (20.0) </Text>
+                <View style={styles.teamScoreWrap}>
+                  <Text style={styles.scoreText}> {teamBScore} </Text>
+                  <Text style={styles.oversText}> ({teamBOvers}) </Text>
+                </View>
               </View>
-            </View>
+            )}
             {/* Line 3 End */}
 
             {/* Line 4 Start */}
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View style={{ flexDirection: "row" }}>
+            {showRRs && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text>
+                    {" "}
+                    CRR<Text style={styles.rrText}> {teamACRR}</Text>{" "}
+                  </Text>
+                  <Text>
+                    {" "}
+                    RRR<Text style={styles.rrText}> {teamARRR}</Text>{" "}
+                  </Text>
+                </View>
                 <Text>
                   {" "}
-                  CRR<Text style={styles.rrText}> 10.9</Text>{" "}
-                </Text>
-                <Text>
-                  {" "}
-                  RRR<Text style={styles.rrText}> 11.9</Text>{" "}
+                  RR<Text style={styles.rrText}> {teamBRR}</Text>{" "}
                 </Text>
               </View>
-              <Text>
-                {" "}
-                RR<Text style={styles.rrText}> 10</Text>{" "}
-              </Text>
-            </View>
+            )}
             {/* Line 4 End */}
           </View>
           {/* Line 5 Start */}
-          <View style={styles.summaryDiv}>
-            <Text style={styles.summaryText}>RCB needs 96 runs to win</Text>
-          </View>
+          {showSummary && (
+            <View style={styles.summaryDiv}>
+              <Text style={styles.summaryText}>{matchSummary}</Text>
+            </View>
+          )}
           {/* Line 5 End */}
         </View>
       </View>

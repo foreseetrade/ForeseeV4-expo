@@ -9,9 +9,38 @@ import MatchPredCard from "../appComponents/appCards/MatchPredCard";
 const MatchScreen = () => {
   return (
     <View style={styles.container}>
-      <MatchCard />
+      <MatchCard
+        showTopIcon={false}
+        showScores={true}
+        showRRs={true}
+        showSummary={true}
+        matchNo={40}
+        tossSummary="KKR opt to bowl"
+        matchStatus="Live"
+        teamA="DC"
+        teamAScore={"219/5"}
+        teamAOvers={20.0}
+        teamARR={9.8}
+        teamACRR={6.7}
+        teamARRR={8.8}
+        teamAOdds={7}
+        teamB="MI"
+        teamBScore={"90/5"}
+        teamBOvers={20.0}
+        teamBRR={7.9}
+        teamBRRR={8.8}
+        teamBCRR={7}
+        teamBOdds={3}
+        matchStadium="Chinnaswamy stadium"
+        matchSummary="RCB won by 7 wickets"
+      />
       <MatchPredCard winPercentage={60} />
-      <YesNoSlider teamA="DC" teamB="MI" teamAOdds={7} matchStadium="Chinnaswamy stadium" />
+      <YesNoSlider
+        teamA="DC"
+        teamB="MI"
+        teamAOdds={7}
+        matchStadium="Chinnaswamy stadium"
+      />
     </View>
   );
 };
