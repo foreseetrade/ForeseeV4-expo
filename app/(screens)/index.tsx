@@ -8,15 +8,40 @@ import StatButton from "../appComponents/appButtons/StatButton";
 import { Feather } from "@expo/vector-icons";
 import TradeScreen from "../(wallet)/TradeScreen";
 import MatchScreen from "../(match)/MatchScreen";
+import SmallMatchCard from "../appComponents/appCards/SmallMatchCard";
 
 const HomeScreen = () => {
   return (
     <>
-      <MatchScreen />
+      <View style={styles.container}>
+        <SmallMatchCard
+          teamA="DC"
+          teamB="MI"
+          cardSummary="RCB won by 7 wickets"
+        />
+        <SmallMatchCard
+          teamA="DC"
+          teamB="MI"
+          cardSummary="RCB won by 7 wickets"
+        />
+        <SmallMatchCard
+          teamA="DC"
+          teamB="MI"
+          cardSummary="RCB won by 7 wickets"
+        />
+      </View>
     </>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: sizes4C.medium4C,
+    overflow: "scroll",
+  },
+});

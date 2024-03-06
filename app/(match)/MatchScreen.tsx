@@ -12,7 +12,7 @@ const MatchScreen = () => {
       <MatchCard
         showTopIcon={false}
         showScores={true}
-        showRRs={false}
+        showRRs={true}
         showSummary={true}
         matchNo={40}
         tossSummary="KKR opt to bowl"
@@ -20,15 +20,15 @@ const MatchScreen = () => {
         teamA="DC"
         teamAScore={"219/5"}
         teamAOvers={20.0}
-        teamARR={7}
-        teamACRR={7}
-        teamARRR={7}
+        teamARR={9.8}
+        teamACRR={6.7}
+        teamARRR={8.8}
         teamAOdds={7}
         teamB="MI"
         teamBScore={"90/5"}
         teamBOvers={20.0}
-        teamBRR={7}
-        teamBRRR={7}
+        teamBRR={7.9}
+        teamBRRR={8.8}
         teamBCRR={7}
         teamBOdds={3}
         matchStadium="Chinnaswamy stadium"
