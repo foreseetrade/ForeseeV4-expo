@@ -9,27 +9,38 @@ import { Feather } from "@expo/vector-icons";
 import TradeScreen from "../(wallet)/TradeScreen";
 import MatchScreen from "../(match)/MatchScreen";
 import SmallMatchCard from "../appComponents/appCards/SmallMatchCard";
+import CarouselComponent from "../appComponents/appUtils/Carousal";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
 
 const HomeScreen = () => {
   return (
     <>
-      <View style={styles.container}>
-        <SmallMatchCard
-          teamA="DC"
-          teamB="MI"
-          cardSummary="RCB won by 7 wickets"
-        />
-        <SmallMatchCard
-          teamA="DC"
-          teamB="MI"
-          cardSummary="RCB won by 7 wickets"
-        />
-        <SmallMatchCard
-          teamA="DC"
-          teamB="MI"
-          cardSummary="RCB won by 7 wickets"
-        />
-      </View>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <CarouselComponent />
+        <ScrollView horizontal contentContainerStyle={styles.container}>
+          <SmallMatchCard
+            matchStatus="Live"
+            teamA="DC"
+            teamB="MI"
+            cardSummary="RCB won by 7 wickets"
+          />
+          <SmallMatchCard
+            matchStatus="Upcoming"
+            teamA="DC"
+            teamB="MI"
+            cardSummary="RCB won by 7 wickets"
+          />
+          <SmallMatchCard
+            matchStatus="Completed"
+            teamA="DC"
+            teamB="MI"
+            cardSummary="RCB won by 7 wickets"
+          />
+        </ScrollView>
+      </GestureHandlerRootView>
     </>
   );
 };
@@ -38,10 +49,6 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     gap: sizes4C.medium4C,
-    overflow: "scroll",
   },
 });

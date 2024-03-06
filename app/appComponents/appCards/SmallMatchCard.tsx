@@ -7,11 +7,11 @@ import { Image } from "expo-image";
 // @ts-ignore
 import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
 
-const SmallMatchCard = ({ teamA, teamB, cardSummary }: any) => {
+const SmallMatchCard = ({ teamA, teamB, matchStatus, cardSummary }: any) => {
   return (
     <View style={styles.container}>
       <View style={{ padding: 4 }}>
-        <MatchStatusChip matchStatus="Live" />
+        <MatchStatusChip matchStatus={matchStatus} />
       </View>
       <View>
         <View style={styles.teamsContainer}>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     gap: sizes4C.small4C,
     padding: 4,
     borderRadius: sizes4C.small4C,
-    elevation: 5,
+    elevation: 2,
     backgroundColor: colors4C.white4C,
     // Width - fit content
     alignSelf: "flex-start", // Add this line to fit the width to content length
@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
   },
   summary: {
+    fontSize: 10,
+    color: colors4C.gray4C,
+    fontWeight: "bold",
     backgroundColor: colors4C.lightBlue4C,
     padding: sizes4C.small4C,
     textAlign: "center",
