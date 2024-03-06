@@ -20,7 +20,7 @@ const MatchStatusChip = ({ matchStatus }: { matchStatus: string }) => {
             style={styles.matchIcon}
             source={iconMatchLive}
             placeholder={imgBlurHash4C}
-            contentFit="cover"
+            // contentFit="cover"
             transition={8}
           />
           <Text style={styles.textStyle}>{matchStatus}</Text>
@@ -31,7 +31,7 @@ const MatchStatusChip = ({ matchStatus }: { matchStatus: string }) => {
             style={styles.matchIcon}
             source={iconMatchUpcoming}
             placeholder={imgBlurHash4C}
-            contentFit="cover"
+            // contentFit="cover"
             transition={8}
           />
           <Text style={styles.textStyle}>{matchStatus}</Text>
@@ -42,7 +42,7 @@ const MatchStatusChip = ({ matchStatus }: { matchStatus: string }) => {
             style={styles.matchIcon}
             source={iconMatchCompleted}
             placeholder={imgBlurHash4C}
-            contentFit="cover"
+            // contentFit="cover"
             transition={8}
           />
           <Text style={styles.textStyle}>{matchStatus}</Text>
@@ -60,9 +60,9 @@ export default MatchStatusChip;
 
 const styles = StyleSheet.create({
   matchIcon: {
-    width: 10,
+    width: 12,
     height: 12,
-    objectFit: "cover",
+    // objectFit: "contain",
   },
 
   textStyle: {
@@ -73,6 +73,10 @@ const styles = StyleSheet.create({
   statusContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "flex-start",
+    height: 24,
     gap: 4,
   },
 });
