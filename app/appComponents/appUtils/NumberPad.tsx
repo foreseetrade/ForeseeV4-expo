@@ -64,14 +64,13 @@ const NumberPad = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.inputContainer}>
         <View style={styles.displayContainer}>
           <Text style={styles.displayText}>{displayValue}</Text>
         </View>
 
         {/* Special buttons */}
-        {/* <View style={styles.buttonContainer}> */}
         <View style={styles.rowContainer}>
           {specialButtons.map((button) =>
             renderSpecialButton(button.value, button.label)
@@ -82,47 +81,49 @@ const NumberPad = () => {
 
       {/* <View> */}
       {/* <View style={styles.buttonContainer}> */}
-      <View style={styles.rowContainer}>{numberButtons.slice(0, 3)}</View>
-      <View style={styles.rowContainer}>{numberButtons.slice(3, 6)}</View>
-      <View style={styles.rowContainer}>{numberButtons.slice(6, 9)}</View>
-      <View style={styles.rowContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleClearPress}>
-          <Text style={styles.buttonText}>Clear</Text>
-        </TouchableOpacity>
-        {renderNumberButton(0)}
-        <TouchableOpacity style={styles.button} onPress={handleBackspacePress}>
-          <Text style={styles.buttonText}>⌫</Text>
-        </TouchableOpacity>
+      <View
+        style={{
+          backgroundColor: colors4C.white4C,
+          borderRadius: sizes4C.small4C,
+          // paddingVertical: sizes4C.medium4C,
+        }}
+      >
+        <View style={styles.rowContainer}>{numberButtons.slice(0, 3)}</View>
+        <View style={styles.rowContainer}>{numberButtons.slice(3, 6)}</View>
+        <View style={styles.rowContainer}>{numberButtons.slice(6, 9)}</View>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleClearPress}>
+            <Text style={styles.buttonText}>Clear</Text>
+          </TouchableOpacity>
+          {renderNumberButton(0)}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleBackspacePress}
+          >
+            <Text style={styles.buttonText}>⌫</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      {/* </View> */}
       {/* </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // gap: sizes4C.small4C,
-    backgroundColor: colors4C.green4C,
-  },
   inputContainer: {
     flexDirection: "column",
-    gap: sizes4C.small4C,
-    // alignItems: "center",
+    gap: sizes4C.medium4C,
     backgroundColor: colors4C.white4C,
     padding: sizes4C.small4C,
     borderRadius: sizes4C.small4C,
+    marginBottom: sizes4C.small4C,
   },
   displayContainer: {
     backgroundColor: colors4C.lightBlue4C,
     borderWidth: 0.4,
     borderColor: colors4C.lightGray4C,
-    padding: sizes4C.small4C,
-    marginHorizontal: sizes4C.small4C,
+    paddingVertical: sizes4C.small4C,
+    // marginHorizontal: sizes4C.small4C,
     borderRadius: sizes4C.small4C,
     // width: "100%",
   },
