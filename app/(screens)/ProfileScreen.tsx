@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     // padding: sizes4C.small4C,
     // borderRadius: sizes4C.small4C,
   },
-  imageStyle: { width: 100, height: 100, borderRadius: 360 },
+  imageStyle: { width: 80, height: 80, borderRadius: 360 },
   textStyle: { color: colors4C.white4C, fontSize: 14 },
   imageBg: {
     flexDirection: "column",

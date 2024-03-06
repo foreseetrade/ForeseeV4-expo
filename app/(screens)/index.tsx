@@ -6,15 +6,17 @@ import NumberPad from "../appComponents/appUtils/NumberPad";
 import { colors4C, sizes4C } from "../asthetics";
 import StatButton from "../appComponents/appButtons/StatButton";
 import { Feather } from "@expo/vector-icons";
+import TradeScreen from "../(wallet)/TradeScreen";
+import MatchScreen from "../(match)/MatchScreen";
 
 const HomeScreen = () => {
-  return (<>
-  </>
-   
+  return (
+    <>
+      <MatchScreen />
+    </>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
