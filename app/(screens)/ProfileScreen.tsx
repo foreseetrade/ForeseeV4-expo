@@ -76,6 +76,7 @@ const ProfileScreen = () => {
           {/* <MatchPredCard winPercentage={75} />  */}
           {/* <NumberPad /> */}
           <StatButton
+            navigateTo="(wallet)/AllTransactionsScreen"
             btnStatText={"4200"}
             leftIcon={
               <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
