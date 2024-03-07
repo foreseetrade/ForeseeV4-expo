@@ -4,8 +4,7 @@ import MatchStatusChip from "../appChips/MatchStatusChip";
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { Image } from "expo-image";
 
-// @ts-ignore
-import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
+import getTeamImageUrl from "../appUtils/functions/getImageUrl";
 
 const SmallMatchCard = ({ teamA, teamB, matchStatus, cardSummary }: any) => {
   return (
@@ -16,10 +15,16 @@ const SmallMatchCard = ({ teamA, teamB, matchStatus, cardSummary }: any) => {
       <View>
         <View style={styles.teamsContainer}>
           {/* <Text>{teamA}</Text> */}
-          <Image source={iconTeam} style={{ width: 32, height: 32 }} />
+          <Image
+            source={getTeamImageUrl(`${teamA}Logo`)}
+            style={{ width: 32, height: 32 }}
+          />
           <Text>v/s</Text>
           {/* <Text>{teamB}</Text> */}
-          <Image source={iconTeam} style={{ width: 32, height: 32 }} />
+          <Image
+            source={getTeamImageUrl(`${teamB}Logo`)}
+            style={{ width: 32, height: 32 }}
+          />
         </View>
         <Text style={styles.summary}>{cardSummary}</Text>
       </View>

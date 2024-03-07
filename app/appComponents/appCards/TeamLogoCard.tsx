@@ -1,15 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Image } from "expo-image";
-
-// @ts-ignore
-import iconTeam from "../../../assets/images/logoTeams/DCLogo.png";
 import { colors4C, sizes4C } from "@/app/asthetics";
+import getTeamImageUrl from "../appUtils/functions/getImageUrl";
 
-const TeamLogoCard = () => {
+const TeamLogoCard = ({ teamName }: { teamName: string }) => {
   return (
     <View style={styles.container}>
-      <Image source={iconTeam} style={styles.image} />
+      <Image source={getTeamImageUrl(`${teamName}Logo`)} style={styles.image} />
     </View>
   );
 };

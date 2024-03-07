@@ -13,22 +13,20 @@ import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import { Image } from "expo-image";
 
 // @ts-ignore
-import iconTeam from "../../assets/images/logoTeams/DCLogo.png";
+import getTeamImageUrl from "../appComponents/appUtils/functions/getImageUrl";
 
-const TradeScreen = () => {
+const TradeScreen = ({ teamName }: { teamName: string }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={iconTeam}
+          source={getTeamImageUrl(`${teamName}Logo`)}
           placeholder={imgBlurHash4C}
           contentFit="cover"
           transition={8}
         />
-        <Text style={{ ...styles.textLabel, fontSize: 14 }}>
-          CSK vs KKR  
-        </Text>
+        <Text style={{ ...styles.textLabel, fontSize: 14 }}>CSK vs KKR</Text>
         <Text
           style={{ ...styles.textLabel, color: colors4C.gray4C, fontSize: 16 }}
         >

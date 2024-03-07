@@ -161,10 +161,21 @@ import SectionHeader from "../appComponents/appNavigators/SectionHeader";
 import { colors4C, sizes4C } from "../asthetics";
 
 const HomeScreen = () => {
-  const teamLogoCardsData = Array.from({ length: 8 }, (_, index) => index);
+  const teamLogoCardsData = [
+    "RCB",
+    "DC",
+    "MI",
+    "KKR",
+    "CSK",
+    "SRH",
+    "PBKS",
+    "RR",
+    "GT",
+    "LSG",
+  ];
 
   const teamLogoCards = teamLogoCardsData.map((item, index) => (
-    <TeamLogoCard key={index} />
+    <TeamLogoCard teamName={item} key={index} />
   ));
 
   const matchCardsData = [
