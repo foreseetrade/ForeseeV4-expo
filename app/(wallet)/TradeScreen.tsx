@@ -21,7 +21,7 @@ const TradeScreen = ({ teamName }: { teamName: string }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={getTeamImageUrl(`${teamName}Logo`)}
+          source={getTeamImageUrl(`${teamName || "CSK"}Logo`)}
           placeholder={imgBlurHash4C}
           contentFit="cover"
           transition={8}

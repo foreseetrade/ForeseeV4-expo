@@ -14,16 +14,7 @@ const AllTransactionsScreen = () => {
     },
   ];
   return (
-    <View
-      style={{
-        flexDirection: "column",
-        alignItems: "center",
-        paddingHorizontal: spacing4C.small4C,
-        borderBottomWidth: 0.4,
-        borderBottomColor: colors4C.purple4C,
-        borderTopStartRadius: borderRadius4C.small4C,
-      }}
-    >
+    <View style={styles.container}>
       {predictions.map((prediction, index) => (
         <PredictionCard
           key={index} // Make sure to include a unique key for each item in the array
@@ -40,4 +31,10 @@ const AllTransactionsScreen = () => {
 
 export default AllTransactionsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    alignItems: "center",
+    paddingHorizontal: spacing4C.small4C,
+  },
+});

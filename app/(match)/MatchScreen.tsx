@@ -10,21 +10,21 @@ const MatchScreen = () => {
   return (
     <View style={styles.container}>
       <MatchCard
-        showTopIcon={false}
+        showTopIcon={true}
         showScores={true}
         showRRs={true}
         showSummary={true}
         matchNo={40}
         tossSummary="KKR opt to bowl"
         matchStatus="Live"
-        teamA="DC"
+        teamA="RCB"
         teamAScore={"219/5"}
         teamAOvers={20.0}
         teamARR={9.8}
         teamACRR={6.7}
         teamARRR={8.8}
         teamAOdds={7}
-        teamB="MI"
+        teamB="RR"
         teamBScore={"90/5"}
         teamBOvers={20.0}
         teamBRR={7.9}
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "space-between",
     padding: sizes4C.small4C,
-    gap: sizes4C.small4C,
+    gap: sizes4C.medium4C,
   },
 });
