@@ -34,9 +34,9 @@ const TransactionCard = ({
       style={{
         backgroundColor: colors4C.light4C,
         padding: spacing4C.small4C,
-        borderBottomWidth: 0.4,
-        borderBottomColor: colors4C.purple4C,
-        // borderRadius: borderRadius4C.small4C,
+        borderBottomWidth: 0.5,
+        borderColor: colors4C.purple4C,
+        borderRadius: 4,
       }}
     >
       <View
@@ -45,13 +45,14 @@ const TransactionCard = ({
           justifyContent: "space-between",
           alignItems: "center",
           alignContent: "center",
+          paddingHorizontal: spacing4C.small4C,
         }}
       >
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            gap: sizes4C.small4C,
+            gap: sizes4C.medium4C,
           }}
         >
           <Image
@@ -75,7 +76,17 @@ const TransactionCard = ({
               gap: 4,
             }}
           >
-            <Text style={{ fontSize: 14, color: colors4C.gray4C }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color:
+                  tranStatus === "Success"
+                    ? colors4C.green4C
+                    : tranStatus === "Pending"
+                    ? colors4C.skyBlue4C
+                    : colors4C.red4C,
+              }}
+            >
               {tranType} {tranStatus}
             </Text>
             <Text style={{ ...styles.textStyle, fontSize: 14 }}>
@@ -95,8 +106,9 @@ export default TransactionCard;
 
 const styles = StyleSheet.create({
   image: {
-    width: 32,
-    height: 32,
+    width: 24,
+    height: 24,
+    padding: sizes4C.small4C,
     borderRadius: borderRadius4C.small4C,
   },
   textStyle: {

@@ -8,10 +8,12 @@ export const colors4C = {
   brown4C: "#9D7C47",
   pink4C: "#B31D87",
   blue4C: "#243F76",
-  yellow4C: "#FAB11C",
-  green4C: "#2BBC93",
   black4C: "#323232",
   white4C: "#FFFFFF",
+  green4C: "#2BBC93",
+  red4C: "#BC2B4E",
+  yellow4C: "#BC812B",
+  skyBlue4C: "#4578EE",
 };
 
 export const sizes4C = {
@@ -40,14 +42,13 @@ export const borderWidth4C = {
   medium4C: 2,
   large4C: 3,
   extraLarge4C: 4,
-}
+};
 
 export const fontFamily4C = {
   primary4C: "Inter",
   secondary4C: "Roboto",
   tertiary4C: "Roboto",
-}
-
+};
 
 export const imgBlurHash4C =
   "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";

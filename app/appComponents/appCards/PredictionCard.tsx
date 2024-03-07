@@ -27,58 +27,68 @@ const PredictionCard = ({
   return (
     <View
       style={{
-        backgroundColor: colors4C.light4C,
-        padding: spacing4C.small4C,
-        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        alignSelf: "stretch",
+        borderBottomWidth: 0.2,
+        borderColor: colors4C.purple4C,
+        backgroundColor: colors4C.white4C,
+        paddingHorizontal: spacing4C.medium4C,
+        paddingVertical: spacing4C.small4C,
+        borderRadius: borderRadius4C.small4C,
       }}
     >
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
+          alignContent: "center",
           alignItems: "center",
+          gap: sizes4C.medium4C,
         }}
       >
+        <Image
+          style={styles.image}
+          source={getTeamImageUrl(`${predTeams[0]}Logo`)}
+          placeholder={imgBlurHash4C}
+          contentFit="cover"
+          transition={8}
+        />
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "column",
             justifyContent: "space-between",
-            // alignContent: "center",
-            alignItems: "center",
-            gap: sizes4C.medium4C,
+            alignItems: "flex-start",
+            gap: 4,
           }}
         >
-          <Image
-            style={styles.image}
-            source={getTeamImageUrl(`${predTeams[0]}Logo`)}
-            placeholder={imgBlurHash4C}
-            contentFit="cover"
-            transition={8}
-          />
-          <View
+          <Text
             style={{
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              gap: 4,
+              fontSize: 12,
+              color:
+                predStatus === "Success"
+                  ? colors4C.green4C
+                  : predStatus === "Pending"
+                  ? colors4C.skyBlue4C
+                  : colors4C.red4C,
             }}
           >
-            <Text style={{ fontSize: 14, color: colors4C.gray4C }}>
-              {predType} {predStatus}
-            </Text>
+            {predType} {predStatus}
+          </Text>
 
-            <Text style={{ fontSize: 14, color: colors4C.gray4C }}>
-              {predTeams[0]} vs {predTeams[1]}
-            </Text>
-            <Text style={{ ...styles.textStyle, fontSize: 14 }}>
-              {predTimestamp}
-            </Text>
-          </View>
+          <Text style={{ fontSize: 12, color: colors4C.gray4C }}>
+            {predTeams[0]} vs {predTeams[1]}
+          </Text>
+          <Text style={{ ...styles.textStyle, fontSize: 12 }}>
+            {predTimestamp}
+          </Text>
         </View>
-        <Text style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}>
-          ₹ {predAmt}
-        </Text>
       </View>
+      <Text style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}>
+        ₹ {predAmt}
+      </Text>
     </View>
   );
 };

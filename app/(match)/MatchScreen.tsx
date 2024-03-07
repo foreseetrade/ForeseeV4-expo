@@ -10,7 +10,7 @@ const MatchScreen = () => {
   return (
     <View style={styles.container}>
       <MatchCard
-        showTopIcon={false}
+        showTopIcon={true}
         showScores={true}
         showRRs={true}
         showSummary={true}
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     justifyContent: "space-between",
     padding: sizes4C.small4C,
-    gap: sizes4C.small4C,
+    gap: sizes4C.medium4C,
   },
 });
