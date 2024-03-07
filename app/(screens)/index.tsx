@@ -33,18 +33,21 @@ const HomeScreen = () => {
       teamA: "DC",
       teamB: "MI",
       cardSummary: "RCB won by 7 wickets",
+      navigateTo: "/(match)/MatchScreen",
     },
     {
       matchStatus: "Upcoming",
       teamA: "DC",
       teamB: "MI",
       cardSummary: "RCB won by 7 wickets",
+      navigateTo: "/(match)/MatchScreen",
     },
     {
       matchStatus: "Upcoming",
       teamA: "DC",
       teamB: "MI",
       cardSummary: "RCB won by 7 wickets",
+      navigateTo: "/(match)/MatchScreen",
     },
   ];
 
@@ -55,6 +58,7 @@ const HomeScreen = () => {
       teamA={card.teamA}
       teamB={card.teamB}
       cardSummary={card.cardSummary}
+      navigateTo={card.navigateTo}
     />
   ));
 

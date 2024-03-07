@@ -1,34 +1,48 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MatchStatusChip from "../appChips/MatchStatusChip";
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { Image } from "expo-image";
 
 import getTeamImageUrl from "../appUtils/functions/getImageUrl";
+import { router } from "expo-router";
 
-const SmallMatchCard = ({ teamA, teamB, matchStatus, cardSummary }: any) => {
+const SmallMatchCard = ({
+  teamA,
+  teamB,
+  matchStatus,
+  cardSummary,
+  navigateTo,
+}: any) => {
+  const handlePress = () => {
+    if (!navigateTo) return;
+    router.push(navigateTo);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={{ padding: 4 }}>
-        <MatchStatusChip matchStatus={matchStatus} />
-      </View>
-      <View>
-        <View style={styles.teamsContainer}>
-          {/* <Text>{teamA}</Text> */}
-          <Image
-            source={getTeamImageUrl(`${teamA}Logo`)}
-            style={{ width: 32, height: 32 }}
-          />
-          <Text>v/s</Text>
-          {/* <Text>{teamB}</Text> */}
-          <Image
-            source={getTeamImageUrl(`${teamB}Logo`)}
-            style={{ width: 32, height: 32 }}
-          />
+    <Pressable onPress={handlePress}>
+      <View style={styles.container}>
+        <View style={{ padding: 4 }}>
+          <MatchStatusChip matchStatus={matchStatus} />
         </View>
-        <Text style={styles.summary}>{cardSummary}</Text>
+        <View>
+          <View style={styles.teamsContainer}>
+            {/* <Text>{teamA}</Text> */}
+            <Image
+              source={getTeamImageUrl(`${teamA}Logo`)}
+              style={{ width: 32, height: 32 }}
+            />
+            <Text>v/s</Text>
+            {/* <Text>{teamB}</Text> */}
+            <Image
+              source={getTeamImageUrl(`${teamB}Logo`)}
+              style={{ width: 32, height: 32 }}
+            />
+          </View>
+          <Text style={styles.summary}>{cardSummary}</Text>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

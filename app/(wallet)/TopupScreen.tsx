@@ -16,7 +16,7 @@ const TopupScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <WalBalanceCard cardHeight={88} />
       <Text style={styles.textLabel}>
-        Enter the amount to withdraw from your Foresee Wallet
+        Enter the amount to Topup to your Foresee Wallet
       </Text>
       <View style={styles.infoContainer}>
         <Feather name="info" size={18} color={colors4C.purple4C} />
