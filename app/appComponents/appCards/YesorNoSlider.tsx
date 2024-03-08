@@ -16,12 +16,12 @@ const YesNoSlider = ({ teamA, teamB, teamAOdds, matchStadium }: any) => {
     onPanResponderMove: (event, gestureState) => {
       Animated.event([null, { dx: sliderValue }])(event, gestureState);
 
-      if (gestureState.dx > 98 && !isRouting) {
+      if (gestureState.dx > 136 && !isRouting) {
         console.log("Yes");
         setIsRouting(true); // Set the flag to prevent multiple calls
         router.push("/(wallet)/TradeScreen");
         return;
-      } else if (gestureState.dx < -98 && !isRouting) {
+      } else if (gestureState.dx < -136 && !isRouting) {
         console.log("No");
         setIsRouting(true); // Set the flag to prevent multiple calls
         router.push("/(wallet)/TradeScreen");
