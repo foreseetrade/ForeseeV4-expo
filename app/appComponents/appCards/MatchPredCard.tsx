@@ -121,8 +121,8 @@ const MatchPredCard = ({ winPercentage }: { winPercentage: number }) => {
           alignItems: "center",
         }}
       >
-        <Text style={styles.teamsText}>RCB</Text>
         <Text style={styles.teamsText}>CSK</Text>
+        <Text style={styles.teamsText}>RR</Text>
       </View>
 
       <View

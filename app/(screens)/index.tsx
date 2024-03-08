@@ -29,24 +29,24 @@ const HomeScreen = () => {
 
   const matchCardsData = [
     {
-      matchStatus: "Upcoming",
-      teamA: "DC",
+      matchStatus: "Live",
+      teamA: "CSK",
       teamB: "MI",
-      cardSummary: "RCB won by 7 wickets",
+      cardSummary: "CSK 142/5 (16.5)",
+      navigateTo: "/(match)/MatchScreen",
+    },
+    {
+      matchStatus: "Live",
+      teamA: "CSK",
+      teamB: "RR",
+      cardSummary: "Head to Head - 5 : 6",
       navigateTo: "/(match)/MatchScreen",
     },
     {
       matchStatus: "Upcoming",
       teamA: "DC",
       teamB: "MI",
-      cardSummary: "RCB won by 7 wickets",
-      navigateTo: "/(match)/MatchScreen",
-    },
-    {
-      matchStatus: "Upcoming",
-      teamA: "DC",
-      teamB: "MI",
-      cardSummary: "RCB won by 7 wickets",
+      cardSummary: "Head to Head - 4 : 9",
       navigateTo: "/(match)/MatchScreen",
     },
   ];
@@ -66,17 +66,17 @@ const HomeScreen = () => {
     {
       showTopIcon: false,
       matchNo: 1,
-      tossSummary: "RCB won the Toss",
+      tossSummary: "RR won the Toss",
       showScores: true,
-      matchStatus: "Upcoming",
-      teamA: "DC",
-      teamAScore: "0/0",
-      teamAOvers: 0,
-      teamB: "MI",
-      teamBScore: "0/0",
-      teamBOvers: 0,
+      matchStatus: "Live",
+      teamA: "RR",
+      teamAScore: "90/4",
+      teamAOvers: 10.5,
+      teamB: "CSK",
+      teamBScore: "219/5",
+      teamBOvers: 20,
       showSummary: true,
-      matchSummary: "Head to head: 16 - 15",
+      matchSummary: "RR need 129 runs to win in 55 balls",
       navigateTo: "/(match)/MatchScreen",
     },
     {
@@ -84,8 +84,8 @@ const HomeScreen = () => {
       matchNo: 2,
       tossSummary: "MI won the Toss",
       showScores: true,
-      matchStatus: "Completed",
-      teamA: "CSK",
+      matchStatus: "Upcoming",
+      teamA: "MI",
       teamAScore: "150/5",
       teamAOvers: 20,
       teamB: "RCB",
@@ -146,7 +146,9 @@ const HomeScreen = () => {
             headingName="Recent Matches"
             navigateTo="/(match)/AllMatchesScreen"
           />
-          {recentMatchesJSX}
+          <View style={{ flexDirection: "column", gap: sizes4C.small4C }}>
+            {recentMatchesJSX}
+          </View>
         </ScrollView>
       </GestureHandlerRootView>
     </>
