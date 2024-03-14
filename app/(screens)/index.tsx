@@ -33,21 +33,21 @@ const HomeScreen = () => {
       teamA: "CSK",
       teamB: "MI",
       cardSummary: "CSK 142/5 (16.5)",
-      navigateTo: "/(match)/MatchScreen",
+      navigateTo: "/(match)/1",
     },
     {
       matchStatus: "Live",
       teamA: "CSK",
       teamB: "RR",
       cardSummary: "Head to Head - 5 : 6",
-      navigateTo: "/(match)/MatchScreen",
+      navigateTo: "/(match)/2",
     },
     {
       matchStatus: "Upcoming",
       teamA: "DC",
       teamB: "MI",
       cardSummary: "Head to Head - 4 : 9",
-      navigateTo: "/(match)/MatchScreen",
+      navigateTo: "/(match)/3",
     },
   ];
 

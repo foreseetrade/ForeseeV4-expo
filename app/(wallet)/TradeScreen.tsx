@@ -14,6 +14,7 @@ import { Image } from "expo-image";
 
 // @ts-ignore
 import getTeamImageUrl from "../appComponents/appUtils/functions/getImageUrl";
+import { router } from "expo-router";
 
 const TradeScreen = ({ teamName }: { teamName: string }) => {
   return (
@@ -52,6 +53,7 @@ const TradeScreen = ({ teamName }: { teamName: string }) => {
           style={styles.topupButton}
           onPress={() => {
             console.log("topup");
+            router.push("/(wallet)/SuccessScreen");
           }}
         >
           <Text style={styles.buttonText}>Confirm</Text>
