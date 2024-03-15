@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SectionHeader from "../appComponents/appNavigators/SectionHeader";
 import { colors4C, sizes4C } from "../asthetics";
 import { Link } from "expo-router";
+import GoogleLogin from "../(auth)/GoogleLogin";
 
 const HomeScreen = () => {
   const teamLogoCardsData = [
@@ -119,7 +120,7 @@ const HomeScreen = () => {
 
   return (
     <>
-      <GestureHandlerRootView>
+      {/* <GestureHandlerRootView>
         <ScrollView style={styles.container}>
           <CarouselComponent />
           <SectionHeader
@@ -150,7 +151,8 @@ const HomeScreen = () => {
             {recentMatchesJSX}
           </View>
         </ScrollView>
-      </GestureHandlerRootView>
+      </GestureHandlerRootView> */}
+      <GoogleLogin />
     </>
   );
 };
