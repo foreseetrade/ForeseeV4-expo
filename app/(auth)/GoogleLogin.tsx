@@ -2,21 +2,17 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { apiGoogleLogin } from "../services/BEApis/auth";
 import { colors4C, sizes4C } from "../asthetics";
+import { openURL } from "expo-linking";
 
 const GoogleLogin = () => {
-  const fnGoogleLogin = async () => {
-    console.log("Google Login");
-    const res = await apiGoogleLogin();
+  // const fnGoogleLogin = async () => {
+  //   console.log("Google Login");
 
-    console.log(res);
-  };
+  //   console.log(res);
+  // };
 
   return (
-    <Pressable
-      onPress={() => {
-        fnGoogleLogin();
-      }}
-    >
+    <Pressable style={styles.btnWrap} onPress={() => openURL("http://localhost:3000/user/google")}>
       <Text style={styles.buttonText}>Login with Google</Text>
     </Pressable>
   );
@@ -25,6 +21,11 @@ const GoogleLogin = () => {
 export default GoogleLogin;
 
 const styles = StyleSheet.create({
+  btnWrap :{
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   buttonText: {
     color: colors4C.white4C,
     textAlign: "center",
