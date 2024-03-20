@@ -7,7 +7,7 @@ const ENV_BACKEND_URL =
 
 // Create an instance of Axios with your backend URL
 const apiInstance = axios.create({
-  baseURL: ENV_BACKEND_URL,
+  baseURL: "http://localhost:3000",
 });
 
 // Add a request interceptor

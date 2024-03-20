@@ -120,7 +120,7 @@ const HomeScreen = () => {
 
   return (
     <>
-      {/* <GestureHandlerRootView>
+      <GestureHandlerRootView>
         <ScrollView style={styles.container}>
           <CarouselComponent />
           <SectionHeader
@@ -151,8 +151,8 @@ const HomeScreen = () => {
             {recentMatchesJSX}
           </View>
         </ScrollView>
-      </GestureHandlerRootView> */}
-      <GoogleLogin />
+      </GestureHandlerRootView>
+      {/* <GoogleLogin /> */}
     </>
   );
 };

@@ -1,7 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const AllMatchesScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "All Matches",
+    });
+  }, []);
+
   return (
     <View>
       <Text style={styles.container}>AllMatchesScreen</Text>

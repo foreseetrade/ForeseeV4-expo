@@ -15,7 +15,7 @@ const ProfileScreen = () => {
         <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
       ),
       cardText: "Profile",
-      navigateTo: "(wallet)/WithdrawScreen",
+      navigateTo: "(profile)/EditProfile",
     },
     {
       leftIcon: <Feather name="settings" size={16} color={colors4C.blue4C} />,
