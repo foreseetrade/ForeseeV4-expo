@@ -1,14 +1,18 @@
 import apiInstance from "../apiConfig";
 
 export const apiGetMatchByMatchNo = async (matchNo: any) => {
-  await apiInstance
-    .get(`match?matchNo=${matchNo}`)
-    .then((result) => {
-      console.log("SUCC apiGetMatchByMatchNo", result.data);
-      return result.data;
-    })
-    .catch((err) => {
-      console.log("ERR apiGetMatchByMatchNo", err);
-      return null;
-    });
+  const result = await apiInstance.get(`match?matchNo=${matchNo}`);
+
+  return result;
+};
+
+export const apiGetMatchesByStatus = async (status: any) => {
+  const result = await apiInstance.get(`match/status?status=${status}`);
+
+  return result;
+};
+
+export const apiGetTrendingMatches = async () => {
+  const result = await apiInstance.get(`match/trending`);
+  return result;
 };

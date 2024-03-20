@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TeamLogoCard from "../appComponents/appCards/TeamLogoCard";
 import SmallMatchCard from "../appComponents/appCards/SmallMatchCard";
 import MatchCard from "../appComponents/appCards/MatchCard";
@@ -9,8 +9,11 @@ import SectionHeader from "../appComponents/appNavigators/SectionHeader";
 import { colors4C, sizes4C } from "../asthetics";
 import { Link } from "expo-router";
 import GoogleLogin from "../(auth)/GoogleLogin";
+import { apiGetMatchesByStatus } from "../services/BEApis/match";
 
 const HomeScreen = () => {
+  const [recentMatches, setRecentMatches] = useState([]);
+
   const teamLogoCardsData = [
     "RCB",
     "DC",
@@ -63,60 +66,36 @@ const HomeScreen = () => {
     />
   ));
 
-  const recentMatches = [
-    {
-      showTopIcon: false,
-      matchNo: 1,
-      tossSummary: "RR won the Toss",
-      showScores: true,
-      matchStatus: "Live",
-      teamA: "RR",
-      teamAScore: "90/4",
-      teamAOvers: 10.5,
-      teamB: "CSK",
-      teamBScore: "219/5",
-      teamBOvers: 20,
-      showSummary: true,
-      matchSummary: "RR need 129 runs to win in 55 balls",
-      navigateTo: "/(match)/MatchScreen",
-    },
-    {
-      showTopIcon: false,
-      matchNo: 2,
-      tossSummary: "MI won the Toss",
-      showScores: true,
-      matchStatus: "Upcoming",
-      teamA: "MI",
-      teamAScore: "150/5",
-      teamAOvers: 20,
-      teamB: "RCB",
-      teamBScore: "145/8",
-      teamBOvers: 20,
-      showSummary: true,
-      matchSummary: "Head to head: 10 - 12",
-      navigateTo: "/(match)/MatchScreen",
-    },
-  ];
+  const fnGetRecentMatches = async (): Promise<void> => {
+    const res = await apiGetMatchesByStatus("Upcoming");
+    console.log("Res fnGetRecentMatches", res);
+    setRecentMatches(res?.data);
+  };
 
-  const recentMatchesJSX = recentMatches.map((item, index) => (
+  // Assuming recentMatches is a state variable of type RecentMatches
+  const recentMatchesJSX = recentMatches.map((item: any, index: number) => (
     <MatchCard
       key={index}
       showTopIcon={item.showTopIcon}
       matchNo={item.matchNo}
-      tossSummary={item.tossSummary}
+      tossSummary={item.matchToss}
       showScores={item.showScores}
       matchStatus={item.matchStatus}
-      teamA={item.teamA}
+      teamA={item.matchTeamA}
       teamAScore={item.teamAScore}
       teamAOvers={item.teamAOvers}
-      teamB={item.teamB}
+      teamB={item.matchTeamB}
       teamBScore={item.teamBScore}
       teamBOvers={item.teamBOvers}
       showSummary={item.showSummary}
       matchSummary={item.matchSummary}
-      navigateTo={item.navigateTo}
+      navigateTo={`(match)/${item.matchNo}`}
     />
   ));
+
+  useEffect(() => {
+    fnGetRecentMatches();
+  }, []);
 
   return (
     <>

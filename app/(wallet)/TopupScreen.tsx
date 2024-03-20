@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,8 +10,18 @@ import { Feather } from "@expo/vector-icons";
 import NumberPad from "../appComponents/appUtils/NumberPad";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 import { colors4C, sizes4C } from "../asthetics";
+import { useNavigation } from "expo-router";
 
 const TopupScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "Topup",
+    });
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <WalBalanceCard cardHeight={88} />

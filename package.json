@@ -17,6 +17,8 @@
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@react-native-google-signin/google-signin": "^11.0.0",
     "@react-navigation/native": "^6.0.2",
+    "@rneui/base": "^4.0.0-rc.8",
+    "@rneui/themed": "^4.0.0-rc.8",
     "@types/react-native-snap-carousel": "^3.8.11",
     "axios": "^1.6.8",
     "expo": "^50.0.8",

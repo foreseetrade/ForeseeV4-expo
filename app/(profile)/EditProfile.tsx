@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, Button, Input } from "native-base";
 import { colors4C } from "../asthetics";
+import { useNavigation } from "expo-router";
 
 const EditProfile = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "Trade",
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Avatar source={{ uri: "https://i.pravatar.cc/300" }} />
