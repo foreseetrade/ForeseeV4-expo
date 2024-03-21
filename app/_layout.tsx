@@ -23,7 +23,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "(tabs)",
+  initialRouteName: "(screens)",
 };
 
 // Setting up DeepLinks in Expo :

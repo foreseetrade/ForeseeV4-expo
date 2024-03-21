@@ -7,7 +7,6 @@ import { colors4C, imgBlurHash4C, sizes4C } from "@/app/asthetics";
 import iconIpl from "../../../assets/images/logoTeams/IplLogo.svg";
 import MatchStatusChip from "../appChips/MatchStatusChip";
 import getTeamImageUrl from "../appUtils/functions/getImageUrl";
-import { Link, useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
 
 const MatchCard = ({
@@ -37,6 +36,7 @@ const MatchCard = ({
   navigateTo,
 }: any) => {
   const handlePress = () => {
+    console.log("MatchCard pressed");
     if (!navigateTo) return;
     router.push(navigateTo);
   };

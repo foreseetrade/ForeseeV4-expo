@@ -9,14 +9,7 @@ const AllMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    // Update header name when component mounts
-    navigation.setOptions({
-      headerTitle: "All Matches",
-    });
-  }, []);
-  const [activeTab, setActiveTab] = useState(activeTabProp);
+  const [activeTab, setActiveTab] = useState(activeTabProp || 1);
 
   const handleTabPress = (tabIndex: number) => {
     setActiveTab(tabIndex);
@@ -46,12 +39,23 @@ const AllMatchesScreen = (activeTabProp: number) => {
 
   useEffect(() => {
     fnFetchByTab();
+  }, []);
+
+  useEffect(() => {
+    fnFetchByTab();
   }, [activeTab]);
+
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "All Matches",
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
       <Tab
-        value={activeTab}
+        value={activeTab || 0}
         onChange={handleTabPress}
         // disableIndicator
         buttonStyle={{ backgroundColor: "white" }}
@@ -77,11 +81,12 @@ const AllMatchesScreen = (activeTabProp: number) => {
         <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Live</Text>
       )} */}
       {loading && <Text>Loading...</Text>}
-      {!loading && data &&
+      {!loading &&
+        data &&
         data.map((data: any, index) => (
           <View
             key={index}
-            style={{ padding: sizes4C.small4C, paddingBottom: 4 }}
+            style={{ padding: sizes4C.small4C, paddingBottom: 2 }}
           >
             <MatchCard
               matchNo={data.matchNo}
