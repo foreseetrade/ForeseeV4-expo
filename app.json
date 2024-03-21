@@ -12,12 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.code4ai.foresee"
+      "bundleIdentifier": "foresee"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,19 +29,16 @@
       "output": "static",
       "favicon": "./assets/splash/foreseeLogo.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-secure-store"
-    ],
+    "plugins": ["expo-router", "expo-secure-store"],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
       "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "cbedd307-54ad-43bb-8ee8-fe6a2058405e"
+        "origin": false,
+        "eas": {
+          "projectId": "cbedd307-54ad-43bb-8ee8-fe6a2058405e"
+        }
       }
     }
   }

@@ -21,6 +21,12 @@ const CardWithChevron = ({
     <>
       <TouchableOpacity
         onPress={() => {
+          if (navigateTo === "(auth)/GoogleLogin") {
+            router.replace({
+              pathname: navigateTo as Href<string>,
+            });
+            return;
+          }
           router.push({
             pathname: navigateTo as Href<string>,
           });

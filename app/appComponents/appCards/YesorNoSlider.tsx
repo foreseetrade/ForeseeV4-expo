@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   label: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
   },
   sliderTextWrapper: {

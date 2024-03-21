@@ -17,11 +17,14 @@ import getTeamImageUrl from "../../appComponents/appUtils/functions/getImageUrl"
 import { router, useNavigation } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import { apiGetMatchByMatchNo } from "../../services/BEApis/match";
+import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
+
 
 const TradeForMatchNo = () => {
   const { predMatchNo } = useLocalSearchParams();
   const navigation = useNavigation();
   const [tradeData, setTradeData] = useState({} as any);
+  const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
 
   const fnGetTradeById = async () => {
     console.log(predMatchNo);
@@ -79,12 +82,13 @@ const TradeForMatchNo = () => {
           style={styles.topupButton}
           onPress={() => {
             console.log("topup");
-            router.push("/(wallet)/SuccessScreen");
+            setIsFeedbackVisible(true);
           }}
         >
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
+
     </ScrollView>
   );
 };

@@ -1,21 +1,3 @@
-// {
-//   "cli": {
-//     "version": ">= 7.3.0"
-//   },
-//   "build": {
-//     "development": {
-//       "developmentClient": true,
-//       "distribution": "internal"
-//     },
-//     "preview": {
-//       "distribution": "internal"
-//     },
-//     "production": {}
-//   },
-//   "submit": {
-//     "production": {}
-//   }
-// }
 {
   "build": {
     "preview": {
@@ -25,7 +7,12 @@
     },
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_BE_LOCAL_URL": "http://localhost:3000",
+        "EXPO_BE_DEV_URL": "https://foresee-code4ai.koyeb.app",
+        "EXPO_BE_PROD_URL": "https://foresee-code4ai.koyeb.app"
+      }
     },
     "preview2": {
       "android": {
@@ -38,6 +25,13 @@
     "preview4": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
+      }
+    }
   }
 }
