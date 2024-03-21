@@ -7,37 +7,8 @@ import { apiGetMatchesByStatus } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
 const AllMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
-  const [data, setData] = useState([
-    {
-      matchId: 1,
-      matchNo: 1,
-      matchDate: "2024-03-22T17:32:16.000Z",
-      matchTeamA: "RCB",
-      matchTeamALogoUrl: "https://ik.imagekit.io/quackmagic/teamsLogos/RCB.png",
-      matchTeamAScore: "0",
-      matchTeamAOvers: "0",
-      matchTeamAWickets: "0",
-      matchTeamARunRate: "0",
-      matchTeamAOdds: "5",
-      matchTeamAWinPrecentage: "50",
-      matchTeamB: "CSK",
-      matchTeamBLogoUrl: "https://ik.imagekit.io/quackmagic/teamsLogos/CSK.png",
-      matchTeamBScore: "0",
-      matchTeamBOvers: "0",
-      matchTeamBWickets: "0",
-      matchTeamBRunRate: "0",
-      matchTeamBOdds: "5",
-      matchVenue: "Chinnaswamy",
-      matchSummary: "RCB : CSK - Head to Head : 12 : 12",
-      matchStatus: "Upcoming",
-      matchToss: "CSK",
-      matchWinner: "NONE",
-      matchCreatedAt: "2024-03-20T12:05:59.791Z",
-      matchUpdatedAt: "2024-03-20T12:05:59.791Z",
-      isTrending: true,
-      tags: [],
-    },
-  ]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Update header name when component mounts
@@ -51,9 +22,14 @@ const AllMatchesScreen = (activeTabProp: number) => {
     setActiveTab(tabIndex);
   };
 
-  const fnGetMatches = (matchStatus: any) => {
-    const res = apiGetMatchesByStatus(matchStatus);
+  const fnGetMatches = async (matchStatus: any) => {
+    setLoading(true);
+
+    const res: any = await apiGetMatchesByStatus(matchStatus);
     console.log("Res fnGetMatches", res);
+    setData(res?.data.sort((a: any, b: any) => a.matchNo - b.matchNo));
+
+    setLoading(false);
   };
 
   const fnFetchByTab = async () => {
@@ -73,8 +49,7 @@ const AllMatchesScreen = (activeTabProp: number) => {
   }, [activeTab]);
 
   return (
-    <View>
-      <Text style={styles.container}>AllMatchesScreen</Text>
+    <View style={styles.container}>
       <Tab
         value={activeTab}
         onChange={handleTabPress}
@@ -87,9 +62,9 @@ const AllMatchesScreen = (activeTabProp: number) => {
           height: 2,
         }}
       >
-        <Tab.Item title="Recent" />
-        <Tab.Item title="Upcoming" />
         <Tab.Item title="Live" />
+        <Tab.Item title="Upcoming" />
+        <Tab.Item title="Completed" />
       </Tab>
 
       {/* {activeTab === 0 && (
@@ -101,37 +76,25 @@ const AllMatchesScreen = (activeTabProp: number) => {
       {activeTab === 2 && (
         <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Live</Text>
       )} */}
-      {data &&
-        data.map((data) => (
-          <MatchCard
-            key={data.matchNo}
-            matchNo={data.matchNo}
-            matchDate={data.matchDate}
-            matchTeamA={data.matchTeamA}
-            matchTeamB={data.matchTeamB}
-            matchToss={data.matchToss}
-            matchStatus={data.matchStatus}
-            matchWinner={data.matchWinner}
-            matchSummary={data.matchSummary}
-            matchTeamALogoUrl={data.matchTeamALogoUrl}
-            matchTeamBLogoUrl={data.matchTeamBLogoUrl}
-            matchTeamAScore={data.matchTeamAScore}
-            matchTeamBScore={data.matchTeamBScore}
-            matchTeamAOdds={data.matchTeamAOdds}
-            matchTeamBOdds={data.matchTeamBOdds}
-            matchTeamAWinPrecentage={data.matchTeamAWinPrecentage}
-            matchTeamARunRate={data.matchTeamARunRate}
-            matchTeamBRunRate={data.matchTeamBRunRate}
-            matchTeamAWickets={data.matchTeamAWickets}
-            matchTeamBWickets={data.matchTeamBWickets}
-            matchTeamAOvers={data.matchTeamAOvers}
-            matchTeamBOvers={data.matchTeamBOvers}
-            matchVenue={data.matchVenue}
-            matchCreatedAt={data.matchCreatedAt}
-            matchUpdatedAt={data.matchUpdatedAt}
-            isTrending={data.isTrending}
-            tags={data.tags}
-          />
+      {loading && <Text>Loading...</Text>}
+      {!loading && data &&
+        data.map((data: any, index) => (
+          <View
+            key={index}
+            style={{ padding: sizes4C.small4C, paddingBottom: 4 }}
+          >
+            <MatchCard
+              matchNo={data.matchNo}
+              matchDate={data.matchDate}
+              teamA={data.matchTeamA}
+              teamB={data.matchTeamB}
+              matchStatus={data.matchStatus}
+              matchSummary={data.matchSummary}
+              showSummary={true}
+              showScores={data?.matchStatus === "Live" ? true : false}
+              navigateTo={`(match)/${data.matchNo}`}
+            />
+          </View>
         ))}
     </View>
   );
@@ -142,7 +105,6 @@ export default AllMatchesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    gap: sizes4C.small4C,
   },
 });

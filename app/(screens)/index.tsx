@@ -7,12 +7,15 @@ import CarouselComponent from "../appComponents/appUtils/Carousal";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SectionHeader from "../appComponents/appNavigators/SectionHeader";
 import { colors4C, sizes4C } from "../asthetics";
-import { Link } from "expo-router";
-import GoogleLogin from "../(auth)/GoogleLogin";
-import { apiGetMatchesByStatus } from "../services/BEApis/match";
+
+import {
+  apiGetMatchesByStatus,
+  apiGetTrendingMatches,
+} from "../services/BEApis/match";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
+  const [trendingMatches, setTrendingMatches] = useState([]);
 
   const teamLogoCardsData = [
     "RCB",
@@ -31,45 +34,62 @@ const HomeScreen = () => {
     <TeamLogoCard teamName={item} key={index} />
   ));
 
-  const matchCardsData = [
-    {
-      matchStatus: "Live",
-      teamA: "CSK",
-      teamB: "MI",
-      cardSummary: "CSK 142/5 (16.5)",
-      navigateTo: "/(match)/1",
-    },
-    {
-      matchStatus: "Live",
-      teamA: "CSK",
-      teamB: "RR",
-      cardSummary: "Head to Head - 5 : 6",
-      navigateTo: "/(match)/2",
-    },
-    {
-      matchStatus: "Upcoming",
-      teamA: "DC",
-      teamB: "MI",
-      cardSummary: "Head to Head - 4 : 9",
-      navigateTo: "/(match)/3",
-    },
-  ];
+  // const matchCardsData = [
+  //   {
+  //     matchStatus: "Live",
+  //     teamA: "CSK",
+  //     teamB: "MI",
+  //     cardSummary: "CSK 142/5 (16.5)",
+  //     navigateTo: "/(match)/1",
+  //   },
+  //   {
+  //     matchStatus: "Live",
+  //     teamA: "CSK",
+  //     teamB: "RR",
+  //     cardSummary: "Head to Head - 5 : 6",
+  //     navigateTo: "/(match)/2",
+  //   },
+  //   {
+  //     matchStatus: "Upcoming",
+  //     teamA: "DC",
+  //     teamB: "MI",
+  //     cardSummary: "Head to Head - 4 : 9",
+  //     navigateTo: "/(match)/3",
+  //   },
+  // ];
 
-  const trendingMatchesJSX = matchCardsData.map((card, index) => (
+  const fnGetTrendingMatches = async (): Promise<void> => {
+    const res = await apiGetTrendingMatches();
+    console.log("Res fnGetTrendingMatches", res);
+    setTrendingMatches(res?.data);
+  };
+
+  // const trendingMatchesJSX = matchCardsData.map((card, index) => (
+  //   <SmallMatchCard
+  //     key={index}
+  //     matchStatus={card.matchStatus}
+  //     teamA={card.teamA}
+  //     teamB={card.teamB}
+  //     cardSummary={card.cardSummary}
+  //     navigateTo={card.navigateTo}
+  //   />
+  // ));
+
+  const trendingMatchesJSX = trendingMatches.map((card: any, index) => (
     <SmallMatchCard
       key={index}
       matchStatus={card.matchStatus}
-      teamA={card.teamA}
-      teamB={card.teamB}
-      cardSummary={card.cardSummary}
-      navigateTo={card.navigateTo}
+      teamA={card.matchTeamA}
+      teamB={card.matchTeamB}
+      cardSummary={card.matchSummary}
+      navigateTo={`(match)/${card.matchNo}`}
     />
   ));
 
   const fnGetRecentMatches = async (): Promise<void> => {
     const res = await apiGetMatchesByStatus("Upcoming");
     console.log("Res fnGetRecentMatches", res);
-    setRecentMatches(res?.data);
+    setRecentMatches(res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo));
   };
 
   // Assuming recentMatches is a state variable of type RecentMatches
@@ -82,18 +102,19 @@ const HomeScreen = () => {
       showScores={item.showScores}
       matchStatus={item.matchStatus}
       teamA={item.matchTeamA}
-      teamAScore={item.teamAScore}
-      teamAOvers={item.teamAOvers}
+      teamAScore={item.matchTeamAScore}
+      teamAOvers={item.matchTeamAOvers}
       teamB={item.matchTeamB}
-      teamBScore={item.teamBScore}
-      teamBOvers={item.teamBOvers}
-      showSummary={item.showSummary}
+      teamBScore={item.matchTeamBScore}
+      teamBOvers={item.matchTeamBOvers}
+      showSummary={item?.matchStatus == "Live" ? true : false}
       matchSummary={item.matchSummary}
       navigateTo={`(match)/${item.matchNo}`}
     />
   ));
 
   useEffect(() => {
+    fnGetTrendingMatches();
     fnGetRecentMatches();
   }, []);
 

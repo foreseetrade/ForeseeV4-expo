@@ -1,10 +1,18 @@
-import { colors4C, sizes4C } from "@/app/asthetics";
+import { colors4C, imgBlurHash4C, sizes4C } from "@/app/asthetics";
 import * as React from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Pressable, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { getImageAds } from "./functions/getImageAds";
+import { Image } from "expo-image";
 
 const CarouselComponent = () => {
   const width = Dimensions.get("window").width;
+
+  const adsImagesArr = [
+    getImageAds("Ad1"),
+    getImageAds("Ad2"),
+    getImageAds("Ad3"),
+  ];
 
   return (
     // <View style={{ flex: 1, overflow: "scroll" }}>
@@ -14,7 +22,7 @@ const CarouselComponent = () => {
       height={104}
       autoPlay={true}
       autoPlayInterval={4000}
-      data={[...new Array(6).keys()]}
+      data={adsImagesArr}
       scrollAnimationDuration={1500}
       snapEnabled={true}
       // mode="parallax"
@@ -33,7 +41,17 @@ const CarouselComponent = () => {
             borderColor: colors4C.purple4C,
           }}
         >
-          <Text style={{ textAlign: "center", fontSize: 24 }}>{index}</Text>
+          <Image
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: sizes4C.small4C,
+            }}
+            source={getImageAds(`Ad${index + 1}`)}
+            placeholder={imgBlurHash4C}
+            contentFit="cover"
+            transition={1000}
+          />
         </View>
       )}
     />

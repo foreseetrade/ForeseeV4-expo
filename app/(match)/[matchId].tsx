@@ -30,7 +30,7 @@ const MatchDynamicPage = () => {
 
   useEffect(() => {
     fnGetMatchByMatchNo();
-  }, [matchFullData]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -67,6 +67,7 @@ const MatchDynamicPage = () => {
           winPercentage={matchFullData?.matchTeamAWinPrecentage}
         />
         <YesNoSlider
+          matchNo={matchFullData?.matchNo}
           teamA={matchFullData?.matchTeamA}
           teamB={matchFullData?.matchTeamB}
           teamAOdds={matchFullData?.matchTeamAOdds}

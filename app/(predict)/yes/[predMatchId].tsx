@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,19 +7,28 @@ import {
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import NumberPad from "../appComponents/appUtils/NumberPad";
-import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
-import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
+import NumberPad from "../../appComponents/appUtils/NumberPad";
+import WalBalanceCard from "../../appComponents/appCards/WalBalanceCard";
+import { colors4C, imgBlurHash4C, sizes4C } from "../../asthetics";
 import { Image } from "expo-image";
 
 // @ts-ignore
-import getTeamImageUrl from "../appComponents/appUtils/functions/getImageUrl";
+import getTeamImageUrl from "../../appComponents/appUtils/functions/getImageUrl";
 import { router, useNavigation } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
+import { apiGetMatchByMatchNo } from "../../services/BEApis/match";
 
-const TradeScreen = () => {
-  const { matchId } = useLocalSearchParams();
+const TradeForMatchNo = () => {
+  const { pred, predMatchId } = useLocalSearchParams();
   const navigation = useNavigation();
+  const [tradeData, setTradeData] = useState({} as any);
+
+  const fnGetTradeById = async () => {
+    console.log(predMatchId);
+    const res = await apiGetMatchByMatchNo(predMatchId);
+    console.log("Res fnGetTradeById", res?.data);
+    setTradeData(res?.data);
+  };
 
   useEffect(() => {
     // Update header name when component mounts
@@ -28,21 +37,27 @@ const TradeScreen = () => {
     });
   }, []);
 
+  useEffect(() => {
+    fnGetTradeById();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={getTeamImageUrl("CSKLogo")}
+          source={getTeamImageUrl(`${tradeData?.matchTeamA}Logo`)}
           placeholder={imgBlurHash4C}
           contentFit="cover"
           transition={8}
         />
-        <Text style={{ ...styles.textLabel, fontSize: 14 }}>CSK vs KKR</Text>
+        <Text style={{ ...styles.textLabel, fontSize: 14 }}>
+          {tradeData?.matchTeamA} vs {tradeData?.matchTeamB}
+        </Text>
         <Text
           style={{ ...styles.textLabel, color: colors4C.gray4C, fontSize: 16 }}
         >
-          Trading on YES at ₹8{" "}
+          Trading on YES at ₹{tradeData?.matchTeamAOdds}{" "}
         </Text>
       </View>
 
@@ -133,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TradeScreen;
+export default TradeForMatchNo;
