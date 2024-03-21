@@ -1,5 +1,5 @@
 import { Link, useNavigation, useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Href } from "expo-router";
 import { colors4C, sizes4C } from "@/app/asthetics";
@@ -13,13 +13,14 @@ const SectionHeader = ({
   navigateTo: string;
 }) => {
   const router = useRouter();
-
   return (
     <Pressable
       onPress={() => {
         router.push({
           pathname: navigateTo as Href<string>,
         });
+
+        // navigation.navigate(navigateTo);
       }}
     >
       <View style={styles.container}>

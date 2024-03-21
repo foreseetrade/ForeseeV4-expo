@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/splash/foreseeLogo.png",
-    "scheme": "myapp",
+    "scheme": "foresee",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash/foreseeLogo.png",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -14,15 +14,26 @@ import { Image } from "expo-image";
 
 // @ts-ignore
 import getTeamImageUrl from "../appComponents/appUtils/functions/getImageUrl";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
-const TradeScreen = ({ teamName }: { teamName: string }) => {
+const TradeScreen = () => {
+  const { matchId } = useLocalSearchParams();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "Trade",
+    });
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={getTeamImageUrl(`${teamName || "CSK"}Logo`)}
+          source={getTeamImageUrl("CSKLogo")}
           placeholder={imgBlurHash4C}
           contentFit="cover"
           transition={8}

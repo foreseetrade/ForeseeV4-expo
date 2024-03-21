@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "expo-image";
-import { Href, Link } from "expo-router";
+import { Href, Link, router } from "expo-router";
 import { colors4C, sizes4C } from "@/app/asthetics";
 
 const CardWithChevron = ({
@@ -15,23 +15,29 @@ const CardWithChevron = ({
   cardText: string;
   navigateTo: string;
 }) => {
+  // useEffect for changing name in header
+
   return (
     <>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          router.push({
+            pathname: navigateTo as Href<string>,
+          });
+        }}
+      >
         <>
-          <Link href={`${navigateTo as Href<string>}`} asChild>
-            <View style={styles.cardWrap}>
-              {/* <Image source={leftIcon} /> */}
-              <View
-                style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
-              >
-                {leftIcon}
-                <Text style={styles.textStyle}>{cardText}</Text>
-              </View>
-              {/* <Image source={rightIcon} /> */}
-              {rightIcon}
+          <View style={styles.cardWrap}>
+            {/* <Image source={leftIcon} /> */}
+            <View
+              style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
+            >
+              {leftIcon}
+              <Text style={styles.textStyle}>{cardText}</Text>
             </View>
-          </Link>
+            {/* <Image source={rightIcon} /> */}
+            {rightIcon}
+          </View>
         </>
       </TouchableOpacity>
     </>

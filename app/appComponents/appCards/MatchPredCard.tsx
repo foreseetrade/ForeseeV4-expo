@@ -91,7 +91,17 @@ import { colors4C, sizes4C } from "@/app/asthetics";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const MatchPredCard = ({ winPercentage }: { winPercentage: number }) => {
+const MatchPredCard = ({
+  winPercentage,
+  teamA,
+  teamB,
+  teamAOdds,
+}: {
+  winPercentage: number;
+  teamA: string;
+  teamB: string;
+  teamAOdds: number;
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.teamsText}>Win %</Text>
@@ -121,8 +131,8 @@ const MatchPredCard = ({ winPercentage }: { winPercentage: number }) => {
           alignItems: "center",
         }}
       >
-        <Text style={styles.teamsText}>CSK</Text>
-        <Text style={styles.teamsText}>RR</Text>
+        <Text style={styles.teamsText}>{teamA}</Text>
+        <Text style={styles.teamsText}>{teamB}</Text>
       </View>
 
       <View
@@ -132,9 +142,9 @@ const MatchPredCard = ({ winPercentage }: { winPercentage: number }) => {
           alignItems: "center",
         }}
       >
-        <Text>₹7</Text>
+        <Text>₹{teamAOdds}</Text>
         <Text style={styles.teamsText}>ODDS</Text>
-        <Text>₹3</Text>
+        <Text>₹{10 - teamAOdds}</Text>
       </View>
     </View>
   );

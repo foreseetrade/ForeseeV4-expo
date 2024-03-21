@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import PredictionCard from "../appComponents/appCards/PredictionCard";
 import { borderRadius4C, colors4C, spacing4C } from "../asthetics";
+import { useNavigation } from "expo-router";
 
 const AllTransactionsScreen = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "History",
+    });
+  }, []);
+
   const predictions = [
     {
       predAmt: "1000",

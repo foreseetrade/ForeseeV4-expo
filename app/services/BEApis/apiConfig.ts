@@ -5,9 +5,16 @@ import { getExpoStorage } from "../expo-storage";
 const ENV_BACKEND_URL =
   process.env.EXPO_BE_LOCAL_URL || "http://localhost:3000";
 
+const ENV_BE_DEV_URL = process.env.EXPO_BE_DEV_URL;
+const ENV_BE_PROD_URL = process.env.EXPO_BE_PROD_URL;
+const ENV_BE_URL =
+  process.env.EXPO_BE_LOCAL_URL ||
+  process.env.EXPO_BE_DEV_URL ||
+  process.env.EXPO_BE_PROD_URL;
+
 // Create an instance of Axios with your backend URL
 const apiInstance = axios.create({
-  baseURL: ENV_BACKEND_URL,
+  baseURL: "https://foresee-code4ai.koyeb.app",
 });
 
 // Add a request interceptor

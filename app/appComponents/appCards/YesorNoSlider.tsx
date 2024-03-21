@@ -7,7 +7,7 @@ import { colors4C, sizes4C } from "@/app/asthetics";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 
-const YesNoSlider = ({ teamA, teamB, teamAOdds, matchStadium }: any) => {
+const YesNoSlider = ({ matchNo, teamA, teamB, teamAOdds, matchStadium }: any) => {
   const [sliderValue] = useState(new Animated.Value(0));
   const [isRouting, setIsRouting] = useState(false); // New state
 
@@ -19,12 +19,12 @@ const YesNoSlider = ({ teamA, teamB, teamAOdds, matchStadium }: any) => {
       if (gestureState.dx > 136 && !isRouting) {
         console.log("Yes");
         setIsRouting(true); // Set the flag to prevent multiple calls
-        router.push("/(wallet)/TradeScreen");
+        router.push(("(predict)/yes/"+ matchNo) as any);
         return;
       } else if (gestureState.dx < -136 && !isRouting) {
         console.log("No");
         setIsRouting(true); // Set the flag to prevent multiple calls
-        router.push("/(wallet)/TradeScreen");
+        router.push(`(predict)/no/${matchNo}` as any);
         return;
       }
     },

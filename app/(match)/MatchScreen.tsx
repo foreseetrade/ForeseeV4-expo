@@ -1,12 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import MatchCard from "../appComponents/appCards/MatchCard";
 import YesNoSlider from "../appComponents/appCards/YesorNoSlider";
 import { sizes4C } from "../asthetics";
 import StatButton from "../appComponents/appButtons/StatButton";
 import MatchPredCard from "../appComponents/appCards/MatchPredCard";
+import { useNavigation } from "expo-router";
 
 const MatchScreen = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    // Update header name when component mounts
+    navigation.setOptions({
+      headerTitle: "Match",
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <MatchCard
