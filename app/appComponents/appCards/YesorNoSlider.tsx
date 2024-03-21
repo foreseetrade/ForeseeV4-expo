@@ -7,7 +7,13 @@ import { colors4C, sizes4C } from "@/app/asthetics";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 
-const YesNoSlider = ({ matchNo, teamA, teamB, teamAOdds, matchStadium }: any) => {
+const YesNoSlider = ({
+  matchNo,
+  teamA,
+  teamB,
+  teamAOdds,
+  matchStadium,
+}: any) => {
   const [sliderValue] = useState(new Animated.Value(0));
   const [isRouting, setIsRouting] = useState(false); // New state
 
@@ -19,7 +25,7 @@ const YesNoSlider = ({ matchNo, teamA, teamB, teamAOdds, matchStadium }: any) =>
       if (gestureState.dx > 136 && !isRouting) {
         console.log("Yes");
         setIsRouting(true); // Set the flag to prevent multiple calls
-        router.push(("(predict)/yes/"+ matchNo) as any);
+        router.push(("(predict)/yes/" + matchNo) as any);
         return;
       } else if (gestureState.dx < -136 && !isRouting) {
         console.log("No");
@@ -62,7 +68,7 @@ const YesNoSlider = ({ matchNo, teamA, teamB, teamAOdds, matchStadium }: any) =>
               borderTopLeftRadius: 360,
             }}
           >
-            <Text style={styles.label}>₹{teamAOdds}</Text>
+            <Text style={styles.label}>₹{teamAOdds} NO </Text>
           </LinearGradient>
           <Animated.Image
             source={ballImg}
@@ -83,7 +89,7 @@ const YesNoSlider = ({ matchNo, teamA, teamB, teamAOdds, matchStadium }: any) =>
               borderTopRightRadius: 360,
             }}
           >
-            <Text style={styles.label}>₹{10 - teamAOdds}</Text>
+            <Text style={styles.label}>₹{10 - teamAOdds} YES </Text>
           </LinearGradient>
         </View>
       </View>
@@ -129,7 +135,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   label: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
   },
   sliderTextWrapper: {

@@ -60,7 +60,7 @@ const HomeScreen = () => {
 
   const fnGetTrendingMatches = async (): Promise<void> => {
     const res = await apiGetTrendingMatches();
-    console.log("Res fnGetTrendingMatches", res);
+    console.log("Res fnGetTrendingMatches", res?.data);
     setTrendingMatches(res?.data);
   };
 
@@ -82,14 +82,16 @@ const HomeScreen = () => {
       teamA={card.matchTeamA}
       teamB={card.matchTeamB}
       cardSummary={card.matchSummary}
-      navigateTo={`(match)/${card.matchNo}`}
+      navigateTo={`/(match)/${card.matchId}`}
     />
   ));
 
   const fnGetRecentMatches = async (): Promise<void> => {
-    const res = await apiGetMatchesByStatus("Upcoming");
-    console.log("Res fnGetRecentMatches", res);
-    setRecentMatches(res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo));
+    const res = await apiGetMatchesByStatus("Live");
+    // console.log("Res fnGetRecentMatches", res);
+    setRecentMatches(
+      res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo)
+    );
   };
 
   // Assuming recentMatches is a state variable of type RecentMatches
@@ -109,7 +111,7 @@ const HomeScreen = () => {
       teamBOvers={item.matchTeamBOvers}
       showSummary={item?.matchStatus == "Live" ? true : false}
       matchSummary={item.matchSummary}
-      navigateTo={`(match)/${item.matchNo}`}
+      navigateTo={`/(match)/${item.matchNo}`}
     />
   ));
 

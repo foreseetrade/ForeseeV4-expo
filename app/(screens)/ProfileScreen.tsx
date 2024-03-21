@@ -41,6 +41,14 @@ const ProfileScreen = () => {
       cardText: "FAQs",
       navigateTo: "(wallet)/WithdrawScreen",
     },
+    {
+      leftIcon: <Feather name="log-out" size={16} color={colors4C.blue4C} />,
+      rightIcon: (
+        <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
+      ),
+      cardText: "Logout",
+      navigateTo: "(auth)/GoogleLogin",
+    },
   ];
 
   return (

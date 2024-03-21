@@ -17,15 +17,18 @@ import getTeamImageUrl from "../../appComponents/appUtils/functions/getImageUrl"
 import { router, useNavigation } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import { apiGetMatchByMatchNo } from "../../services/BEApis/match";
+import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
+
 
 const TradeForMatchNo = () => {
-  const { predMatchId } = useLocalSearchParams();
+  const { predMatchNo } = useLocalSearchParams();
   const navigation = useNavigation();
   const [tradeData, setTradeData] = useState({} as any);
+  const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
 
   const fnGetTradeById = async () => {
-    console.log(predMatchId);
-    const res = await apiGetMatchByMatchNo(predMatchId);
+    console.log(predMatchNo);
+    const res = await apiGetMatchByMatchNo(predMatchNo);
     console.log("Res fnGetTradeById", res?.data);
     setTradeData(res?.data);
   };
@@ -57,7 +60,7 @@ const TradeForMatchNo = () => {
         <Text
           style={{ ...styles.textLabel, color: colors4C.gray4C, fontSize: 16 }}
         >
-          Trading on NO at ₹{tradeData?.matchTeamAOdds}{" "}
+          Trading on YES at ₹{tradeData?.matchTeamAOdds}{" "}
         </Text>
       </View>
 
@@ -79,12 +82,13 @@ const TradeForMatchNo = () => {
           style={styles.topupButton}
           onPress={() => {
             console.log("topup");
-            router.push("/(wallet)/SuccessScreen");
+            setIsFeedbackVisible(true);
           }}
         >
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
+
     </ScrollView>
   );
 };

@@ -6,7 +6,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, router, useNavigation } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
@@ -14,7 +14,7 @@ import { useColorScheme } from "@/components/useColorScheme";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Linking from "expo-linking";
 import { Text } from "react-native";
-import { NativeBaseProvider, extendTheme } from "native-base";
+
 import { colors4C } from "./asthetics";
 
 export {
@@ -23,7 +23,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "(tabs)",
+  initialRouteName: "(screens)",
 };
 
 // Setting up DeepLinks in Expo :
@@ -63,45 +63,33 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-const theme = extendTheme({
-  components: {
-    Button: {
-      // Can simply pass default props to change default behaviour of components.
-      baseStyle: {
-        rounded: "md",
-      },
-      defaultProps: {
-        colorScheme: colors4C.purple4C,
-      },
-    },
-    Heading: {
-      // Can pass also function, giving you access theming tools
-      baseStyle: ({ colorMode }: any) => {
-        return {
-          color: colorMode === "dark" ? "red.300" : "blue.300",
-          fontWeight: "normal",
-        };
-      },
-    },
-  },
-});
-
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+
+  // const prefix = Linking.createURL("foresee://");
+  const linking = {
+    prefixes: ["foresee://app"],
+    config: {
+      screens: {
+        app: "(screens)/index",
+        NotFound: "*",
+      },
+    },
+  };
 
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         {/* <NavigationContainer
-        independent={true}
+          independent={true}
           linking={linking}
           fallback={<Text>Loading..</Text>}
         > */}
-        <NativeBaseProvider theme={theme}>
-          <Stack>
-            <Stack.Screen name="(screens)" options={{ headerShown: false }} />
-          </Stack>
-        </NativeBaseProvider>
+
+        <Stack>
+          <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+        </Stack>
+
         {/* </NavigationContainer> */}
       </ThemeProvider>
     </SafeAreaProvider>

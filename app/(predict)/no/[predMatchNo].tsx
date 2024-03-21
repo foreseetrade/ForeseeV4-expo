@@ -19,13 +19,13 @@ import { useLocalSearchParams } from "expo-router";
 import { apiGetMatchByMatchNo } from "../../services/BEApis/match";
 
 const TradeForMatchNo = () => {
-  const { pred, predMatchId } = useLocalSearchParams();
+  const { predMatchNo } = useLocalSearchParams();
   const navigation = useNavigation();
   const [tradeData, setTradeData] = useState({} as any);
 
   const fnGetTradeById = async () => {
-    console.log(predMatchId);
-    const res = await apiGetMatchByMatchNo(predMatchId);
+    console.log(predMatchNo);
+    const res = await apiGetMatchByMatchNo(predMatchNo);
     console.log("Res fnGetTradeById", res?.data);
     setTradeData(res?.data);
   };
@@ -57,7 +57,7 @@ const TradeForMatchNo = () => {
         <Text
           style={{ ...styles.textLabel, color: colors4C.gray4C, fontSize: 16 }}
         >
-          Trading on YES at ₹{tradeData?.matchTeamAOdds}{" "}
+          Trading on NO at ₹{tradeData?.matchTeamAOdds}{" "}
         </Text>
       </View>
 
