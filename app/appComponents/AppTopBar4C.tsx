@@ -8,7 +8,7 @@ import { Image } from "expo-image";
 import FeatherIcon from "@expo/vector-icons/Feather";
 import { colors4C, imgBlurHash4C } from "../asthetics";
 import { View } from "@/components/Themed";
-import { Link, router } from "expo-router";
+import { Href, Link, router } from "expo-router";
 
 const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
@@ -33,7 +33,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
             router.navigate("/(screeens)/ProfileScreen");
           }}
         > */}
-        <Link href={"/(screens)/ProfileScreen"}>
+        <Link href={"/(tabs)/ProfileScreen" as Href<string>}>
           <Image
             style={styles.image}
             source="https://s3-alpha-sig.figma.com/img/0c52/bf10/e2be0ba114ea1535d61c8b0b3d69b898?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=o1FRC0QVNAN6DuIUFAp3fY690gX3zubvVOS-9E-VlEFyS3L2AxgPDpiiFDnryVzHRz78nWfX-LBd8L7UjlLQmF6X2aZfA2gXVJX9-FysWgjFsXDDdi1-vqPe8D4gzezrkiB1vylAxW67BWD9-VyABfznMro-FwLn4cmV4p7AAeqP3Jlbo-fdnThn-DC595Y1sjb-5yBXej~xVoqq72a6z3SW7EhnOt-YOgNmaIpG2igQ2pnyRBLa94Flm9p6wffZn5L~7jD9xVP1F2NIcu-4oFbKFzDwVcBrraHEQ1TS7kjdsmP-ztx0B8kxgdkRHAydGCwMebO7TepLYMmtuaTqww__"

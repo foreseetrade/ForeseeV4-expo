@@ -43,7 +43,7 @@ const GoogleLogin = () => {
 
     if (url.includes("foresee://app")) {
       setExpoStorage("jwt", url.split("jwt=")[1]);
-      router.push("/(screens)/");
+      router.push("/(tabs)/" as any);
     }
 
     if (Platform.OS === "ios") {
@@ -55,8 +55,8 @@ const GoogleLogin = () => {
 
   const handleGoogleLogin = async () => {
     console.log("Login with Google", url);
-    openURL("http://localhost:3000/user/google");
-    // openURL(`https://foresee-code4ai.koyeb.app/user/google`);
+    // openURL("http://localhost:3000/user/google");
+    openURL(`https://foresee-code4ai.koyeb.app/user/google`);
   };
 
   useEffect(() => {

@@ -105,25 +105,30 @@ const MatchPredCard = ({
   return (
     <View style={styles.container}>
       <Text style={styles.teamsText}>Win %</Text>
-
-      <View style={styles.predictionBarOuter}>
-        <View
-          style={[
-            styles.predictionBar,
-            { width: `${winPercentage}%`, backgroundColor: colors4C.purple4C },
-          ]}
-        />
-        <View
-          style={[
-            styles.predictionBar,
-            {
-              width: `${100 - winPercentage}%`,
-              backgroundColor: colors4C.white4C,
-            },
-          ]}
-        />
-      </View>
-
+      {winPercentage && (
+        <>
+          <View style={styles.predictionBarOuter}>
+            <View
+              style={[
+                styles.predictionBar,
+                {
+                  width: `${winPercentage}%`,
+                  backgroundColor: colors4C.purple4C,
+                },
+              ]}
+            />
+            <View
+              style={[
+                styles.predictionBar,
+                {
+                  width: `${100 - winPercentage}%`,
+                  backgroundColor: colors4C.white4C,
+                },
+              ]}
+            />
+          </View>
+        </>
+      )}
       <View
         style={{
           flexDirection: "row",

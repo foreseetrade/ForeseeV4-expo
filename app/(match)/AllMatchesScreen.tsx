@@ -5,11 +5,11 @@ import { Tab } from "@rneui/base";
 import { colors4C, sizes4C } from "../asthetics";
 import { apiGetMatchesByStatus } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
-const AllMatchesScreen = (activeTabProp: number) => {
+const AllMatchesScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(activeTabProp || 1);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleTabPress = (tabIndex: number) => {
     setActiveTab(tabIndex);

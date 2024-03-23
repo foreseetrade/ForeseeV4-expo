@@ -21,60 +21,13 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "(auth)/GoogleLogin",
-};
-
-// Setting up DeepLinks in Expo :
-// https://reactnavigation.org/docs/deep-linking
-
-// const prefix = Linking.createURL("/");
-const prefix = Linking.createURL("");
-const linking = {
-  prefixes: [prefix],
+  initialRouteName: "index",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const uri = Linking.useURL();
-  console.log("url", uri);
-
-  const [url, setURL] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
-
-  // Set up Linking
-  useEffect(() => {
-    Linking.addEventListener("url", (url) => handleOpenURL(url.url));
-    Linking.getInitialURL().then((url: string | null) => {
-      if (url) {
-        handleOpenURL(url);
-      }
-    });
-    return () => {
-      if (Linking) {
-      }
-    };
-  }, []);
-
-  const handleOpenURL = (url: string) => {
-    //  Extract jwt and store it in Expostorage
-    // foresee://app/login?jwt=${token}&user=${req.user}
-    // setExpoStorage("jwt", url.split("jwt=")[1]);
-
-    if (url.includes("foresee://app")) {
-      // setExpoStorage("jwt", url.split("jwt=")[1]);
-      router.push("/(screens)/");
-      setAuthenticated(true);
-    }
-
-    if (Platform.OS === "ios") {
-      // SafariView.dismiss();
-    } else {
-      setURL("");
-    }
-  };
-
   const [loaded, error] = useFonts({
     // SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     // ...FontAwesome.font,
@@ -84,18 +37,15 @@ export default function RootLayout() {
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
+    console.log("Err in Navigation Stack ", error);
     if (error) throw error;
   }, [error]);
 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-
-      if (authenticated) {
-        router.replace("/(auth)/GoogleLogin");
-      }
     }
-  }, [loaded, authenticated]);
+  }, [loaded]);
 
   if (!loaded) {
     return null;
@@ -116,7 +66,7 @@ function RootLayoutNav() {
         > */}
 
         <Stack>
-          <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
 
         {/* </NavigationContainer> */}

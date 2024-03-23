@@ -58,6 +58,7 @@ const AllTeamsMatchesScreen = (activeTabProp: number) => {
   return (
     <View style={styles.container}>
       <Tab
+        scrollable
         value={activeTab || 0}
         onChange={handleTabPress}
         buttonStyle={{ backgroundColor: "white" }}
@@ -68,13 +69,18 @@ const AllTeamsMatchesScreen = (activeTabProp: number) => {
           height: 2,
         }}
       >
-        {teamName.map((item, index) => (
-          <Tab.Item
-            key={index}
-            title={item}
-            titleStyle={{ color: colors4C.purple4C, fontSize: 12 }}
-          />
-        ))}
+        {teamName.map(
+          (item, index) => (
+            console.log("item", item),
+            (
+              <Tab.Item
+                key={index}
+                title={item.toUpperCase()}
+                titleStyle={{ color: colors4C.purple4C, fontSize: 12 }}
+              />
+            )
+          )
+        )}
       </Tab>
 
       {loading && <Text>Loading...</Text>}

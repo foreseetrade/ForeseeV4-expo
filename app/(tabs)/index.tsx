@@ -34,46 +34,11 @@ const HomeScreen = () => {
     <TeamLogoCard teamName={item} key={index} />
   ));
 
-  // const matchCardsData = [
-  //   {
-  //     matchStatus: "Live",
-  //     teamA: "CSK",
-  //     teamB: "MI",
-  //     cardSummary: "CSK 142/5 (16.5)",
-  //     navigateTo: "/(match)/1",
-  //   },
-  //   {
-  //     matchStatus: "Live",
-  //     teamA: "CSK",
-  //     teamB: "RR",
-  //     cardSummary: "Head to Head - 5 : 6",
-  //     navigateTo: "/(match)/2",
-  //   },
-  //   {
-  //     matchStatus: "Upcoming",
-  //     teamA: "DC",
-  //     teamB: "MI",
-  //     cardSummary: "Head to Head - 4 : 9",
-  //     navigateTo: "/(match)/3",
-  //   },
-  // ];
-
   const fnGetTrendingMatches = async (): Promise<void> => {
     const res = await apiGetTrendingMatches();
     console.log("Res fnGetTrendingMatches", res?.data);
     setTrendingMatches(res?.data);
   };
-
-  // const trendingMatchesJSX = matchCardsData.map((card, index) => (
-  //   <SmallMatchCard
-  //     key={index}
-  //     matchStatus={card.matchStatus}
-  //     teamA={card.teamA}
-  //     teamB={card.teamB}
-  //     cardSummary={card.cardSummary}
-  //     navigateTo={card.navigateTo}
-  //   />
-  // ));
 
   const trendingMatchesJSX = trendingMatches.map((card: any, index) => (
     <SmallMatchCard
@@ -82,7 +47,7 @@ const HomeScreen = () => {
       teamA={card.matchTeamA}
       teamB={card.matchTeamB}
       cardSummary={card.matchSummary}
-      navigateTo={`/(match)/${card.matchId}`}
+      navigateTo={`(match)/${card.matchId}`}
     />
   ));
 
@@ -111,14 +76,14 @@ const HomeScreen = () => {
       teamBOvers={item.matchTeamBOvers}
       showSummary={item?.matchStatus == "Live" ? true : false}
       matchSummary={item.matchSummary}
-      navigateTo={`/(match)/${item.matchNo}`}
+      navigateTo={`(match)/${item.matchNo}`}
     />
   ));
 
-  // useEffect(() => {
-  //   fnGetTrendingMatches();
-  //   fnGetRecentMatches();
-  // }, []);
+  useEffect(() => {
+    fnGetTrendingMatches();
+    fnGetRecentMatches();
+  }, []);
 
   return (
     <>
