@@ -29,6 +29,11 @@
       "android": {
         "image": "latest"
       },
+      "env": {
+        "EXPO_BE_LOCAL_URL": "http://localhost:3000",
+        "EXPO_BE_DEV_URL": "https://foresee-code4ai.koyeb.app",
+        "EXPO_BE_PROD_URL": "https://foresee-code4ai.koyeb.app"
+      },
       "ios": {
         "image": "latest"
       }
