@@ -7,7 +7,7 @@ import { colors4C, imgBlurHash4C, sizes4C } from "@/app/asthetics";
 import iconIpl from "../../../assets/images/logoTeams/IplLogo.svg";
 import MatchStatusChip from "../appChips/MatchStatusChip";
 import getTeamImageUrl from "../appUtils/functions/getImageUrl";
-import { router } from "expo-router";
+import { Href, router } from "expo-router";
 
 const MatchCard = ({
   showTopIcon,
@@ -35,11 +35,11 @@ const MatchCard = ({
   matchSummary,
   navigateTo,
 }: any) => {
-  const handlePress = () => {
-    console.log("MatchCard pressed");
-    if (!navigateTo) return;
-    router.push(navigateTo);
-  };
+  // const handlePress = () => {
+  //   console.log("MatchCard pressed");
+  //   if (!navigateTo) return;
+  //   router.push(navigateTo);
+  // };
 
   return (
     // {
@@ -69,7 +69,16 @@ const MatchCard = ({
     // }
     // <View>
     <>
-      <Pressable onPress={handlePress}>
+     
+    <Pressable
+      onPress={() => {
+        router.push({
+          pathname: navigateTo as Href<string>,
+        });
+
+        // navigation.navigate(navigateTo);
+      }}
+    >
         <View
           style={{
             flexDirection: "column",

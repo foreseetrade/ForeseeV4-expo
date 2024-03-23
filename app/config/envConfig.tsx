@@ -1,10 +1,3 @@
-import Constants from 'expo-constants';
-
-Object.entries(Constants.expoConfig?.extra?.env).forEach(([key, value]) => {
-  if (!key.startsWith('EXPO_') || process.env[key]) return;
-  process.env[key] = `${value}`;
-});
-
 export const envEnvironment = "dev";
 
 export const envEXPO_BE_LOCAL_URL = process.env.EXPO_BE_LOCAL_URL;

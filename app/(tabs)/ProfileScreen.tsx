@@ -17,21 +17,21 @@ const ProfileScreen = () => {
       cardText: "Profile",
       navigateTo: "(profile)/EditProfile",
     },
-    {
-      leftIcon: <Feather name="settings" size={16} color={colors4C.blue4C} />,
-      rightIcon: (
-        <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
-      ),
-      cardText: "Settings",
-      navigateTo: "(wallet)/WithdrawScreen",
-    },
+    // {
+    //   leftIcon: <Feather name="settings" size={16} color={colors4C.blue4C} />,
+    //   rightIcon: (
+    //     <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
+    //   ),
+    //   cardText: "Settings",
+    //   navigateTo: "(wallet)/WithdrawScreen",
+    // },
     {
       leftIcon: <Feather name="info" size={16} color={colors4C.blue4C} />,
       rightIcon: (
         <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
       ),
       cardText: "App Info",
-      navigateTo: "(wallet)/WithdrawScreen",
+      navigateTo: "(profile)/AppInfoScreen",
     },
     {
       leftIcon: <Feather name="book" size={16} color={colors4C.blue4C} />,
@@ -39,7 +39,7 @@ const ProfileScreen = () => {
         <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
       ),
       cardText: "FAQs",
-      navigateTo: "(wallet)/WithdrawScreen",
+      navigateTo: "(profile)/FaqsScreen",
     },
     {
       leftIcon: <Feather name="log-out" size={16} color={colors4C.blue4C} />,

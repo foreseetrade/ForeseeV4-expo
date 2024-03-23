@@ -17,8 +17,6 @@ import getTeamImageUrl from "../../appComponents/appUtils/functions/getImageUrl"
 import { router, useNavigation } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import { apiGetMatchByMatchNo } from "../../services/BEApis/match";
-import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
-
 
 const TradeForMatchNo = () => {
   const { predMatchNo } = useLocalSearchParams();
@@ -49,7 +47,7 @@ const TradeForMatchNo = () => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={getTeamImageUrl(`${tradeData?.matchTeamA}Logo`)}
+          source={getTeamImageUrl(`${tradeData?.matchTeamB}Logo`)}
           placeholder={imgBlurHash4C}
           contentFit="cover"
           transition={8}
@@ -88,7 +86,6 @@ const TradeForMatchNo = () => {
           <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
-
     </ScrollView>
   );
 };

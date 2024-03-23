@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: sizes4C.medium4C,
     backgroundColor: colors4C.light4C,
-    // borderWidth: 0.2,
+    borderWidth: 0.2,
     borderColor: colors4C.purple4C,
     borderRadius: sizes4C.small4C,
   },

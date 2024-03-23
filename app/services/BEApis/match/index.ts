@@ -16,3 +16,8 @@ export const apiGetTrendingMatches = async () => {
   const result = await apiInstance.get(`match/trending`);
   return result;
 };
+
+export const apiGetMatchByTeamName = async (teamName: any) => {
+  const result = await apiInstance.get(`match/team?team=${teamName}`);
+  return result;
+};

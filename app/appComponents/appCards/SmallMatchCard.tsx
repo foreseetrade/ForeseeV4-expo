@@ -5,7 +5,7 @@ import { colors4C, sizes4C } from "@/app/asthetics";
 import { Image } from "expo-image";
 
 import getTeamImageUrl from "../appUtils/functions/getImageUrl";
-import { router } from "expo-router";
+import { Href, router } from "expo-router";
 
 const SmallMatchCard = ({
   teamA,
@@ -14,13 +14,21 @@ const SmallMatchCard = ({
   cardSummary,
   navigateTo,
 }: any) => {
-  const handlePress = () => {
-    if (!navigateTo) return;
-    router.push(navigateTo);
-  };
+  // const handlePress = () => {
+  //   if (!navigateTo) return;
+  //   router.push(navigateTo);
+  // };
 
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable
+      onPress={() => {
+        router.push({
+          pathname: navigateTo as Href<string>,
+        });
+
+        // navigation.navigate(navigateTo);
+      }}
+    >
       <View style={styles.container}>
         <View style={{ padding: 4 }}>
           <MatchStatusChip matchStatus={matchStatus} />

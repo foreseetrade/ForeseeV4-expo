@@ -79,7 +79,7 @@ const TradeForMatchNo = () => {
           style={styles.topupButton}
           onPress={() => {
             console.log("topup");
-            router.push("/(wallet)/SuccessScreen");
+            router.push("/(wallet)/FeedbackScreen");
           }}
         >
           <Text style={styles.buttonText}>Confirm</Text>

@@ -3,61 +3,64 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Tab } from "@rneui/base";
 import { colors4C, sizes4C } from "../asthetics";
-import { apiGetMatchesByStatus } from "../services/BEApis/match";
+import {
+  apiGetMatchByTeamName,
+  apiGetMatchesByStatus,
+} from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
-const AllMatchesScreen = () => {
+
+const AllTeamsMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState();
+  const [teamName, setTeamName] = useState([
+    "RCB",
+    "DC",
+    "MI",
+    "KKR",
+    "CSK",
+    "SRH",
+    "PBKS",
+    "RR",
+    "GT",
+    "LSG",
+  ]);
 
-  const handleTabPress = (tabIndex: number) => {
+  const handleTabPress = (tabIndex: any) => {
     setActiveTab(tabIndex);
   };
 
-  const fnGetMatches = async (matchStatus: any) => {
+  const fnGetMatches = async () => {
     setLoading(true);
 
-    const res: any = await apiGetMatchesByStatus(matchStatus);
+    const res: any = await apiGetMatchByTeamName(teamName[activeTab || 0]);
     console.log("Res fnGetMatches", res);
     setData(res?.data.sort((a: any, b: any) => a.matchNo - b.matchNo));
 
     setLoading(false);
   };
 
-  const fnFetchByTab = async () => {
-    if (activeTab === 0) {
-      fnGetMatches("Live");
-    }
-    if (activeTab === 1) {
-      fnGetMatches("Upcoming");
-    }
-    if (activeTab === 2) {
-      fnGetMatches("Completed");
-    }
-  };
-
   useEffect(() => {
-    fnFetchByTab();
+    fnGetMatches();
   }, []);
 
   useEffect(() => {
-    fnFetchByTab();
+    fnGetMatches();
   }, [activeTab]);
 
   useEffect(() => {
-    // Update header name when component mounts
     navigation.setOptions({
-      headerTitle: "All Matches",
+      headerTitle: "IPL Teams",
     });
   }, []);
 
   return (
     <View style={styles.container}>
       <Tab
+        scrollable
         value={activeTab || 0}
         onChange={handleTabPress}
-        // disableIndicator
         buttonStyle={{ backgroundColor: "white" }}
         containerStyle={{ backgroundColor: "white" }}
         titleStyle={{ color: colors4C.purple4C, fontSize: 12 }}
@@ -66,20 +69,20 @@ const AllMatchesScreen = () => {
           height: 2,
         }}
       >
-        <Tab.Item title="Live" />
-        <Tab.Item title="Upcoming" />
-        <Tab.Item title="Completed" />
+        {teamName.map(
+          (item, index) => (
+            console.log("item", item),
+            (
+              <Tab.Item
+                key={index}
+                title={item.toUpperCase()}
+                titleStyle={{ color: colors4C.purple4C, fontSize: 12 }}
+              />
+            )
+          )
+        )}
       </Tab>
 
-      {/* {activeTab === 0 && (
-        <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Recent</Text>
-      )}
-      {activeTab === 1 && (
-        <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Upcoming</Text>
-      )}
-      {activeTab === 2 && (
-        <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Live</Text>
-      )} */}
       {loading && <Text>Loading...</Text>}
       {!loading &&
         data &&
@@ -105,7 +108,7 @@ const AllMatchesScreen = () => {
   );
 };
 
-export default AllMatchesScreen;
+export default AllTeamsMatchesScreen;
 
 const styles = StyleSheet.create({
   container: {
