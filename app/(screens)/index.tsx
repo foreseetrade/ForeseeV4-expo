@@ -115,10 +115,10 @@ const HomeScreen = () => {
     />
   ));
 
-  useEffect(() => {
-    fnGetTrendingMatches();
-    fnGetRecentMatches();
-  }, []);
+  // useEffect(() => {
+  //   fnGetTrendingMatches();
+  //   fnGetRecentMatches();
+  // }, []);
 
   return (
     <>
@@ -127,7 +127,7 @@ const HomeScreen = () => {
           <CarouselComponent />
           <SectionHeader
             headingName="IPL Teams"
-            navigateTo="/(match)/AllMatchesScreen"
+            navigateTo="/(match)/AllTeamsMatchesScreen"
           />
           <ScrollView
             horizontal

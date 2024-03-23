@@ -1,6 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
-import { colors4C } from "../asthetics";
+import { colors4C, sizes4C } from "../asthetics";
 import { useNavigation } from "expo-router";
 
 const EditProfile = () => {
@@ -8,21 +15,76 @@ const EditProfile = () => {
   useEffect(() => {
     // Update header name when component mounts
     navigation.setOptions({
-      headerTitle: "Trade",
+      headerTitle: "Edit Profile",
     });
   }, []);
 
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Name"
+        placeholderTextColor={colors4C.gray4C}
+        style={styles.textInput}
+      />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Email"
+        placeholderTextColor={colors4C.gray4C}
+      />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Username"
+        placeholderTextColor={colors4C.gray4C}
+      />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Phone Number"
+        placeholderTextColor={colors4C.gray4C}
+      />
+
+      <TextInput
+        style={styles.textInput}
+        placeholder="Password"
+        placeholderTextColor={colors4C.gray4C}
+      />
+      <TouchableOpacity
+        style={styles.primaryBtn}
+        onPress={() => {
+          console.log("topup");
+        }}
+      >
+        <Text style={styles.primaryBtnText}>Save</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 export default EditProfile;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 16,
+    padding: 16,
     flex: 1,
     gap: 16,
     // justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors4C.light4C,
+  },
+  textInput: {
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 8,
+    width: "100%",
+    borderColor: colors4C.gray4C,
+  },
+  primaryBtn: {
+    width: "100%",
+    backgroundColor: colors4C.purple4C,
+    padding: 12,
+    borderRadius: sizes4C.small4C,
+  },
+  primaryBtnText: {
+    color: colors4C.white4C,
+    textAlign: "center",
   },
 });

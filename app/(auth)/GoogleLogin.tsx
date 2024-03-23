@@ -12,7 +12,7 @@ import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import { openURL } from "expo-linking";
 import { setExpoStorage } from "../services/expo-storage";
 import { envEXPO_BE_DEV_URL, envEXPO_BE_URL } from "../config/envConfig";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { Image } from "expo-image";
 
 // @ts-ignore
@@ -23,24 +23,28 @@ const GoogleLogin = () => {
   const [url, setURL] = useState("");
 
   // Set up Linking
-  // useEffect(() => {
-  //   Linking.addEventListener("url", (url) => handleOpenURL(url.url));
-  //   Linking.getInitialURL().then((url: string | null) => {
-  //     if (url) {
-  //       handleOpenURL(url);
-  //     }
-  //   });
-  //   return () => {
-  //     if (Linking) {
-  //       Linking.removeAllListeners("url");
-  //     }
-  //   };
-  // }, []);
+  useEffect(() => {
+    Linking.addEventListener("url", (url) => handleOpenURL(url.url));
+    Linking.getInitialURL().then((url: string | null) => {
+      if (url) {
+        handleOpenURL(url);
+      }
+    });
+    return () => {
+      if (Linking) {
+      }
+    };
+  }, []);
 
   const handleOpenURL = (url: string) => {
     //  Extract jwt and store it in Expostorage
     // foresee://app/login?jwt=${token}&user=${req.user}
     setExpoStorage("jwt", url.split("jwt=")[1]);
+
+    if (url.includes("foresee://app")) {
+      setExpoStorage("jwt", url.split("jwt=")[1]);
+      router.push("/(screens)/");
+    }
 
     if (Platform.OS === "ios") {
       // SafariView.dismiss();
@@ -49,24 +53,13 @@ const GoogleLogin = () => {
     }
   };
 
-  //method that opens a given url
-  //based on the platform will use either SafariView or Linking
-  //SafariView is a better practice in IOS
-  // const fnOpenURL = (url: string) => {
-  //   // // Use SafariView on iOS
-  //   if (Platform.OS === "ios") {
-  //     // SafariView.show({
-  //     //   url,
-  //     //   fromBottom: true,
-  //     // });
-  //     setURL(url);
-  //   } else {
-  //     setURL(url);
-  //   }
-  // };
+  const handleGoogleLogin = async () => {
+    console.log("Login with Google", url);
+    openURL("http://localhost:3000/user/google");
+    // openURL(`https://foresee-code4ai.koyeb.app/user/google`);
+  };
 
   useEffect(() => {
-    // Update header name when component mounts
     navigation.setOptions({
       headerTitle: "Foresee",
       headerLeft: () => (
@@ -82,14 +75,7 @@ const GoogleLogin = () => {
   }, []);
 
   return (
-    <Pressable
-      style={styles.btnWrap}
-      onPress={() => {
-        console.log("Login with Google", url);
-        // openURL("http://localhost:3000");
-        openURL(`https://foresee-code4ai.koyeb.app/user/google`);
-      }}
-    >
+    <Pressable style={styles.btnWrap} onPress={handleGoogleLogin}>
       <Text style={styles.buttonText}>Login with Google</Text>
     </Pressable>
   );

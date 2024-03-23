@@ -4,22 +4,25 @@
     "slug": "Foresee",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash/foreseeLogo.png",
+    "icon": "./assets/splash/LogoRBG.png",
     "scheme": "foresee",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash/foreseeLogo.png",
+      "image": "./assets/splash/LogoRBG.png",
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "foresee"
+      "bundleIdentifier": "foresee",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash/foreseeLogo.png",
+        "foregroundImage": "./assets/splash/LogoRBG.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.code4ai.foresee"
@@ -27,9 +30,13 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/splash/foreseeLogo.png"
+      "scheme": "foresee",
+      "favicon": "./assets/splash/LogoRBG.png"
     },
-    "plugins": ["expo-router", "expo-secure-store"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
     "experiments": {
       "typedRoutes": true
     },
@@ -39,6 +46,9 @@
         "eas": {
           "projectId": "cbedd307-54ad-43bb-8ee8-fe6a2058405e"
         }
+      },
+      "eas": {
+        "projectId": "9196658a-6e86-47d4-a385-65d572c15381"
       }
     }
   }
