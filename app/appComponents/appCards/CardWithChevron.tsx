@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Image } from "expo-image";
 import { Href, Link, router } from "expo-router";
 import { colors4C, sizes4C } from "@/app/asthetics";
+import { deleteExpoStorage } from "@/app/services/expo-storage";
 
 const CardWithChevron = ({
   leftIcon,
@@ -25,6 +26,7 @@ const CardWithChevron = ({
             router.replace({
               pathname: navigateTo as Href<string>,
             });
+            deleteExpoStorage("jwt");
             return;
           }
           router.push({

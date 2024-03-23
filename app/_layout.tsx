@@ -65,7 +65,7 @@ function RootLayoutNav() {
           fallback={<Text>Loading..</Text>}
         > */}
 
-        <Stack>
+        <Stack initialRouteName="(auth)/GoogleLogin">
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
 
