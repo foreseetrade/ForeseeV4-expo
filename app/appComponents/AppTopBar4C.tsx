@@ -12,6 +12,8 @@ import { Href, Link, router } from "expo-router";
 
 const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
+  // const userProfileData = 
+
   return (
     <Pressable
       style={{

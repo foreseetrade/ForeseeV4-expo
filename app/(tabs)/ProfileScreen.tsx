@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "expo-image";
 import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import CardWithChevron from "../appComponents/appCards/CardWithChevron";
@@ -7,9 +7,11 @@ import { Feather } from "@expo/vector-icons";
 import TranButton from "../appComponents/appButtons/TranButton";
 import StatButton from "../appComponents/appButtons/StatButton";
 import { router } from "expo-router";
-import { deleteExpoStorage } from "../services/expo-storage";
+import { deleteExpoStorage, getExpoStorage } from "../services/expo-storage";
+import { apiGetProfile } from "../services/BEApis/profile";
 
 const ProfileScreen = () => {
+  const [profileData, setProfileData] = React.useState<any>({});
   const cardData = [
     {
       leftIcon: <Feather name="user" size={16} color={colors4C.blue4C} />,
@@ -53,6 +55,21 @@ const ProfileScreen = () => {
     },
   ];
 
+  const fnGetProfile = async () => {
+    const storedEmail = await getExpoStorage("localEmail");
+    const res = await apiGetProfile(storedEmail as string);
+
+    console.log("Res fnGetProfile", res?.data);
+
+    if (res?.data) {
+      setProfileData(res?.data);
+    }
+  };
+
+  useEffect(() => {
+    fnGetProfile();
+  }, []);
+
   return (
     <>
       <View
@@ -66,7 +83,9 @@ const ProfileScreen = () => {
           <View style={styles.imageBg}>
             <Image
               source={
-                "https://s3-alpha-sig.figma.com/img/0c52/bf10/e2be0ba114ea1535d61c8b0b3d69b898?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=o1FRC0QVNAN6DuIUFAp3fY690gX3zubvVOS-9E-VlEFyS3L2AxgPDpiiFDnryVzHRz78nWfX-LBd8L7UjlLQmF6X2aZfA2gXVJX9-FysWgjFsXDDdi1-vqPe8D4gzezrkiB1vylAxW67BWD9-VyABfznMro-FwLn4cmV4p7AAeqP3Jlbo-fdnThn-DC595Y1sjb-5yBXej~xVoqq72a6z3SW7EhnOt-YOgNmaIpG2igQ2pnyRBLa94Flm9p6wffZn5L~7jD9xVP1F2NIcu-4oFbKFzDwVcBrraHEQ1TS7kjdsmP-ztx0B8kxgdkRHAydGCwMebO7TepLYMmtuaTqww__"
+                profileData?.profileImage
+                  ? { uri: profileData?.profileImage }
+                  : imgBlurHash4C
               }
               placeholder={imgBlurHash4C}
               contentFit="cover"
@@ -74,10 +93,8 @@ const ProfileScreen = () => {
               style={styles.imageStyle}
             />
 
-            <Text style={styles.textStyle}>IPhoenix</Text>
-            <Text style={styles.textStyle}>
-              Igiphoenixtestinglong@gmail.com
-            </Text>
+            <Text style={styles.textStyle}>{profileData?.fullName}</Text>
+            <Text style={styles.textStyle}>{profileData?.email}</Text>
           </View>
         </View>
         <View style={styles.statButtonContainer}>

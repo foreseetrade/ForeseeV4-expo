@@ -7,15 +7,15 @@ import * as SecureStore from "expo-secure-store";
 export const getExpoStorage = async (key: string) => {
   try {
     const res = await SecureStore.getItemAsync(key);
-    console.log("Res getExpoStorage", res);
-    return res !== null ? res : null; // Return null if item not found
+    // console.log("Res getExpoStorage", res);
+    return res; // Return null if item not found
   } catch (err) {
     console.error("Err getExpoStorage", err);
     throw err; // Throw the error for better handling at the caller level
   }
 };
 
-export const setExpoStorage = async (key: string, value: any) => {
+export const setExpoStorage = async (key: string, value: string) => {
   try {
     const serializedValue = JSON.stringify(value);
     await SecureStore.setItemAsync(key, serializedValue);

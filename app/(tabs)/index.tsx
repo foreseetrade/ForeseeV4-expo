@@ -12,8 +12,9 @@ import {
   apiGetMatchesByStatus,
   apiGetTrendingMatches,
 } from "../services/BEApis/match";
-import { getExpoStorage } from "../services/expo-storage";
+import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
 import { router } from "expo-router";
+import { apiGetProfile } from "../services/BEApis/profile";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
@@ -38,7 +39,7 @@ const HomeScreen = () => {
 
   const fnGetTrendingMatches = async (): Promise<void> => {
     const res = await apiGetTrendingMatches();
-    console.log("Res fnGetTrendingMatches", res?.data);
+    // console.log("Res fnGetTrendingMatches", res?.data);
     setTrendingMatches(res?.data);
   };
 
@@ -82,20 +83,31 @@ const HomeScreen = () => {
     />
   ));
 
-  useEffect(() => {
-    fnGetTrendingMatches();
-    fnGetRecentMatches();
-  }, []);
+  const fnGetProfile = async () => {
+    const storedEmail = await getExpoStorage("localEmail");
+    const res = await apiGetProfile(storedEmail as string);
+    console.log("Res fnGetProfile", res?.data);
+    // setExpoStorage("localUserId", res);
+  };
 
   const fnCheckAuth = async () => {
-    const storedJWT = await getExpoStorage("jwt");
+    const storedJWT = getExpoStorage("jwt");
     console.log("storedJWT in GoogleLogin Page", storedJWT);
     if (storedJWT === null) {
       router.push("/(auth)/GoogleLogin");
-    } else {
+    }
+    if (storedJWT !== null) {
+      fnGetProfile();
+      fnGetTrendingMatches();
+      fnGetRecentMatches();
       return;
     }
   };
+
+  // useEffect(() => {
+  //   fnGetTrendingMatches();
+  //   fnGetRecentMatches();
+  // }, []);
 
   useEffect(() => {
     fnCheckAuth();

@@ -40,6 +40,7 @@ const GoogleLogin = () => {
     //  Extract jwt and store it in Expostorage
     // foresee://app/login?jwt=${token}&user=${req.user}
     setExpoStorage("jwt", url.split("jwt=")[1]);
+    setExpoStorage("localEmail", url.split("email=")[1]);
 
     if (url.includes("foresee://app")) {
       setExpoStorage("jwt", url.split("jwt=")[1]);
