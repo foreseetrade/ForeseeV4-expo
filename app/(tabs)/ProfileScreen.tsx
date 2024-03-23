@@ -9,6 +9,7 @@ import StatButton from "../appComponents/appButtons/StatButton";
 import { router } from "expo-router";
 import { deleteExpoStorage, getExpoStorage } from "../services/expo-storage";
 import { apiGetProfile } from "../services/BEApis/profile";
+import ActionSheet from "../appComponents/appCards/ActionSheet";
 
 const ProfileScreen = () => {
   const [profileData, setProfileData] = React.useState<any>({});

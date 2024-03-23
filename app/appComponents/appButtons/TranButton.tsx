@@ -5,34 +5,69 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
-import { Href, Link } from "expo-router";
+import React, { useState } from "react";
+import { Href, Link, router } from "expo-router";
 import { colors4C, sizes4C } from "@/app/asthetics";
+import {
+  Actionsheet,
+  ActionsheetBackdrop,
+  ActionsheetContent,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetDragIndicator,
+  ActionsheetItem,
+  ActionsheetItemText,
+  Input,
+  InputField,
+} from "@gluestack-ui/themed";
+import TopupCard from "../appCards/TopupCard";
 
 const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon }: any) => {
+  const [showActionsheet, setShowActionsheet] = useState(false);
+  const handleClose = () => setShowActionsheet(!showActionsheet);
+
   return (
     <>
-      <Link href={`${navigateTo as Href<string>}`} asChild>
-        <TouchableOpacity>
-          <>
-            <View style={styles.btnWrap}>
-              {/* <Image source={leftIcon} /> */}
-              {leftIcon}
-              <View
-                style={{
-                  flexDirection: "column",
-                  gap: 8,
-                  alignItems: "center",
-                }}
-              >
-                <Text style={styles.textStyle}>{btnText}</Text>
-              </View>
-              {/* <Image source={rightIcon} /> */}
-              {rightIcon}
+      <TouchableOpacity
+        onPress={() => {
+          if (navigateTo) {
+            router.push({ pathname: navigateTo as Href<string> });
+          } else {
+            setShowActionsheet(!showActionsheet);
+          }
+        }}
+      >
+        <>
+          <View style={styles.btnWrap}>
+            {/* <Image source={leftIcon} /> */}
+            {leftIcon}
+            <View
+              style={{
+                flexDirection: "column",
+                gap: 8,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.textStyle}>{btnText}</Text>
             </View>
-          </>
-        </TouchableOpacity>
-      </Link>
+            {/* <Image source={rightIcon} /> */}
+            {rightIcon}
+          </View>
+        </>
+
+        <Actionsheet
+          isOpen={showActionsheet}
+          onClose={handleClose}
+          zIndex={999}
+        >
+          <ActionsheetBackdrop />
+          <ActionsheetContent height={"auto"} zIndex={999}>
+            <ActionsheetDragIndicatorWrapper>
+              <ActionsheetDragIndicator />
+            </ActionsheetDragIndicatorWrapper>
+            <TopupCard />
+          </ActionsheetContent>
+        </Actionsheet>
+      </TouchableOpacity>
     </>
   );
 };

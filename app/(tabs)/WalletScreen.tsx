@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 
 import { Link } from "expo-router";
@@ -7,8 +7,21 @@ import { borderRadius4C, colors4C, spacing4C } from "../asthetics";
 import TransactionCard from "../appComponents/appCards/TransactionCard";
 import TranButton from "../appComponents/appButtons/TranButton";
 import { Feather } from "@expo/vector-icons";
+import {
+  Actionsheet,
+  ActionsheetBackdrop,
+  ActionsheetContent,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetDragIndicator,
+  ActionsheetItem,
+  ActionsheetItemText,
+} from "@gluestack-ui/themed";
+
 
 const WalletScreen = () => {
+  const [showActionsheet, setShowActionsheet] = useState(false);
+  const handleClose = () => setShowActionsheet(!showActionsheet);
+
   return (
     <View
       style={{
@@ -30,11 +43,13 @@ const WalletScreen = () => {
           width: "100%",
         }}
       >
-        <TranButton
-          navigateTo="/(wallet)/TopupScreen"
-          btnText="Topup"
-          leftIcon={<Feather name="send" size={16} color={colors4C.blue4C} />}
-        />
+        <TouchableOpacity onPress={handleClose}>
+          <TranButton
+            // navigateTo="/(wallet)/TopupScreen"
+            btnText="Topup"
+            leftIcon={<Feather name="send" size={16} color={colors4C.blue4C} />}
+          />
+        </TouchableOpacity>
         <TranButton
           navigateTo="/(wallet)/WithdrawScreen"
           btnText="Withdraw"
@@ -85,6 +100,30 @@ const WalletScreen = () => {
           tranTimestamp="12-12-2022 12:12"
         />
       </View>
+
+      <Actionsheet isOpen={showActionsheet} onClose={handleClose} zIndex={999}>
+        <ActionsheetBackdrop />
+        <ActionsheetContent height={"auto"} zIndex={999}>
+          <ActionsheetDragIndicatorWrapper>
+            <ActionsheetDragIndicator />
+          </ActionsheetDragIndicatorWrapper>
+          <ActionsheetItem onPress={handleClose}>
+            <ActionsheetItemText>Delete</ActionsheetItemText>
+          </ActionsheetItem>
+          <ActionsheetItem onPress={handleClose}>
+            <ActionsheetItemText>Share</ActionsheetItemText>
+          </ActionsheetItem>
+          <ActionsheetItem onPress={handleClose}>
+            <ActionsheetItemText>Play</ActionsheetItemText>
+          </ActionsheetItem>
+          <ActionsheetItem onPress={handleClose}>
+            <ActionsheetItemText>Favourite</ActionsheetItemText>
+          </ActionsheetItem>
+          <ActionsheetItem onPress={handleClose}>
+            <ActionsheetItemText>Cancel</ActionsheetItemText>
+          </ActionsheetItem>
+        </ActionsheetContent>
+      </Actionsheet>
     </View>
   );
 };
