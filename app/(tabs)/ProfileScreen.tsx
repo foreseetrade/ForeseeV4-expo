@@ -6,6 +6,8 @@ import CardWithChevron from "../appComponents/appCards/CardWithChevron";
 import { Feather } from "@expo/vector-icons";
 import TranButton from "../appComponents/appButtons/TranButton";
 import StatButton from "../appComponents/appButtons/StatButton";
+import { router } from "expo-router";
+import { deleteExpoStorage } from "../services/expo-storage";
 
 const ProfileScreen = () => {
   const cardData = [

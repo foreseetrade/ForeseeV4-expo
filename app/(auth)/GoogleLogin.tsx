@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { apiGoogleLogin } from "../services/BEApis/auth";
 import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import { openURL } from "expo-linking";
-import { setExpoStorage } from "../services/expo-storage";
+import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
 import { envEXPO_BE_DEV_URL, envEXPO_BE_URL } from "../config/envConfig";
 import { router, useNavigation } from "expo-router";
 import { Image } from "expo-image";

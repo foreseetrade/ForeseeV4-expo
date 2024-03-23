@@ -12,6 +12,8 @@ import {
   apiGetMatchesByStatus,
   apiGetTrendingMatches,
 } from "../services/BEApis/match";
+import { getExpoStorage } from "../services/expo-storage";
+import { router } from "expo-router";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
@@ -85,6 +87,19 @@ const HomeScreen = () => {
     fnGetRecentMatches();
   }, []);
 
+  const fnCheckAuth = async () => {
+    const storedJWT = await getExpoStorage("jwt");
+    console.log("storedJWT in GoogleLogin Page", storedJWT);
+    if (storedJWT === null) {
+      router.push("/(auth)/GoogleLogin");
+    } else {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    fnCheckAuth();
+  }, []);
   return (
     <>
       <GestureHandlerRootView>
