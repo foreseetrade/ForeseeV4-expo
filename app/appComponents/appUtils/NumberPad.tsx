@@ -1,9 +1,14 @@
 import { colors4C, sizes4C } from "@/app/asthetics";
-import React, { useState } from "react";
+import { setExpoStorage } from "@/app/services/expo-storage";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-const NumberPad = () => {
+const NumberPad = ({ scope, predMatchNo, btnText }: any) => {
   const [displayValue, setDisplayValue] = useState("0");
+  const fnHandleConfirm = () => {
+    console.log("scope", scope);
+    console.log("displayValue", displayValue);
+  };
 
   const handleNumberPress = (number: number) => {
     setDisplayValue((prevValue) => {
@@ -63,6 +68,10 @@ const NumberPad = () => {
     { value: 1000, label: "+1000" },
   ];
 
+  useEffect(() => {
+    setExpoStorage("tradeAmt", displayValue);
+  }, [displayValue]);
+
   return (
     <View>
       <View style={styles.inputContainer}>
@@ -104,6 +113,12 @@ const NumberPad = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <TouchableOpacity onPress={fnHandleConfirm} style={styles.confBtn}>
+        <Text style={styles.confBtnText}>
+          {(btnText as string) || "Confirm"}
+        </Text>
+      </TouchableOpacity>
       {/* </View> */}
     </View>
   );
@@ -177,6 +192,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: colors4C.gray4C,
+  },
+  confBtn: {
+    marginTop: sizes4C.small4C,
+    backgroundColor: colors4C.purple4C,
+    padding: 12,
+    borderRadius: sizes4C.small4C,
+  },
+  confBtnText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors4C.white4C,
+    textAlign: "center",
   },
 });
 

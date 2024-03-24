@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -16,6 +16,7 @@ import { Image } from "expo-image";
 import getTeamImageUrl from "../appComponents/appUtils/functions/getImageUrl";
 import { router, useNavigation } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
+import { getExpoStorage } from "../services/expo-storage";
 
 const TradeScreen = () => {
   const { matchId } = useLocalSearchParams();
@@ -59,16 +60,7 @@ const TradeScreen = () => {
       </View>
 
       <View style={styles.numberPadContainer}>
-        <NumberPad />
-        <TouchableOpacity
-          style={styles.topupButton}
-          onPress={() => {
-            console.log("topup");
-            router.push("/(wallet)/FeedbackScreen");
-          }}
-        >
-          <Text style={styles.buttonText}>Confirm</Text>
-        </TouchableOpacity>
+        <NumberPad scope="trade" btnText="Confirm" />
       </View>
     </ScrollView>
   );

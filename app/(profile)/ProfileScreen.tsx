@@ -11,6 +11,7 @@ import { deleteExpoStorage, getExpoStorage } from "../services/expo-storage";
 import { apiGetProfile } from "../services/BEApis/profile";
 import ActionSheet from "../appComponents/appCards/ActionSheet";
 import useProfileData from "../customHooks/useProfileData";
+import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/utilRemoveDoubleQuotes";
 
 const ProfileScreen = () => {
   // const [profileData, setProfileData] = useState(useProfileData());
@@ -61,16 +62,32 @@ const ProfileScreen = () => {
   ];
 
   const fnGetProfile = async () => {
-    const storedEmail = await getExpoStorage("localEmail");
-    console.log("storedEmail", storedEmail);
+    // const storedEmail = await getExpoStorage("localEmail");
+    // console.log("storedEmail", storedEmail);
 
-    // Removing double quotes and extracting data between them
-    const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
-    console.log("extractedData", extractedData);
+    // // Removing double quotes and extracting data between them
+    // const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
+    // console.log("extractedData", extractedData);
 
-    const res = await apiGetProfile(extractedData || "");
-    console.log("Res fnGetProfile", res?.data);
-    setProfileData(res?.data);
+    // const res = await apiGetProfile(extractedData || "");
+    // console.log("Res fnGetProfile", res?.data);
+    // setProfileData(res?.data);
+
+    const localEmail = await getExpoStorage("localEmail");
+    const localWalBalance = await getExpoStorage("localWalBalance");
+    const localPfpUrl = await getExpoStorage("localPfpUrl");
+    const localName = await getExpoStorage("localName");
+    const localUserWins = await getExpoStorage("localUserWins");
+
+    setProfileData({
+      userName: utilRemoveDoubleQuotes(localName || "") || "",
+      userPfpUrl: utilRemoveDoubleQuotes(localPfpUrl || "") || "",
+      userEmail: utilRemoveDoubleQuotes(localEmail || "") || "",
+      userWalletBalance: utilRemoveDoubleQuotes(localWalBalance || "") || "",
+      userWins: utilRemoveDoubleQuotes(localUserWins || "") || "",
+    });
+
+    console.log("profileData", profileData);
   };
 
   // Run it every 5s
@@ -82,7 +99,7 @@ const ProfileScreen = () => {
   }, []);
 
   useEffect(() => {
-    // fnGetProfile();
+    fnGetProfile();
   }, []);
 
   return (
@@ -94,6 +111,7 @@ const ProfileScreen = () => {
           borderRadius: sizes4C.small4C,
         }}
       >
+        {!profileData && <Text>Loading...</Text>}
         {profileData && (
           <>
             <View style={styles.imgWrap}>
@@ -114,47 +132,43 @@ const ProfileScreen = () => {
                 <Text style={styles.textStyle}>{profileData?.userEmail}</Text>
               </View>
             </View>
-            <View style={styles.statButtonContainer}>
-              {/* <Text>HomeScreen</Text> */}
-              {/* <MatchCard /> */}
-              {/* <MatchPredCard winPercentage={75} />  */}
-              {/* <NumberPad /> */}
-              <StatButton
-                navigateTo="(wallet)/AllTransactionsScreen"
-                btnStatText={profileData?.userWins}
-                leftIcon={
-                  <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
-                }
-                btnText={"Trades Won"}
-                rightIcon={null}
-              />
-              <StatButton
-                btnStatText={profileData?.userWalletBalance}
-                navigateTo="(wallet)/"
-                leftIcon={
-                  <Feather
-                    name="credit-card"
-                    size={16}
-                    color={colors4C.blue4C}
-                  />
-                }
-                btnText={"Wallet Balance"}
-                rightIcon={null}
-              />
-            </View>
-            <View style={styles.chevronsContainer}>
-              {cardData.map((data, index) => (
-                <CardWithChevron
-                  key={index}
-                  leftIcon={data.leftIcon}
-                  rightIcon={data.rightIcon}
-                  cardText={data.cardText}
-                  navigateTo={data.navigateTo}
-                />
-              ))}
-            </View>
           </>
         )}
+        <View style={styles.statButtonContainer}>
+          {/* <Text>HomeScreen</Text> */}
+          {/* <MatchCard /> */}
+          {/* <MatchPredCard winPercentage={75} />  */}
+          {/* <NumberPad /> */}
+          <StatButton
+            navigateTo="(wallet)/AllTransactionsScreen"
+            btnStatText={profileData?.userWins}
+            leftIcon={
+              <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
+            }
+            btnText={"Trades Won"}
+            rightIcon={null}
+          />
+          <StatButton
+            btnStatText={profileData?.userWalletBalance}
+            navigateTo="(wallet)/"
+            leftIcon={
+              <Feather name="credit-card" size={16} color={colors4C.blue4C} />
+            }
+            btnText={"Wallet Balance"}
+            rightIcon={null}
+          />
+        </View>
+        <View style={styles.chevronsContainer}>
+          {cardData.map((data, index) => (
+            <CardWithChevron
+              key={index}
+              leftIcon={data.leftIcon}
+              rightIcon={data.rightIcon}
+              cardText={data.cardText}
+              navigateTo={data.navigateTo}
+            />
+          ))}
+        </View>
       </View>
     </>
   );

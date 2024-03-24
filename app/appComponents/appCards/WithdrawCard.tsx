@@ -4,46 +4,43 @@ import { Card, Divider, Input, InputField } from "@gluestack-ui/themed";
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { apiNewTopup } from "@/app/services/BEApis/topup";
 import { getExpoStorage } from "@/app/services/expo-storage";
+import { apiNewWithdraw } from "@/app/services/BEApis/withdraw";
 
-const TopupCard = () => {
-  const [topupDetails, setTopupDetails] = useState({
-    topupAmount: "",
-    topupRefId: "",
-    topupAppName: "",
-    topupPhoneNumber: "",
-    topupBankingName: "",
-    topupInAppUsername: "",
+const WithdrawCard = () => {
+  const [withdrawDetails, setwithdrawDetails] = useState({
+    withdrawAmount: "",
+    withdrawRefId: "",
+    withdrawAppName: "",
+    withdrawPhoneNumber: "",
+    withdrawBankingName: "",
   });
 
-  const handleTopup = async () => {
-    console.log(topupDetails);
+  const handleWithdraw = async () => {
+    console.log(withdrawDetails);
     const localUserId = await getExpoStorage("localUserId");
 
-    const res = await apiNewTopup({
-      topupUserId: parseInt(localUserId || "", 10),
-      topupAmount: topupDetails.topupAmount,
-      topupRefId: topupDetails.topupRefId,
-      topupAppName: topupDetails.topupAppName,
-      topupPhNumber: topupDetails.topupPhoneNumber,
-      topupBankingName: topupDetails.topupBankingName,
-      topupInappUserName: topupDetails.topupInAppUsername,
+    const res = await apiNewWithdraw({
+      withdrawUserId: parseInt(localUserId || "", 10),
+      withdrawAmount: parseInt(withdrawDetails.withdrawAmount, 10),
+      withdrawStatus: "Pending",
+      withdrawPhNumber: withdrawDetails.withdrawPhoneNumber,
+      withdrawUpiId: withdrawDetails.withdrawRefId,
+      withdrawBankingName: withdrawDetails.withdrawBankingName,
     });
-    console.log("Res handleTopup", res?.data);
+    console.log("Res handleWithdraw", res?.data);
   };
 
   const handleInputChange = (name: string, value: string) => {
     console.log(name, value);
-    setTopupDetails({ ...topupDetails, [name]: value });
+    setwithdrawDetails({ ...withdrawDetails, [name]: value });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Topup your Foresee Wallet</Text>
+      <Text style={styles.title}> Withdraw from your Foresee Wallet</Text>
       <Text style={styles.subTitle}>
-        Please make the payment to the following Details and Fill the form to
-        request for Topup
+        Fill in the details to request your Withdraw
       </Text>
       <View style={styles.card}>
         <Text style={styles.cardText}>
@@ -76,9 +73,9 @@ const TopupCard = () => {
         isReadOnly={false}
       >
         <InputField
-          value={topupDetails.topupAmount}
+          value={withdrawDetails.withdrawAmount}
           onChange={(e) =>
-            handleInputChange("topupAmount", e?.nativeEvent?.text)
+            handleInputChange("withdrawAmount", e?.nativeEvent?.text)
           }
           placeholder="Enter the Amount"
         />
@@ -94,9 +91,9 @@ const TopupCard = () => {
       >
         <InputField
           onChange={(e) =>
-            handleInputChange("topupRefId", e?.nativeEvent?.text)
+            handleInputChange("withdrawRefId", e?.nativeEvent?.text)
           }
-          value={topupDetails.topupRefId}
+          value={withdrawDetails.withdrawRefId}
           placeholder="Enter UPI / any Reference ID"
         />
       </Input>
@@ -111,9 +108,9 @@ const TopupCard = () => {
       >
         <InputField
           onChange={(e) =>
-            handleInputChange("topupAppName", e?.nativeEvent?.text)
+            handleInputChange("withdrawAppName", e?.nativeEvent?.text)
           }
-          value={topupDetails.topupAppName}
+          value={withdrawDetails.withdrawAppName}
           placeholder="Enter the UPI / Transacted App Name"
         />
       </Input>
@@ -128,9 +125,9 @@ const TopupCard = () => {
       >
         <InputField
           onChange={(e) =>
-            handleInputChange("topupPhoneNumber", e?.nativeEvent?.text)
+            handleInputChange("withdrawPhoneNumber", e?.nativeEvent?.text)
           }
-          value={topupDetails.topupPhoneNumber}
+          value={withdrawDetails.withdrawPhoneNumber}
           placeholder="Enter the Phone Number"
         />
       </Input>
@@ -145,38 +142,20 @@ const TopupCard = () => {
       >
         <InputField
           onChange={(e) =>
-            handleInputChange("topupBankingName", e?.nativeEvent?.text)
+            handleInputChange("withdrawBankingName", e?.nativeEvent?.text)
           }
-          value={topupDetails.topupBankingName}
+          value={withdrawDetails.withdrawBankingName}
           placeholder="Enter your Banking Name"
         />
       </Input>
-
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupInAppUsername", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupInAppUsername}
-          placeholder="Enter your Name as in the App"
-        />
-      </Input>
-      <TouchableOpacity style={styles.primaryBtn} onPress={handleTopup}>
-        <Text style={styles.primaryBtnText}>Topup</Text>
+      <TouchableOpacity style={styles.primaryBtn} onPress={handleWithdraw}>
+        <Text style={styles.primaryBtnText}>Withdraw</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default TopupCard;
+export default WithdrawCard;
 
 const styles = StyleSheet.create({
   container: {

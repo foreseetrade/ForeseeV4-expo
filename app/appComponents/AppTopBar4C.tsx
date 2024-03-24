@@ -10,7 +10,7 @@ import { colors4C, imgBlurHash4C } from "../asthetics";
 import { View } from "@/components/Themed";
 import { Href, Link, router } from "expo-router";
 import { apiGetProfile } from "../services/BEApis/profile";
-import { getExpoStorage } from "../services/expo-storage";
+import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
 
 const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
@@ -19,12 +19,19 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
 
   const getProfileData = async () => {
     try {
+      console.log("getProfileData called");
       const storedEmail = await getExpoStorage("localEmail");
       const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
 
       if (extractedData) {
         const res = await apiGetProfile(extractedData);
         setProfileData(res?.data);
+        setExpoStorage("localWalBalance", res?.data?.userWalletBalance);
+        setExpoStorage("localPfpUrl", res?.data?.userPfpUrl);
+        setExpoStorage("localName", res?.data?.userName);
+        setExpoStorage("localUserWins", res?.data?.userWins);
+        setExpoStorage("localEmail", res?.data?.userEmail);
+        setExpoStorage("localUserId", res?.data?.userId);
       }
     } catch (error) {
       console.error("Error fetching profile data:", error);
@@ -33,7 +40,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
 
   // Run getProfileData every 5s
   useEffect(() => {
-    const interval = setInterval(getProfileData, 5000);
+    const interval = setInterval(getProfileData, 10000);
     return () => clearInterval(interval);
   }, []);
 

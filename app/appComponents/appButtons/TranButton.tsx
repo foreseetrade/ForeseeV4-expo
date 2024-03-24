@@ -20,8 +20,9 @@ import {
   InputField,
 } from "@gluestack-ui/themed";
 import TopupCard from "../appCards/TopupCard";
+import WithdrawCard from "../appCards/WithdrawCard";
 
-const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon }: any) => {
+const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon, scope }: any) => {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
 
@@ -64,7 +65,8 @@ const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon }: any) => {
             <ActionsheetDragIndicatorWrapper>
               <ActionsheetDragIndicator />
             </ActionsheetDragIndicatorWrapper>
-            <TopupCard />
+            {scope === "topup" && <TopupCard />}
+            {scope === "withdraw" && <WithdrawCard />}
           </ActionsheetContent>
         </Actionsheet>
       </TouchableOpacity>
