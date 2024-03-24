@@ -14,6 +14,7 @@ const ENV_BE_URL =
 
 // Create an instance of Axios with your backend URL
 const apiInstance = axios.create({
+  // baseURL: "http://localhost:3000",
   baseURL: "https://foresee-code4ai.koyeb.app",
 });
 

@@ -92,39 +92,25 @@ const HomeScreen = () => {
 
   const fnCheckAuth = async () => {
     const storedJWT = await getExpoStorage("jwt");
-    console.log("storedJWT in GoogleLogin Page", storedJWT);
-
-    const parts = storedJWT
-      ?.split(".")
-      .map((part) =>
-        Buffer.from(
-          part.replace(/-/g, "+").replace(/_/g, "/"),
-          "base64"
-        ).toString()
-      );
-
-    if (parts) {
-      const payload = JSON?.parse(parts[1]);
-      console.log("JWT payload", payload);
-    }
+    console.log("storedJWT in index Page", storedJWT);
 
     if (storedJWT === null) {
+      console.log("Not Authenticated");
       router.push("/(auth)/GoogleLogin");
     }
     if (storedJWT !== null) {
+      console.log("Authenticated");
       fnGetProfile();
-      return;
+      // return;
     }
   };
 
   useEffect(() => {
     fnGetTrendingMatches();
     fnGetRecentMatches();
-  }, []);
-
-  useEffect(() => {
     fnCheckAuth();
   }, []);
+
   return (
     <>
       <GestureHandlerRootView>
