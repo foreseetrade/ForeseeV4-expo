@@ -15,6 +15,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Linking from "expo-linking";
 import { setExpoStorage } from "./services/expo-storage";
 import { Platform } from "react-native";
+import { config } from "@gluestack-ui/config"
+
+import { GluestackUIProvider, Text, Box } from "@gluestack-ui/themed";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -58,19 +62,23 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   return (
     <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        {/* <NavigationContainer
+      <GluestackUIProvider config={config}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          {/* <NavigationContainer
           independent={true}
           linking={linking}
           fallback={<Text>Loading..</Text>}
         > */}
 
-        <Stack initialRouteName="(auth)/GoogleLogin">
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+          <Stack initialRouteName="(auth)/GoogleLogin">
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
 
-        {/* </NavigationContainer> */}
-      </ThemeProvider>
+          {/* </NavigationContainer> */}
+        </ThemeProvider>
+      </GluestackUIProvider>
     </SafeAreaProvider>
   );
 }

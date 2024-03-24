@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { Feather } from "@expo/vector-icons";
 import AppTopBar4C from "../appComponents/AppTopBar4C";
 import { colors4C } from "../asthetics";
+import { getExpoStorage } from "../services/expo-storage";
+import { apiGetProfile } from "../services/BEApis/profile";
+import JWT from "expo-jwt";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 
@@ -31,6 +34,8 @@ export default function TabLayout() {
       }}
     >
       {/* Bottom Navbar Tabs */}
+      {/* on tab click re render the component */}
+
       <Tabs.Screen
         name="index" // Name matched the routes - FileName
         options={{
@@ -55,7 +60,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="ProfileScreen"
+        name="ProfileScreenWrap"
         options={{
           header: () => <AppTopBar4C isNumbersVisible={true} />,
           tabBarAccessibilityLabel: "Profile",
@@ -68,4 +73,3 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-

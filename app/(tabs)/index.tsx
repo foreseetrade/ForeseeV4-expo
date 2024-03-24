@@ -15,6 +15,7 @@ import {
 import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
 import { router } from "expo-router";
 import { apiGetProfile } from "../services/BEApis/profile";
+import JWT from "expo-jwt";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
@@ -87,31 +88,29 @@ const HomeScreen = () => {
     const storedEmail = await getExpoStorage("localEmail");
     const res = await apiGetProfile(storedEmail as string);
     console.log("Res fnGetProfile", res?.data);
-    // setExpoStorage("localUserId", res);
   };
 
   const fnCheckAuth = async () => {
-    const storedJWT = getExpoStorage("jwt");
-    console.log("storedJWT in GoogleLogin Page", storedJWT);
+    const storedJWT = await getExpoStorage("jwt");
+    console.log("storedJWT in index Page", storedJWT);
+
     if (storedJWT === null) {
+      console.log("Not Authenticated");
       router.push("/(auth)/GoogleLogin");
     }
     if (storedJWT !== null) {
+      console.log("Authenticated");
       fnGetProfile();
-      fnGetTrendingMatches();
-      fnGetRecentMatches();
-      return;
+      // return;
     }
   };
 
-  // useEffect(() => {
-  //   fnGetTrendingMatches();
-  //   fnGetRecentMatches();
-  // }, []);
-
   useEffect(() => {
+    fnGetTrendingMatches();
+    fnGetRecentMatches();
     fnCheckAuth();
   }, []);
+
   return (
     <>
       <GestureHandlerRootView>

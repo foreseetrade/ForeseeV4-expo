@@ -1,5 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 
 import { Link } from "expo-router";
@@ -9,6 +15,9 @@ import TranButton from "../appComponents/appButtons/TranButton";
 import { Feather } from "@expo/vector-icons";
 
 const WalletScreen = () => {
+  const [showActionsheet, setShowActionsheet] = useState(false);
+  const handleClose = () => setShowActionsheet(!showActionsheet);
+
   return (
     <View
       style={{
@@ -30,13 +39,17 @@ const WalletScreen = () => {
           width: "100%",
         }}
       >
+        <TouchableOpacity onPress={handleClose}>
+          <TranButton
+            // navigateTo="/(wallet)/TopupScreen"
+            scope="topup"
+            btnText="Topup"
+            leftIcon={<Feather name="send" size={16} color={colors4C.blue4C} />}
+          />
+        </TouchableOpacity>
         <TranButton
-          navigateTo="/(wallet)/TopupScreen"
-          btnText="Topup"
-          leftIcon={<Feather name="send" size={16} color={colors4C.blue4C} />}
-        />
-        <TranButton
-          navigateTo="/(wallet)/WithdrawScreen"
+          // navigateTo="/(wallet)/WithdrawScreen"
+          scope="withdraw"
           btnText="Withdraw"
           leftIcon={
             <Feather name="arrow-down" size={16} color={colors4C.blue4C} />

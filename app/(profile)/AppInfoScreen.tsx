@@ -1,7 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigation } from "expo-router";
 
 const AppInfoScreen = () => {
+  const navigation = useNavigation();
+  
+
+
+  
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: "App Information",
+    });
+  }, []);
+
   return (
     <View>
       <Text>AppInfoScreen</Text>

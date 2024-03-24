@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import CardWithChevron from "../appComponents/appCards/CardWithChevron";
@@ -9,9 +9,15 @@ import StatButton from "../appComponents/appButtons/StatButton";
 import { router } from "expo-router";
 import { deleteExpoStorage, getExpoStorage } from "../services/expo-storage";
 import { apiGetProfile } from "../services/BEApis/profile";
+import ActionSheet from "../appComponents/appCards/ActionSheet";
+import useProfileData from "../customHooks/useProfileData";
+import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/utilRemoveDoubleQuotes";
 
 const ProfileScreen = () => {
-  const [profileData, setProfileData] = React.useState<any>({});
+  // const [profileData, setProfileData] = useState(useProfileData());
+  // console.log("profileData", profileData);
+  const [profileData, setProfileData] = useState<any>();
+
   const cardData = [
     {
       leftIcon: <Feather name="user" size={16} color={colors4C.blue4C} />,
@@ -56,15 +62,41 @@ const ProfileScreen = () => {
   ];
 
   const fnGetProfile = async () => {
-    const storedEmail = await getExpoStorage("localEmail");
-    const res = await apiGetProfile(storedEmail as string);
+    // const storedEmail = await getExpoStorage("localEmail");
+    // console.log("storedEmail", storedEmail);
 
-    console.log("Res fnGetProfile", res?.data);
+    // // Removing double quotes and extracting data between them
+    // const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
+    // console.log("extractedData", extractedData);
 
-    if (res?.data) {
-      setProfileData(res?.data);
-    }
+    // const res = await apiGetProfile(extractedData || "");
+    // console.log("Res fnGetProfile", res?.data);
+    // setProfileData(res?.data);
+
+    const localEmail = await getExpoStorage("localEmail");
+    const localWalBalance = await getExpoStorage("localWalBalance");
+    const localPfpUrl = await getExpoStorage("localPfpUrl");
+    const localName = await getExpoStorage("localName");
+    const localUserWins = await getExpoStorage("localUserWins");
+
+    setProfileData({
+      userName: utilRemoveDoubleQuotes(localName || "") || "",
+      userPfpUrl: utilRemoveDoubleQuotes(localPfpUrl || "") || "",
+      userEmail: utilRemoveDoubleQuotes(localEmail || "") || "",
+      userWalletBalance: utilRemoveDoubleQuotes(localWalBalance || "") || "",
+      userWins: utilRemoveDoubleQuotes(localUserWins || "") || "",
+    });
+
+    console.log("profileData", profileData);
   };
+
+  // Run it every 5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fnGetProfile();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     fnGetProfile();
@@ -79,24 +111,29 @@ const ProfileScreen = () => {
           borderRadius: sizes4C.small4C,
         }}
       >
-        <View style={styles.imgWrap}>
-          <View style={styles.imageBg}>
-            <Image
-              source={
-                profileData?.profileImage
-                  ? { uri: profileData?.profileImage }
-                  : imgBlurHash4C
-              }
-              placeholder={imgBlurHash4C}
-              contentFit="cover"
-              transition={8}
-              style={styles.imageStyle}
-            />
+        {!profileData && <Text>Loading...</Text>}
+        {profileData && (
+          <>
+            <View style={styles.imgWrap}>
+              <View style={styles.imageBg}>
+                <Image
+                  source={
+                    profileData?.userPfpUrl
+                      ? { uri: profileData?.userPfpUrl }
+                      : imgBlurHash4C
+                  }
+                  placeholder={imgBlurHash4C}
+                  contentFit="cover"
+                  transition={8}
+                  style={styles.imageStyle}
+                />
 
-            <Text style={styles.textStyle}>{profileData?.fullName}</Text>
-            <Text style={styles.textStyle}>{profileData?.email}</Text>
-          </View>
-        </View>
+                <Text style={styles.textStyle}>{profileData?.userName}</Text>
+                <Text style={styles.textStyle}>{profileData?.userEmail}</Text>
+              </View>
+            </View>
+          </>
+        )}
         <View style={styles.statButtonContainer}>
           {/* <Text>HomeScreen</Text> */}
           {/* <MatchCard /> */}
@@ -104,7 +141,7 @@ const ProfileScreen = () => {
           {/* <NumberPad /> */}
           <StatButton
             navigateTo="(wallet)/AllTransactionsScreen"
-            btnStatText={"4200"}
+            btnStatText={profileData?.userWins}
             leftIcon={
               <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
             }
@@ -112,7 +149,8 @@ const ProfileScreen = () => {
             rightIcon={null}
           />
           <StatButton
-            btnStatText={"4200"}
+            btnStatText={profileData?.userWalletBalance}
+            navigateTo="(wallet)/"
             leftIcon={
               <Feather name="credit-card" size={16} color={colors4C.blue4C} />
             }

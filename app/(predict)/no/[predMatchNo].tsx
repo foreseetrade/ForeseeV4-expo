@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import NumberPad from "../../appComponents/appUtils/NumberPad";
-import WalBalanceCard from "../../appComponents/appCards/WalBalanceCard";
 import { colors4C, imgBlurHash4C, sizes4C } from "../../asthetics";
 import { Image } from "expo-image";
 
@@ -60,11 +59,6 @@ const TradeForMatchNo = () => {
           Trading on NO at ₹{tradeData?.matchTeamAOdds}{" "}
         </Text>
       </View>
-
-      {/* <Text style={styles.textLabel}>
-        You're now foreseeing on CSK at ₹8, Enter the amount and confirm your
-        spot
-      </Text> */}
       <View style={styles.infoContainer}>
         <Feather name="info" size={18} color={colors4C.purple4C} />
         <Text style={styles.infoText}>
@@ -74,16 +68,7 @@ const TradeForMatchNo = () => {
       </View>
 
       <View style={styles.numberPadContainer}>
-        <NumberPad />
-        <TouchableOpacity
-          style={styles.topupButton}
-          onPress={() => {
-            console.log("topup");
-            router.push("/(wallet)/FeedbackScreen");
-          }}
-        >
-          <Text style={styles.buttonText}>Confirm</Text>
-        </TouchableOpacity>
+        <NumberPad predMatchNo={predMatchNo} scope="trade" btnText="Confirm" />
       </View>
     </ScrollView>
   );

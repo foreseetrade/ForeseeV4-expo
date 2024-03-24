@@ -37,13 +37,15 @@ const GoogleLogin = () => {
   }, []);
 
   const handleOpenURL = (url: string) => {
+    console.log("url in GoogleLogin", url);
     //  Extract jwt and store it in Expostorage
     // foresee://app/login?jwt=${token}&user=${req.user}
     setExpoStorage("jwt", url.split("jwt=")[1]);
-    setExpoStorage("localEmail", url.split("email=")[1]);
+    setExpoStorage("localEmail", url.split("userEmail=")[1]);
 
     if (url.includes("foresee://app")) {
       setExpoStorage("jwt", url.split("jwt=")[1]);
+      setExpoStorage("localEmail", url.split("userEmail=")[1]);
       router.push("/(tabs)/" as any);
     }
 
