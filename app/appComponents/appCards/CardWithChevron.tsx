@@ -23,10 +23,21 @@ const CardWithChevron = ({
       <TouchableOpacity
         onPress={() => {
           if (navigateTo === "(auth)/GoogleLogin") {
+            
+            deleteExpoStorage("jwt");
+            deleteExpoStorage("localEmail");
+            deleteExpoStorage("localpfpUrl");
+            deleteExpoStorage("localName");
+            deleteExpoStorage("localUserWins");
+            deleteExpoStorage("localWalBalance");
+            deleteExpoStorage("localUserId");
+
             router.replace({
               pathname: navigateTo as Href<string>,
             });
-            deleteExpoStorage("jwt");
+
+            console.log("Deleted All Locals");
+
             return;
           }
           router.push({

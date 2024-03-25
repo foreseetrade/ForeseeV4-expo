@@ -68,7 +68,13 @@ const TradeForMatchNo = () => {
       </View>
 
       <View style={styles.numberPadContainer}>
-        <NumberPad predMatchNo={predMatchNo} scope="trade" btnText="Confirm" />
+        <NumberPad
+          predValue={tradeData?.matchTeamAOdds}
+          predTeamName={tradeData?.matchTeamA}
+          predMatchNo={predMatchNo}
+          scope="trade"
+          btnText="Confirm"
+        />{" "}
       </View>
     </ScrollView>
   );

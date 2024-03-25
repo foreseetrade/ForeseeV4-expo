@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Card, Divider, Input, InputField } from "@gluestack-ui/themed";
+import {
+  Card,
+  Divider,
+  Input,
+  InputField,
+  Spinner,
+} from "@gluestack-ui/themed";
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -17,7 +23,12 @@ const TopupCard = () => {
     topupInAppUsername: "",
   });
 
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [topupStatus, setTopupStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const handleTopup = async () => {
+    setLoading(true);
     console.log(topupDetails);
     const localUserId = await getExpoStorage("localUserId");
 
@@ -30,7 +41,20 @@ const TopupCard = () => {
       topupBankingName: topupDetails.topupBankingName,
       topupInappUserName: topupDetails.topupInAppUsername,
     });
-    console.log("Res handleTopup", res?.data);
+    console.log("Res handleTopup", res);
+
+    if (res.status > 200) {
+      setLoading(false);
+      setTopupStatus(true);
+      setFeedbackMessage(
+        "Topup Requested. Please wait for confirmation from our team"
+      );
+    } else {
+      setTopupStatus(false);
+      setFeedbackMessage("Topup Request Failed. Please try again later");
+    }
+
+    setLoading(false);
   };
 
   const handleInputChange = (name: string, value: string) => {
@@ -39,140 +63,158 @@ const TopupCard = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Topup your Foresee Wallet</Text>
-      <Text style={styles.subTitle}>
-        Please make the payment to the following Details and Fill the form to
-        request for Topup
-      </Text>
-      <View style={styles.card}>
-        <Text style={styles.cardText}>
-          Banking Name :
-          <Text style={{ fontWeight: "bold", marginRight: 4 }}> Foresee </Text>
-          <Feather name="copy" size={12} color={colors4C.blue4C} />
-        </Text>
-        <Text style={styles.cardText}>
-          Account Number :{" "}
-          <Text style={{ fontWeight: "bold", marginRight: 4 }}>
-            1234567890{" "}
-          </Text>
-          <Feather name="copy" size={12} color={colors4C.blue4C} />
-        </Text>
-        <Text style={styles.cardText}>
-          IFSC Code : <Text style={{ fontWeight: "bold" }}>HDFC0001234 </Text>
-          <Feather name="copy" size={12} color={colors4C.blue4C} />
-        </Text>
-      </View>
+    <>
+      {!topupStatus && !loading && (
+        <>
+          <View style={styles.container}>
+            <Text style={styles.title}>Topup your Foresee Wallet</Text>
+            <Text style={styles.subTitle}>
+              Please make the payment to the following Details and Fill the form
+              to request for Topup
+            </Text>
+            <View style={styles.card}>
+              <Text style={styles.cardText}>
+                Banking Name :
+                <Text style={{ fontWeight: "bold", marginRight: 4 }}>
+                  {" "}
+                  Foresee{" "}
+                </Text>
+                <Feather name="copy" size={12} color={colors4C.blue4C} />
+              </Text>
+              <Text style={styles.cardText}>
+                Account Number :{" "}
+                <Text style={{ fontWeight: "bold", marginRight: 4 }}>
+                  1234567890{" "}
+                </Text>
+                <Feather name="copy" size={12} color={colors4C.blue4C} />
+              </Text>
+              <Text style={styles.cardText}>
+                IFSC Code :{" "}
+                <Text style={{ fontWeight: "bold" }}>HDFC0001234 </Text>
+                <Feather name="copy" size={12} color={colors4C.blue4C} />
+              </Text>
+            </View>
 
-      <Divider my="$0.5" />
+            <Divider my="$0.5" />
 
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          value={topupDetails.topupAmount}
-          onChange={(e) =>
-            handleInputChange("topupAmount", e?.nativeEvent?.text)
-          }
-          placeholder="Enter the Amount"
-        />
-      </Input>
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupRefId", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupRefId}
-          placeholder="Enter UPI / any Reference ID"
-        />
-      </Input>
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupAppName", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupAppName}
-          placeholder="Enter the UPI / Transacted App Name"
-        />
-      </Input>
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupPhoneNumber", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupPhoneNumber}
-          placeholder="Enter the Phone Number"
-        />
-      </Input>
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupBankingName", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupBankingName}
-          placeholder="Enter your Banking Name"
-        />
-      </Input>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                value={topupDetails.topupAmount}
+                onChange={(e) =>
+                  handleInputChange("topupAmount", e?.nativeEvent?.text)
+                }
+                placeholder="Enter the Amount"
+              />
+            </Input>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                onChange={(e) =>
+                  handleInputChange("topupRefId", e?.nativeEvent?.text)
+                }
+                value={topupDetails.topupRefId}
+                placeholder="Enter UPI / any Reference ID"
+              />
+            </Input>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                onChange={(e) =>
+                  handleInputChange("topupAppName", e?.nativeEvent?.text)
+                }
+                value={topupDetails.topupAppName}
+                placeholder="Enter the UPI / Transacted App Name"
+              />
+            </Input>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                onChange={(e) =>
+                  handleInputChange("topupPhoneNumber", e?.nativeEvent?.text)
+                }
+                value={topupDetails.topupPhoneNumber}
+                placeholder="Enter the Phone Number"
+              />
+            </Input>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                onChange={(e) =>
+                  handleInputChange("topupBankingName", e?.nativeEvent?.text)
+                }
+                value={topupDetails.topupBankingName}
+                placeholder="Enter your Banking Name"
+              />
+            </Input>
 
-      <Input
-        borderColor={colors4C.purple4C}
-        borderRadius={sizes4C.small4C}
-        variant="outline"
-        size="sm"
-        isDisabled={false}
-        isInvalid={false}
-        isReadOnly={false}
-      >
-        <InputField
-          onChange={(e) =>
-            handleInputChange("topupInAppUsername", e?.nativeEvent?.text)
-          }
-          value={topupDetails.topupInAppUsername}
-          placeholder="Enter your Name as in the App"
-        />
-      </Input>
-      <TouchableOpacity style={styles.primaryBtn} onPress={handleTopup}>
-        <Text style={styles.primaryBtnText}>Topup</Text>
-      </TouchableOpacity>
-    </View>
+            <Input
+              borderColor={colors4C.purple4C}
+              borderRadius={sizes4C.small4C}
+              variant="outline"
+              size="sm"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputField
+                onChange={(e) =>
+                  handleInputChange("topupInAppUsername", e?.nativeEvent?.text)
+                }
+                value={topupDetails.topupInAppUsername}
+                placeholder="Enter your Name as in the App"
+              />
+            </Input>
+            <TouchableOpacity style={styles.primaryBtn} onPress={handleTopup}>
+              <Text style={styles.primaryBtnText}>Topup</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+
+      {topupStatus && !loading && (
+        <View style={styles.feedbackContainer}>
+          <Text style={styles.feedbackText}>{feedbackMessage}</Text>
+        </View>
+      )}
+
+      {loading && <Spinner color="$indigo600" />}
+    </>
   );
 };
 
@@ -221,5 +263,16 @@ const styles = StyleSheet.create({
   primaryBtnText: {
     color: colors4C.white4C,
     textAlign: "center",
+  },
+
+  feedbackContainer: {
+    backgroundColor: colors4C.green4C,
+    padding: sizes4C.small4C,
+    borderRadius: sizes4C.small4C,
+    marginVertical: sizes4C.small4C,
+  },
+  feedbackText: {
+    color: colors4C.white4C,
+    textAlign: "left",
   },
 });
