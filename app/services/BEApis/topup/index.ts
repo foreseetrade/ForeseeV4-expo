@@ -7,6 +7,6 @@ export const apiGetUserTopups = async (userId: number) => {
 
 export const apiNewTopup = async (data: any) => {
   const result = await apiInstance.post(`/topup/new`, data);
-  console.log("Res apiNewTopup", result);
+  // console.log("Res apiNewTopup", result);
   return result;
 };

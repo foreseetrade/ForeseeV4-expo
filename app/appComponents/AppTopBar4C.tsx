@@ -19,7 +19,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
 
   const getProfileData = async () => {
     try {
-      console.log("getProfileData called");
+      console.log("getProfileData called in AppTopBar4C");
       const storedEmail = await getExpoStorage("localEmail");
       const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
 
