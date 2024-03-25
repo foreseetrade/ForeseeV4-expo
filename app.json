@@ -2,6 +2,7 @@
   "expo": {
     "name": "Foresee",
     "slug": "Foresee",
+    "owner": "scriptscrypt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/splash/LogoRBG.png",
@@ -12,9 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "foresee",
@@ -33,10 +32,7 @@
       "scheme": "foresee",
       "favicon": "./assets/splash/LogoRBG.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-secure-store"
-    ],
+    "plugins": ["expo-router", "expo-secure-store"],
     "experiments": {
       "typedRoutes": true
     },
