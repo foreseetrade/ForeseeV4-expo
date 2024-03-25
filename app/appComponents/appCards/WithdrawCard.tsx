@@ -69,7 +69,7 @@ const WithdrawCard = () => {
             <Text style={styles.subTitle}>
               Fill in the details to request your Withdraw
             </Text>
-            <View style={styles.card}>
+            {/* <View style={styles.card}>
               <Text style={styles.cardText}>
                 Banking Name :
                 <Text style={{ fontWeight: "bold", marginRight: 4 }}>
@@ -90,7 +90,7 @@ const WithdrawCard = () => {
                 <Text style={{ fontWeight: "bold" }}>HDFC0001234 </Text>
                 <Feather name="copy" size={12} color={colors4C.blue4C} />
               </Text>
-            </View>
+            </View> */}
 
             <Divider my="$0.5" />
 

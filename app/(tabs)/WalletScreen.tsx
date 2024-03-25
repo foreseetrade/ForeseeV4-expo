@@ -85,18 +85,6 @@ const WalletScreen = () => {
           tranAmt="4000"
           tranTimestamp="12-12-2022 12:12"
         />
-        <TransactionCard
-          tranType="Withdraw"
-          tranStatus="Pending"
-          tranAmt="4000"
-          tranTimestamp="12-12-2022 12:12"
-        />
-        <TransactionCard
-          tranType="Topup"
-          tranStatus="Failed"
-          tranAmt="400000000"
-          tranTimestamp="12-12-2022 12:12"
-        />
       </View>
     </View>
   );

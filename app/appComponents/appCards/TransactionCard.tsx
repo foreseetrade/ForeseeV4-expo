@@ -17,6 +17,7 @@ import iconTranSuccess from "../../../assets/icons/wallet/iconTranSuccess.svg";
 
 // @ts-ignore
 import iconTranPending from "../../../assets/icons/wallet/iconTranPending.svg";
+import { Spinner } from "@gluestack-ui/themed";
 
 const TransactionCard = ({
   tranStatus,
@@ -30,75 +31,90 @@ const TransactionCard = ({
   tranTimestamp: string;
 }) => {
   return (
-    <View
-      style={{
-        backgroundColor: colors4C.light4C,
-        padding: spacing4C.small4C,
-        borderBottomWidth: 0.5,
-        borderColor: colors4C.purple4C,
-        borderRadius: 4,
-      }}
-    >
+    <>
+      {!tranStatus ||
+        !tranType ||
+        !tranAmt ||
+        (!tranTimestamp && <Spinner color={colors4C.purple4C} />)}
+
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          alignContent: "center",
-          paddingHorizontal: spacing4C.small4C,
+          backgroundColor: colors4C.light4C,
+          padding: spacing4C.small4C,
+          borderBottomWidth: 0.5,
+          borderColor: colors4C.purple4C,
+          borderRadius: 4,
         }}
       >
         <View
           style={{
             flexDirection: "row",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: sizes4C.medium4C,
+            alignContent: "center",
+            paddingHorizontal: spacing4C.small4C,
           }}
         >
-          <Image
-            style={styles.image}
-            source={
-              tranStatus === "Pending"
-                ? iconTranPending
-                : tranStatus === "Success"
-                ? iconTranSuccess
-                : iconTranFail
-            }
-            placeholder={imgBlurHash4C}
-            contentFit="cover"
-            transition={8}
-          />
           <View
             style={{
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              gap: 4,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: sizes4C.medium4C,
             }}
           >
-            <Text
-              style={{
-                fontSize: 12,
-                color:
-                  tranStatus === "Success"
-                    ? colors4C.green4C
-                    : tranStatus === "Pending"
-                    ? colors4C.skyBlue4C
-                    : colors4C.red4C,
-              }}
-            >
-              {tranType} {tranStatus}
-            </Text>
-            <Text style={{ ...styles.textStyle, fontSize: 14 }}>
-              {tranTimestamp}
-            </Text>
+            {tranStatus && (
+              <Image
+                style={styles.image}
+                source={
+                  tranStatus.toLowerCase() === "pending"
+                    ? iconTranPending
+                    : tranStatus.toLowerCase() === "success"
+                    ? iconTranSuccess
+                    : iconTranFail
+                }
+                placeholder={imgBlurHash4C}
+                contentFit="cover"
+                transition={8}
+              />
+            )}
+            {tranStatus && (
+              <>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    gap: 4,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color:
+                        tranStatus.toLowerCase() === "success"
+                          ? colors4C.green4C
+                          : tranStatus.toLowerCase() === "pending"
+                          ? colors4C.skyBlue4C
+                          : colors4C.red4C,
+                    }}
+                  >
+                    {tranType} {tranStatus}
+                  </Text>
+                  <Text style={{ ...styles.textStyle, fontSize: 14 }}>
+                    {tranTimestamp}
+                  </Text>
+                </View>
+              </>
+            )}
           </View>
+          <Text
+            style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}
+          >
+            ₹ {tranAmt}
+          </Text>
         </View>
-        <Text style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}>
-          ₹ {tranAmt}
-        </Text>
       </View>
-    </View>
+    </>
   );
 };
 
