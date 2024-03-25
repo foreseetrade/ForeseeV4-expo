@@ -10,6 +10,7 @@ import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/util
 import TransactionCard from "../appComponents/appCards/TransactionCard";
 import { apiGetUserWithdraws } from "../services/BEApis/withdraw";
 import { utilXtimeAgo } from "../appComponents/appUtils/functions/utilXtimeAgo";
+import { apiGetPredictions } from "../services/BEApis/prediction";
 
 const AllTransactionsScreen = () => {
   const navigation = useNavigation();
@@ -34,6 +35,7 @@ const AllTransactionsScreen = () => {
 
   const fnGetHistory = async () => {
     const storedUserId = await getExpoStorage("localUserId");
+    const storedEmail = await getExpoStorage("localEmail");
     console.log("storedUserId", storedUserId);
 
     if (activeTab == 0) {
@@ -56,6 +58,11 @@ const AllTransactionsScreen = () => {
 
     if (activeTab == 2) {
       console.log("Trades");
+
+      const res = await apiGetPredictions(storedEmail as string);
+      console.log("Res GetPredictions", res?.data);
+
+      setTabData(res?.data);
     }
   };
 
@@ -104,9 +111,7 @@ const AllTransactionsScreen = () => {
               tranStatus={item?.topupStatus}
               tranType="Topup"
               tranAmt={item?.topupAmount}
-              tranTimestamp={utilXtimeAgo(
-                item?.topupCreatedAt
-              ).toString()}
+              tranTimestamp={utilXtimeAgo(item?.topupCreatedAt).toString()}
             />
           ))}
 
@@ -121,19 +126,17 @@ const AllTransactionsScreen = () => {
             />
           ))}
 
-        {/* 
-      <View style={styles.container}>
-        {predictions.map((prediction, index) => (
-          <PredictionCard
-            key={index} // Make sure to include a unique key for each item in the array
-            predAmt={prediction.predAmt}
-            predStatus={prediction.predStatus}
-            predTeams={prediction.predTeams}
-            predType={prediction.predType}
-            predTimestamp={prediction.predTimestamp}
-          />
-        ))}
-      </View> */}
+        {activeTab === 2 &&
+          tabData.map((item: any, index: any) => (
+            <PredictionCard
+              key={index}
+              predAmt={item.predTotalValue}
+              predStatus={item.predStatus}
+              predTeam={item.predTeamName}
+              predType={"Prediction"}
+              predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
+            />
+          ))}
       </View>
     </>
   );

@@ -30,6 +30,8 @@ const TradeForMatchNo = () => {
     setTradeData(res?.data);
   };
 
+  console.log("tradeData", tradeData);
+
   useEffect(() => {
     // Update header name when component mounts
     navigation.setOptions({
@@ -69,7 +71,13 @@ const TradeForMatchNo = () => {
       </View>
 
       <View style={styles.numberPadContainer}>
-        <NumberPad predMatchNo={predMatchNo} scope="trade" btnText="Confirm" />
+        <NumberPad
+          predValue={tradeData?.matchTeamBOdds}
+          predTeamName={tradeData?.matchTeamB}
+          predMatchNo={predMatchNo}
+          scope="trade"
+          btnText="Confirm"
+        />
       </View>
     </ScrollView>
   );

@@ -1,13 +1,40 @@
 import { colors4C, sizes4C } from "@/app/asthetics";
-import { setExpoStorage } from "@/app/services/expo-storage";
+import { apiNewPrediction } from "@/app/services/BEApis/prediction";
+import { getExpoStorage, setExpoStorage } from "@/app/services/expo-storage";
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-const NumberPad = ({ scope, predMatchNo, btnText }: any) => {
+const NumberPad = ({
+  scope,
+  predValue,
+  predTeamName,
+  predMatchNo,
+  btnText,
+}: any) => {
   const [displayValue, setDisplayValue] = useState("0");
-  const fnHandleConfirm = () => {
-    console.log("scope", scope);
-    console.log("displayValue", displayValue);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+
+  const fnHandleConfirm = async () => {
+    const localUserId = await getExpoStorage("localUserId");
+
+    const res = await apiNewPrediction({
+      predUserId: parseInt(localUserId || "", 10),
+      predMatchId: parseInt(predMatchNo || "", 10),
+      predTeamName: predTeamName,
+      predValue: parseInt(predValue || "", 10),
+      predTotalValue: parseInt(displayValue || "", 10),
+    });
+
+    if (res.status > 200) {
+      setFeedbackMessage(
+        "Your prediction has been submitted, it will be approved only when we find another player with opposite stat"
+      );
+      router.push("/(wallet)/FeedbackScreen");
+      return;
+    }
+
+    console.log("Res fnHandleConfirm", res);
   };
 
   const handleNumberPress = (number: number) => {
@@ -119,7 +146,6 @@ const NumberPad = ({ scope, predMatchNo, btnText }: any) => {
           {(btnText as string) || "Confirm"}
         </Text>
       </TouchableOpacity>
-      {/* </View> */}
     </View>
   );
 };

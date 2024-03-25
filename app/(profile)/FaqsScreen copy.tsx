@@ -19,26 +19,30 @@ import { Feather } from "@expo/vector-icons";
 // https://snyk.io/advisor/npm-package/react-native-faq
 const FaqsScreen = () => {
   const navigation = useNavigation();
-  const [faqsData, setFaqsData] = useState<any>([]);
+  const [faqsData, setFaqsData] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fnGetFAQs = async () => {
     setIsLoading(true);
     const res = await apiGetFaqs();
     console.log("Res fnGetFAQs", res?.data);
-    setFaqsData(res?.data);
+
+    if (res?.data) {
+      setFaqsData(res?.data);
+    }
+    console.log("faqsData", faqsData);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    fnGetFAQs();
+  }, []);
 
   useEffect(() => {
     // Update header name when component mounts
     navigation.setOptions({
       headerTitle: "FAQs",
     });
-  }, []);
-
-  useEffect(() => {
-    fnGetFAQs();
   }, []);
 
   return (
@@ -51,10 +55,10 @@ const FaqsScreen = () => {
         isCollapsible={true}
         isDisabled={false}
       >
-        {faqsData.length > 0 &&
+        {faqsData &&
           !isLoading &&
-          faqsData.map((item: any, index: number) => (
-            <AccordionItem key={index} value="a">
+          faqsData?.map((item: any, index: number) => {
+            <AccordionItem value="a">
               <AccordionHeader>
                 <AccordionTrigger>
                   {({ isExpanded }) => {
@@ -64,6 +68,7 @@ const FaqsScreen = () => {
                           {item?.question}
                         </AccordionTitleText>
                         {isExpanded ? (
+                          // <AccordionIcon as={ChevronUpIcon} ml="$3" />
                           <Feather name="chevron-up" size={24} color="black" />
                         ) : (
                           <Feather
@@ -71,6 +76,7 @@ const FaqsScreen = () => {
                             size={24}
                             color="black"
                           />
+                          // <AccordionIcon as={ChevronDownIcon} ml="$3" />
                         )}
                       </>
                     );
@@ -78,10 +84,10 @@ const FaqsScreen = () => {
                 </AccordionTrigger>
               </AccordionHeader>
               <AccordionContent>
-                <AccordionContentText>{item?.answer}</AccordionContentText>
+                <AccordionContentText>{item.answer}</AccordionContentText>
               </AccordionContent>
             </AccordionItem>
-          ))}
+          })}
       </Accordion>
 
       {isLoading && <Spinner />}

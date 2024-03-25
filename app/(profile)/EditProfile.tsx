@@ -22,27 +22,32 @@ const EditProfile = () => {
   return (
     <View style={styles.container}>
       <TextInput
+        editable={false}
         placeholder="Name"
         placeholderTextColor={colors4C.gray4C}
         style={styles.textInput}
       />
       <TextInput
+        editable={false}
         style={styles.textInput}
         placeholder="Email"
         placeholderTextColor={colors4C.gray4C}
       />
       <TextInput
+        editable={false}
         style={styles.textInput}
         placeholder="Username"
         placeholderTextColor={colors4C.gray4C}
       />
       <TextInput
+        editable={false}
         style={styles.textInput}
         placeholder="Phone Number"
         placeholderTextColor={colors4C.gray4C}
       />
 
       <TextInput
+        editable={false}
         style={styles.textInput}
         placeholder="Password"
         placeholderTextColor={colors4C.gray4C}
@@ -55,6 +60,10 @@ const EditProfile = () => {
       >
         <Text style={styles.primaryBtnText}>Save</Text>
       </TouchableOpacity>
+
+      <Text style={{ color: colors4C.gray4C }}>
+        Editing Profile is under development
+      </Text>
     </View>
   );
 };
