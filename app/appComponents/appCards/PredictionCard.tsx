@@ -17,12 +17,14 @@ const PredictionCard = ({
   predAmt,
   predTimestamp,
   predTeam,
+  predTeamOpponent,
 }: {
   predStatus: string;
   predType: string;
   predAmt: string;
   predTimestamp: string;
   predTeam: string;
+  predTeamOpponent: string;
 }) => {
   return (
     <View
@@ -86,8 +88,7 @@ const PredictionCard = ({
 
           {predTeam && (
             <Text style={{ fontSize: 12, color: colors4C.gray4C }}>
-              {/* {predTeams[0]} vs {predTeams[1]} */}
-              {predTeam}
+              {predTeam} vs {predTeamOpponent}
             </Text>
           )}
 

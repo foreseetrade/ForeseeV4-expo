@@ -69,16 +69,19 @@ const MatchCard = ({
     // }
     // <View>
     <>
-     
-    <Pressable
-      onPress={() => {
-        router.push({
-          pathname: navigateTo as Href<string>,
-        });
+      <Pressable
+        onPress={() => {
+          if (!navigateTo) return;
+          if (matchStatus?.toLowerCase() === "completed") {
+            return;
+          }
+          router.push({
+            pathname: navigateTo as Href<string>,
+          });
 
-        // navigation.navigate(navigateTo);
-      }}
-    >
+          // navigation.navigate(navigateTo);
+        }}
+      >
         <View
           style={{
             flexDirection: "column",

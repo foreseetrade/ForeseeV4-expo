@@ -10,11 +10,11 @@ import { router } from "expo-router";
 import { deleteExpoStorage, getExpoStorage } from "../services/expo-storage";
 import { apiGetProfile } from "../services/BEApis/profile";
 import ActionSheet from "../appComponents/appCards/ActionSheet";
-import useProfileData from "../customHooks/useProfileData";
+
 import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/utilRemoveDoubleQuotes";
 
 const ProfileScreen = () => {
-  // const [profileData, setProfileData] = useState(useProfileData());
+
   // console.log("profileData", profileData);
   const [profileData, setProfileData] = useState<any>();
 

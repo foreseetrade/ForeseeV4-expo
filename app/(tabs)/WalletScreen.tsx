@@ -5,18 +5,41 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 
 import { Link } from "expo-router";
-import { borderRadius4C, colors4C, spacing4C } from "../asthetics";
+import { borderRadius4C, colors4C, imgBlurHash4C, spacing4C } from "../asthetics";
 import TransactionCard from "../appComponents/appCards/TransactionCard";
 import TranButton from "../appComponents/appButtons/TranButton";
 import { Feather } from "@expo/vector-icons";
+import { apiGetPredictions } from "../services/BEApis/prediction";
+import { getExpoStorage } from "../services/expo-storage";
+import PredictionCard from "../appComponents/appCards/PredictionCard";
+import { utilXtimeAgo } from "../appComponents/appUtils/functions/utilXtimeAgo";
+import { Image } from "expo-image";
 
+// @ts-ignore
+import emptyState from "../../assets/images/feedbacks/EmptyState.png";
 const WalletScreen = () => {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
+
+  const [tabData, setTabData] = useState([]);
+
+  const fnGetUserHistory = async () => {
+    console.log("Trades");
+    const storedEmail = await getExpoStorage("localEmail");
+
+    const res = await apiGetPredictions(storedEmail as string);
+    console.log("Res GetPredictions", res?.data);
+
+    setTabData(res?.data);
+  };
+
+  useEffect(() => {
+    fnGetUserHistory();
+  }, []);
 
   return (
     <View
@@ -79,12 +102,44 @@ const WalletScreen = () => {
         </Pressable>
       </Link>
       <View style={{}}>
-        <TransactionCard
-          tranType="Topup"
-          tranStatus="Success"
-          tranAmt="4000"
-          tranTimestamp="12-12-2022 12:12"
-        />
+        {tabData.map((item: any, index: any) => (
+          <PredictionCard
+            key={index}
+            predAmt={item.predTotalValue}
+            predStatus={item.predStatus}
+            predTeam={item.predTeamName}
+            predTeamOpponent={item.predTeamOpponent}
+            predType={"Prediction"}
+            predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
+          />
+        ))}
+        {tabData.length == 0 && (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: spacing4C.small4C,
+            }}
+          >
+            <Image
+              style={styles.image}
+              source={emptyState}
+              placeholder={imgBlurHash4C}
+              contentFit="cover"
+              transition={8}
+            />
+            <Text
+              style={{
+                color: colors4C.purple4C,
+                fontSize: 16,
+                fontWeight: "500",
+              }}
+            >
+              Start Predicting Now
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -92,4 +147,10 @@ const WalletScreen = () => {
 
 export default WalletScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: 64,
+    height: 64,
+    borderRadius: borderRadius4C.small4C,
+  },
+});

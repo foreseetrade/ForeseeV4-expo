@@ -6,12 +6,20 @@ import {
   Input,
   InputField,
   Spinner,
+  Toast,
+  ToastDescription,
+  ToastTitle,
+  VStack,
+  useToast,
 } from "@gluestack-ui/themed";
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { apiNewTopup } from "@/app/services/BEApis/topup";
 import { getExpoStorage } from "@/app/services/expo-storage";
+
+// @ts-ignore
+// import { Clipboard } from "@react-native-clipboard/clipboard";
 
 const TopupCard = () => {
   const [topupDetails, setTopupDetails] = useState({
@@ -26,6 +34,7 @@ const TopupCard = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [topupStatus, setTopupStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const toast = useToast();
 
   const handleTopup = async () => {
     setLoading(true);
@@ -62,6 +71,25 @@ const TopupCard = () => {
     setTopupDetails({ ...topupDetails, [name]: value });
   };
 
+  // const showToast = () => {
+  //   toast.show({
+  //     placement: "top",
+  //     render: ({ id }) => {
+  //       const toastId = "toast-" + id;
+  //       return (
+  //         <Toast nativeID={toastId} action="attention" variant="solid">
+  //           <VStack space="xs">
+  //             <ToastTitle>Copied to Clipboard</ToastTitle>
+  //             {/* <ToastDescription>
+  //               You can now paste it in your browser
+  //             </ToastDescription> */}
+  //           </VStack>
+  //         </Toast>
+  //       );
+  //     },
+  //   });
+  // };
+
   return (
     <>
       {!topupStatus && !loading && (
@@ -73,24 +101,45 @@ const TopupCard = () => {
               to request for Topup
             </Text>
             <View style={styles.card}>
-              <Text style={styles.cardText}>
+              <Text
+                style={styles.cardText}
+                onPress={() => {
+                  // copy to clipboard
+                  // Clipboard.setString("CODE4AI TECH PVT LTD");
+                  // showToast();
+                }}
+              >
                 Banking Name :
                 <Text style={{ fontWeight: "bold", marginRight: 4 }}>
                   {" "}
-                  Foresee{" "}
+                  CODE4AI TECH PVT LTD{" "}
                 </Text>
                 <Feather name="copy" size={12} color={colors4C.blue4C} />
               </Text>
-              <Text style={styles.cardText}>
+              <Text
+                style={styles.cardText}
+                onPress={() => {
+                  // copy to clipboard
+                  // Clipboard.setString("200002523497");
+                  // showToast();
+                }}
+              >
                 Account Number :{" "}
                 <Text style={{ fontWeight: "bold", marginRight: 4 }}>
-                  1234567890{" "}
+                  200002523497{" "}
                 </Text>
                 <Feather name="copy" size={12} color={colors4C.blue4C} />
               </Text>
-              <Text style={styles.cardText}>
+              <Text
+                style={styles.cardText}
+                onPress={() => {
+                  // copy to clipboard
+                  // Clipboard.setString("ESFB0003034");
+                  // showToast();
+                }}
+              >
                 IFSC Code :{" "}
-                <Text style={{ fontWeight: "bold" }}>HDFC0001234 </Text>
+                <Text style={{ fontWeight: "bold" }}>ESFB0003034 </Text>
                 <Feather name="copy" size={12} color={colors4C.blue4C} />
               </Text>
             </View>

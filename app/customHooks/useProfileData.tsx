@@ -13,8 +13,8 @@ const useProfileData = () => {
         const extractedData = storedEmail?.replace(/^"(.*)"$/, "$1");
 
         if (extractedData) {
-          const res = await apiGetProfile(extractedData);
-          setProfileData(res?.data);
+          // const res = await apiGetProfile(extractedData);
+          // setProfileData(res?.data);
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
