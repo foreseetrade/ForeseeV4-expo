@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Foresee",
-    "slug": "foreseev4-expo",
+    "slug": "foresee-production",
     "owner": "scriptscrypt",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -44,7 +44,7 @@
         }
       },
       "eas": {
-        "projectId": "a7de7683-c716-4b4f-a3df-1786983b6b0c"
+        "projectId": "fe1fbb0f-34d3-435e-aee2-1df7b7b81af4"
       }
     }
   }
