@@ -21,6 +21,7 @@ const TradeForMatchNo = () => {
   const { predMatchNo } = useLocalSearchParams();
   const navigation = useNavigation();
   const [tradeData, setTradeData] = useState({} as any);
+  const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
 
   const fnGetTradeById = async () => {
     console.log(predMatchNo);
@@ -56,7 +57,7 @@ const TradeForMatchNo = () => {
         <Text
           style={{ ...styles.textLabel, color: colors4C.gray4C, fontSize: 16 }}
         >
-          Trading on NO at ₹{tradeData?.matchTeamAOdds}{" "}
+          Trading on NO at ₹{tradeData?.matchTeamBOdds}{" "}
         </Text>
       </View>
       <View style={styles.infoContainer}>
@@ -71,6 +72,7 @@ const TradeForMatchNo = () => {
         <NumberPad
           predValue={tradeData?.matchTeamAOdds}
           predTeamName={tradeData?.matchTeamA}
+          predTeamOpponentName={tradeData?.matchTeamB}
           predMatchNo={predMatchNo}
           scope="trade"
           btnText="Confirm"

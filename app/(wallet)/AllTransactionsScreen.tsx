@@ -1,7 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import PredictionCard from "../appComponents/appCards/PredictionCard";
-import { borderRadius4C, colors4C, spacing4C } from "../asthetics";
+import {
+  borderRadius4C,
+  colors4C,
+  imgBlurHash4C,
+  sizes4C,
+  spacing4C,
+} from "../asthetics";
 import { useNavigation } from "expo-router";
 import { apiGetUserTopups } from "../services/BEApis/topup";
 import { Tab } from "@rneui/base";
@@ -11,29 +17,34 @@ import TransactionCard from "../appComponents/appCards/TransactionCard";
 import { apiGetUserWithdraws } from "../services/BEApis/withdraw";
 import { utilXtimeAgo } from "../appComponents/appUtils/functions/utilXtimeAgo";
 import { apiGetPredictions } from "../services/BEApis/prediction";
+import { Image } from "expo-image";
 
+// @ts-ignore
+import emptyState from "../../assets/images/feedbacks/EmptyState.png";
+import { Spinner } from "@gluestack-ui/themed";
 const AllTransactionsScreen = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const [tabName, setTabName] = useState(["Topup", "Withdraw", "Trades"]);
 
   const [tabData, setTabData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const handleTabPress = (tabIndex: any) => {
     setActiveTab(tabIndex);
   };
 
-  const predictions = [
-    {
-      predAmt: "1000",
-      predStatus: "Pending",
-      predTeams: ["DC", "CSK"],
-      predType: "Foresee",
-      predTimestamp: "2 hours ago",
-    },
-  ];
+  // const predictions = [
+  //   {
+  //     predAmt: "1000",
+  //     predStatus: "Pending",
+  //     predTeams: ["DC", "CSK"],
+  //     predType: "Foresee",
+  //     predTimestamp: "2 hours ago",
+  //   },
+  // ];
 
   const fnGetHistory = async () => {
+    setLoading(true);
     const storedUserId = await getExpoStorage("localUserId");
     const storedEmail = await getExpoStorage("localEmail");
     console.log("storedUserId", storedUserId);
@@ -64,6 +75,8 @@ const AllTransactionsScreen = () => {
 
       setTabData(res?.data);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -104,7 +117,8 @@ const AllTransactionsScreen = () => {
           )}
         </Tab>
 
-        {activeTab === 0 &&
+        {!loading &&
+          activeTab === 0 &&
           tabData.map((item: any, index: any) => (
             <TransactionCard
               key={index}
@@ -115,7 +129,8 @@ const AllTransactionsScreen = () => {
             />
           ))}
 
-        {activeTab === 1 &&
+        {!loading &&
+          activeTab === 1 &&
           tabData.map((item: any, index: any) => (
             <TransactionCard
               key={index}
@@ -126,17 +141,50 @@ const AllTransactionsScreen = () => {
             />
           ))}
 
-        {activeTab === 2 &&
+        {!loading &&
+          activeTab === 2 &&
           tabData.map((item: any, index: any) => (
             <PredictionCard
               key={index}
               predAmt={item.predTotalValue}
               predStatus={item.predStatus}
               predTeam={item.predTeamName}
+              predTeamOpponent={item.predTeamOpponent}
               predType={"Prediction"}
               predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
             />
           ))}
+        {loading && <Spinner />}
+
+        {!loading && tabData.length == 0 && (
+          <>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: spacing4C.small4C,
+              }}
+            >
+              <Image
+                style={styles.image}
+                source={emptyState}
+                placeholder={imgBlurHash4C}
+                contentFit="cover"
+                transition={8}
+              />
+              <Text
+                style={{
+                  color: colors4C.purple4C,
+                  fontSize: 16,
+                  fontWeight: "500",
+                }}
+              >
+                Start Predicting Now
+              </Text>
+            </View>
+          </>
+        )}
       </View>
     </>
   );
@@ -150,5 +198,10 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // paddingHorizontal: spacing4C.small4C,
     width: "100%",
+  },
+  image: {
+    width: 64,
+    height: 64,
+    borderRadius: sizes4C.small4C,
   },
 });

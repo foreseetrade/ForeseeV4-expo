@@ -6,7 +6,6 @@ import { Feather } from "@expo/vector-icons";
 import AppTopBar4C from "../appComponents/AppTopBar4C";
 import { colors4C } from "../asthetics";
 import { getExpoStorage } from "../services/expo-storage";
-import { apiGetProfile } from "../services/BEApis/profile";
 import JWT from "expo-jwt";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/

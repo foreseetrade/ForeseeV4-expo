@@ -74,6 +74,7 @@ const TradeForMatchNo = () => {
         <NumberPad
           predValue={tradeData?.matchTeamBOdds}
           predTeamName={tradeData?.matchTeamB}
+          predTeamOpponent={tradeData?.matchTeamA}
           predMatchNo={predMatchNo}
           scope="trade"
           btnText="Confirm"

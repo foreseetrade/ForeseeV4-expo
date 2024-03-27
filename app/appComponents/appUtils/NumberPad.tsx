@@ -1,27 +1,46 @@
 import { colors4C, sizes4C } from "@/app/asthetics";
 import { apiNewPrediction } from "@/app/services/BEApis/prediction";
 import { getExpoStorage, setExpoStorage } from "@/app/services/expo-storage";
+import {
+  ActionsheetBackdrop,
+  ActionsheetContent,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetDragIndicator,
+  Actionsheet,
+  Spinner,
+} from "@gluestack-ui/themed";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import TopupCard from "../appCards/TopupCard";
+import WithdrawCard from "../appCards/WithdrawCard";
+import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 
 const NumberPad = ({
   scope,
   predValue,
   predTeamName,
+  predTeamOpponent,
   predMatchNo,
   btnText,
 }: any) => {
   const [displayValue, setDisplayValue] = useState("0");
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [showActionsheet, setShowActionsheet] = useState(false);
+  const handleClose = () => setShowActionsheet(!showActionsheet);
+  const [loading, setLoading] = useState(false);
 
   const fnHandleConfirm = async () => {
+    setLoading(true);
+    handleClose();
+
     const localUserId = await getExpoStorage("localUserId");
 
     const res = await apiNewPrediction({
       predUserId: parseInt(localUserId || "", 10),
       predMatchId: parseInt(predMatchNo || "", 10),
       predTeamName: predTeamName,
+      predTeamOpponent: predTeamOpponent,
       predValue: parseInt(predValue || "", 10),
       predTotalValue: parseInt(displayValue || "", 10),
     });
@@ -30,11 +49,14 @@ const NumberPad = ({
       setFeedbackMessage(
         "Your prediction has been submitted, it will be approved only when we find another player with opposite stat"
       );
-      router.push("/(wallet)/FeedbackScreen");
+      // router.push("/(wallet)/FeedbackScreen");
+
       return;
     }
 
     console.log("Res fnHandleConfirm", res);
+
+    setLoading(false);
   };
 
   const handleNumberPress = (number: number) => {
@@ -146,6 +168,17 @@ const NumberPad = ({
           {(btnText as string) || "Confirm"}
         </Text>
       </TouchableOpacity>
+
+      <Actionsheet isOpen={showActionsheet} onClose={handleClose} zIndex={999}>
+        <ActionsheetBackdrop />
+        <ActionsheetContent height={"auto"} zIndex={999}>
+          <ActionsheetDragIndicatorWrapper>
+            <ActionsheetDragIndicator />
+          </ActionsheetDragIndicatorWrapper>
+          {!loading && <FeedbackScreen />}
+          {loading && <Spinner />}
+        </ActionsheetContent>
+      </Actionsheet>
     </View>
   );
 };

@@ -17,6 +17,9 @@ import { Image } from "expo-image";
 
 // @ts-ignore
 import foreseeLogo from "../../assets/LogoRBG.png";
+// @ts-ignore
+import loginIllust from "../../assets/images/LoginIllust.png";
+import { Divider } from "@gluestack-ui/themed";
 
 const GoogleLogin = () => {
   const navigation = useNavigation();
@@ -63,6 +66,13 @@ const GoogleLogin = () => {
   };
 
   useEffect(() => {
+    async () => {
+      if (getExpoStorage("jwt" as any) !== null) {
+        router.push("/(tabs)/" as any);
+      }
+    };
+  });
+  useEffect(() => {
     navigation.setOptions({
       headerTitle: "Foresee",
       headerLeft: () => (
@@ -78,19 +88,49 @@ const GoogleLogin = () => {
   }, []);
 
   return (
-    <Pressable style={styles.btnWrap} onPress={handleGoogleLogin}>
-      <Text style={styles.buttonText}>Login with Google</Text>
-    </Pressable>
+    <>
+      <View style={styles.container}>
+        <Image
+          style={{ width: 240, height: 240 }}
+          source={loginIllust}
+          placeholder={imgBlurHash4C}
+          // contentFit="cover"
+          transition={8}
+        />
+
+        <Text style={styles.text}>
+          Quick Login to Foresee with your Google account
+        </Text>
+
+        <Divider  style={{ width: "100%", marginBottom: 16 , marginTop: 32, opacity: 0.6 }} />
+        <Pressable style={styles.btnWrap} onPress={handleGoogleLogin}>
+          <Text style={styles.buttonText}>Login with Google</Text>
+        </Pressable>
+      </View>
+    </>
   );
 };
 
 export default GoogleLogin;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 16,
+    padding: 16,
+    backgroundColor: colors4C.light4C,
+  },
   btnWrap: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
+    borderRadius: sizes4C.small4C,
+    width: "100%",
+    gap: 16,
   },
   buttonText: {
     color: colors4C.white4C,
@@ -99,6 +139,12 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: sizes4C.small4C,
     backgroundColor: colors4C.purple4C,
-    width: "96%",
+    width: "100%",
+  },
+  text: {
+    color: colors4C.blue4C,
+    textAlign: "left",
+    fontSize: 14,
+    fontWeight: "500",
   },
 });
