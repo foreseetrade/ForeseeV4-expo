@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import PredictionCard from "../appComponents/appCards/PredictionCard";
 import {
@@ -43,39 +43,78 @@ const AllTransactionsScreen = () => {
   //   },
   // ];
 
+  // const fnGetHistory = async () => {
+  //   setLoading(true);
+  //   const storedUserId = await getExpoStorage("localUserId");
+  //   const storedEmail = await getExpoStorage("localEmail");
+  //   console.log("storedUserId", storedUserId);
+
+  //   if (activeTab == 0) {
+  //     const res = await apiGetUserTopups(parseInt(storedUserId || "", 10));
+  //     console.log("Res Topups", res?.data);
+
+  //     setTabData(res?.data);
+  //   }
+
+  //   if (activeTab == 1) {
+  //     console.log("Withdrawals");
+
+  //     const res = await apiGetUserWithdraws(
+  //       parseInt(utilRemoveDoubleQuotes(storedUserId || ""), 10)
+  //     );
+  //     console.log("Res Withdrawals", res?.data);
+
+  //     setTabData(res?.data);
+  //   }
+
+  //   if (activeTab == 2) {
+  //     console.log("Trades");
+
+  //     const res = await apiGetPredictions(storedEmail as string);
+  //     console.log("Res GetPredictions", res?.data);
+
+  //     setTabData(res?.data);
+  //   }
+
+  //   setLoading(false);
+  // };
+
   const fnGetHistory = async () => {
     setLoading(true);
     const storedUserId = await getExpoStorage("localUserId");
     const storedEmail = await getExpoStorage("localEmail");
-    console.log("storedUserId", storedUserId);
 
-    if (activeTab == 0) {
+    let resData = [];
+
+    if (activeTab === 0) {
       const res = await apiGetUserTopups(parseInt(storedUserId || "", 10));
-      console.log("Res Topups", res?.data);
-
-      setTabData(res?.data);
-    }
-
-    if (activeTab == 1) {
-      console.log("Withdrawals");
-
+      resData = res?.data || [];
+      resData.sort(
+        (a: any, b: any) => Date.parse(b.topupCreatedAt) - Date.parse(a.topupCreatedAt)
+      )
+    } else if (activeTab === 1) {
       const res = await apiGetUserWithdraws(
         parseInt(utilRemoveDoubleQuotes(storedUserId || ""), 10)
       );
-      console.log("Res Withdrawals", res?.data);
-
-      setTabData(res?.data);
-    }
-
-    if (activeTab == 2) {
-      console.log("Trades");
-
+      resData = res?.data || [];
+      resData.sort(
+        (a: any, b: any) => Date.parse(b.withdrawCreatedAt) - Date.parse(a.withdrawCreatedAt)
+      )
+    } else if (activeTab === 2) {
       const res = await apiGetPredictions(storedEmail as string);
-      console.log("Res GetPredictions", res?.data);
 
-      setTabData(res?.data);
+      console.log("Res GetPredictions", res?.data);
+      resData = res?.data || [];
+      resData.sort(
+        (a: any, b: any) => Date.parse(b.predCreatedAt) - Date.parse(a.predCreatedAt)
+      );
+
+      resData.filter((item: any) => {
+        item.predUserId = parseInt(storedUserId || "", 10);
+      });
     }
 
+    setTabData(resData);
     setLoading(false);
   };
 
@@ -116,75 +155,76 @@ const AllTransactionsScreen = () => {
             )
           )}
         </Tab>
-
-        {!loading &&
-          activeTab === 0 &&
-          tabData.map((item: any, index: any) => (
-            <TransactionCard
-              key={index}
-              tranStatus={item?.topupStatus}
-              tranType="Topup"
-              tranAmt={item?.topupAmount}
-              tranTimestamp={utilXtimeAgo(item?.topupCreatedAt).toString()}
-            />
-          ))}
-
-        {!loading &&
-          activeTab === 1 &&
-          tabData.map((item: any, index: any) => (
-            <TransactionCard
-              key={index}
-              tranStatus={item?.withdrawStatus}
-              tranType="Withdraw"
-              tranAmt={item?.withdrawAmount}
-              tranTimestamp={utilXtimeAgo(item?.withdrawCreatedAt)}
-            />
-          ))}
-
-        {!loading &&
-          activeTab === 2 &&
-          tabData.map((item: any, index: any) => (
-            <PredictionCard
-              key={index}
-              predAmt={item.predTotalValue}
-              predStatus={item.predStatus}
-              predTeam={item.predTeamName}
-              predTeamOpponent={item.predTeamOpponent}
-              predType={"Prediction"}
-              predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
-            />
-          ))}
-        {loading && <Spinner />}
-
-        {!loading && tabData.length == 0 && (
-          <>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: spacing4C.small4C,
-              }}
-            >
-              <Image
-                style={styles.image}
-                source={emptyState}
-                placeholder={imgBlurHash4C}
-                contentFit="cover"
-                transition={8}
+        <ScrollView>
+          {!loading &&
+            activeTab === 0 &&
+            tabData.map((item: any, index: any) => (
+              <TransactionCard
+                key={index}
+                tranStatus={item?.topupStatus}
+                tranType="Topup"
+                tranAmt={item?.topupAmount}
+                tranTimestamp={utilXtimeAgo(item?.topupCreatedAt).toString()}
               />
-              <Text
+            ))}
+
+          {!loading &&
+            activeTab === 1 &&
+            tabData.map((item: any, index: any) => (
+              <TransactionCard
+                key={index}
+                tranStatus={item?.withdrawStatus}
+                tranType="Withdraw"
+                tranAmt={item?.withdrawAmount}
+                tranTimestamp={utilXtimeAgo(item?.withdrawCreatedAt)}
+              />
+            ))}
+
+          {!loading &&
+            activeTab === 2 &&
+            tabData.map((item: any, index: any) => (
+              <PredictionCard
+                key={index}
+                predAmt={item.predTotalValue}
+                predStatus={item.predStatus}
+                predTeam={item.predTeamName}
+                predTeamOpponent={item.predTeamOpponent}
+                predType={"Prediction"}
+                predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
+              />
+            ))}
+          {loading && <Spinner />}
+
+          {!loading && tabData.length == 0 && (
+            <>
+              <View
                 style={{
-                  color: colors4C.purple4C,
-                  fontSize: 16,
-                  fontWeight: "500",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: spacing4C.small4C,
                 }}
               >
-                Start Predicting Now
-              </Text>
-            </View>
-          </>
-        )}
+                <Image
+                  style={styles.image}
+                  source={emptyState}
+                  placeholder={imgBlurHash4C}
+                  contentFit="cover"
+                  transition={8}
+                />
+                <Text
+                  style={{
+                    color: colors4C.purple4C,
+                    fontSize: 16,
+                    fontWeight: "500",
+                  }}
+                >
+                  Start Predicting Now
+                </Text>
+              </View>
+            </>
+          )}
+        </ScrollView>
       </View>
     </>
   );

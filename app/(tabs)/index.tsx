@@ -56,7 +56,7 @@ const HomeScreen = () => {
   ));
 
   const fnGetRecentMatches = async (): Promise<void> => {
-    const res = await apiGetMatchesByStatus("Live");
+    const res = await apiGetMatchesByStatus("Upcoming");
     // console.log("Res fnGetRecentMatches", res);
     setRecentMatches(
       res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo)
@@ -78,7 +78,7 @@ const HomeScreen = () => {
       teamB={item.matchTeamB}
       teamBScore={item.matchTeamBScore}
       teamBOvers={item.matchTeamBOvers}
-      showSummary={item?.matchStatus == "Live" ? true : false}
+      showSummary={item?.matchStatus.toLowerCase() == "upcoming" ? true : false}
       matchSummary={item.matchSummary}
       navigateTo={`(match)/${item.matchNo}`}
     />

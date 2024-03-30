@@ -1,5 +1,6 @@
 import {
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,7 +10,12 @@ import React, { useEffect, useState } from "react";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 
 import { Link } from "expo-router";
-import { borderRadius4C, colors4C, imgBlurHash4C, spacing4C } from "../asthetics";
+import {
+  borderRadius4C,
+  colors4C,
+  imgBlurHash4C,
+  spacing4C,
+} from "../asthetics";
 import TransactionCard from "../appComponents/appCards/TransactionCard";
 import TranButton from "../appComponents/appButtons/TranButton";
 import { Feather } from "@expo/vector-icons";
@@ -47,7 +53,7 @@ const WalletScreen = () => {
         flex: 1,
         flexDirection: "column",
         gap: spacing4C.medium4C,
-        padding: spacing4C.medium4C,
+        padding: spacing4C.small4C,
         width: "100%",
       }}
     >
@@ -101,7 +107,7 @@ const WalletScreen = () => {
           </View>
         </Pressable>
       </Link>
-      <View style={{}}>
+      <ScrollView style={{}}>
         {tabData.map((item: any, index: any) => (
           <PredictionCard
             key={index}
@@ -140,7 +146,7 @@ const WalletScreen = () => {
             </Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
