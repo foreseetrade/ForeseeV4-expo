@@ -15,9 +15,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Linking from "expo-linking";
 import { setExpoStorage } from "./services/expo-storage";
 import { Platform } from "react-native";
-import { config } from "@gluestack-ui/config"
+import { config } from "@gluestack-ui/config";
 
 import { GluestackUIProvider, Text, Box } from "@gluestack-ui/themed";
+import { Gesture, GestureHandlerRootView } from "react-native-gesture-handler";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -72,7 +73,10 @@ function RootLayoutNav() {
           fallback={<Text>Loading..</Text>}
         > */}
 
-          <Stack initialRouteName="(auth)/GoogleLogin">
+          <Stack
+            initialRouteName="(auth)/GoogleLogin"
+            // screenOptions={{ headerShown: false }}
+          >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>
 

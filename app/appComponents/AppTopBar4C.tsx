@@ -6,7 +6,11 @@ import {
 } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import FeatherIcon from "@expo/vector-icons/Feather";
-import { colors4C, imgBlurHash4C } from "../asthetics";
+import {
+  colors4C,
+  imgBlurHash4C,
+  imgPlaceholderBlackWhite,
+} from "../asthetics";
 import { View } from "@/components/Themed";
 import { Href, Link, router } from "expo-router";
 import { apiGetProfile } from "../services/BEApis/profile";
@@ -73,9 +77,11 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
           <Image
             style={styles.image}
             source={
-              profileData?.userPfpUrl ? profileData?.userPfpUrl : imgBlurHash4C
+              profileData?.userPfpUrl
+                ? profileData?.userPfpUrl
+                : imgPlaceholderBlackWhite
             }
-            placeholder={imgBlurHash4C}
+            placeholder={imgPlaceholderBlackWhite}
             contentFit="cover"
             transition={1000}
           />

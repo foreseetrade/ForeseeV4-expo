@@ -7,6 +7,7 @@ import AppTopBar4C from "../appComponents/AppTopBar4C";
 import { colors4C } from "../asthetics";
 import { getExpoStorage } from "../services/expo-storage";
 import JWT from "expo-jwt";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 
@@ -42,7 +43,9 @@ export default function TabLayout() {
           tabBarAccessibilityLabel: "Home",
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
-            <Feather name="home" size={24} color={color} />
+            // <TouchableHighlight>
+              <Feather name="home" size={24} color={color} />
+            // </TouchableHighlight>
           ),
         }}
       />

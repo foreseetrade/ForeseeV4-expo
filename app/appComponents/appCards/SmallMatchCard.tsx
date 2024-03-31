@@ -22,6 +22,10 @@ const SmallMatchCard = ({
   return (
     <Pressable
       onPress={() => {
+        if (!navigateTo) return;
+        if (matchStatus?.toLowerCase() === "completed") {
+          return;
+        }
         router.push({
           pathname: navigateTo as Href<string>,
         });

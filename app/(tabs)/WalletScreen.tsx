@@ -1,5 +1,6 @@
 import {
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,7 +10,12 @@ import React, { useEffect, useState } from "react";
 import WalBalanceCard from "../appComponents/appCards/WalBalanceCard";
 
 import { Link } from "expo-router";
-import { borderRadius4C, colors4C, imgBlurHash4C, spacing4C } from "../asthetics";
+import {
+  borderRadius4C,
+  colors4C,
+  imgBlurHash4C,
+  spacing4C,
+} from "../asthetics";
 import TransactionCard from "../appComponents/appCards/TransactionCard";
 import TranButton from "../appComponents/appButtons/TranButton";
 import { Feather } from "@expo/vector-icons";
@@ -21,20 +27,32 @@ import { Image } from "expo-image";
 
 // @ts-ignore
 import emptyState from "../../assets/images/feedbacks/EmptyState.png";
+import { Spinner } from "@gluestack-ui/themed";
 const WalletScreen = () => {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
 
+  const [loading, setLoading] = useState(false);
+
   const [tabData, setTabData] = useState([]);
 
   const fnGetUserHistory = async () => {
+    setLoading(true);
+
     console.log("Trades");
     const storedEmail = await getExpoStorage("localEmail");
+    const extractedEmail = storedEmail?.replace(/^"(.*)"$/, "$1");
 
-    const res = await apiGetPredictions(storedEmail as string);
+    const res = await apiGetPredictions(extractedEmail as string);
     console.log("Res GetPredictions", res?.data);
+    res?.data.sort(
+      (a: any, b: any) =>
+        Date.parse(b.predCreatedAt) - Date.parse(a.predCreatedAt)
+    );
 
     setTabData(res?.data);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +65,7 @@ const WalletScreen = () => {
         flex: 1,
         flexDirection: "column",
         gap: spacing4C.medium4C,
-        padding: spacing4C.medium4C,
+        padding: spacing4C.small4C,
         width: "100%",
       }}
     >
@@ -57,7 +75,7 @@ const WalletScreen = () => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
           gap: spacing4C.small4C,
           width: "100%",
         }}
@@ -101,7 +119,13 @@ const WalletScreen = () => {
           </View>
         </Pressable>
       </Link>
-      <View style={{}}>
+      <ScrollView
+        style={{
+          flex: 1,
+          backgroundColor: colors4C.white4C,
+          borderRadius: borderRadius4C.small4C,
+        }}
+      >
         {tabData.map((item: any, index: any) => (
           <PredictionCard
             key={index}
@@ -113,11 +137,13 @@ const WalletScreen = () => {
             predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
           />
         ))}
-        {tabData.length == 0 && (
+        {loading && <Spinner color={colors4C.purple4C} />}
+        {!loading && tabData.length == 0 && (
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
+              height: "100%",
               justifyContent: "center",
               gap: spacing4C.small4C,
             }}
@@ -140,7 +166,7 @@ const WalletScreen = () => {
             </Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };

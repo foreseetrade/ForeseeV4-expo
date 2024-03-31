@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Tab } from "@rneui/base";
@@ -8,6 +8,7 @@ import {
   apiGetMatchesByStatus,
 } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
+import { Spinner } from "@gluestack-ui/themed";
 
 const AllTeamsMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
@@ -83,27 +84,29 @@ const AllTeamsMatchesScreen = (activeTabProp: number) => {
         )}
       </Tab>
 
-      {loading && <Text>Loading...</Text>}
-      {!loading &&
-        data &&
-        data.map((data: any, index) => (
-          <View
-            key={index}
-            style={{ padding: sizes4C.small4C, paddingBottom: 2 }}
-          >
-            <MatchCard
-              matchNo={data.matchNo}
-              matchDate={data.matchDate}
-              teamA={data.matchTeamA}
-              teamB={data.matchTeamB}
-              matchStatus={data.matchStatus}
-              matchSummary={data.matchSummary}
-              showSummary={true}
-              showScores={data?.matchStatus === "Live" ? true : false}
-              navigateTo={`(match)/${data.matchNo}`}
-            />
-          </View>
-        ))}
+      <ScrollView>
+        {loading && <Spinner color={colors4C.purple4C} />}
+        {!loading &&
+          data &&
+          data.map((data: any, index) => (
+            <View
+              key={index}
+              style={{ padding: sizes4C.small4C, paddingBottom: 2 }}
+            >
+              <MatchCard
+                matchNo={data.matchNo}
+                matchDate={data.matchDate}
+                teamA={data.matchTeamA}
+                teamB={data.matchTeamB}
+                matchStatus={data.matchStatus}
+                matchSummary={data.matchSummary}
+                showSummary={true}
+                showScores={data?.matchStatus === "Live" ? true : false}
+                navigateTo={`(match)/${data.matchNo}`}
+              />
+            </View>
+          ))}
+      </ScrollView>
     </View>
   );
 };
