@@ -12,9 +12,9 @@ import { apiGetProfile } from "../services/BEApis/profile";
 import ActionSheet from "../appComponents/appCards/ActionSheet";
 
 import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/utilRemoveDoubleQuotes";
+import { Spinner } from "@gluestack-ui/themed";
 
 const ProfileScreen = () => {
-
   // console.log("profileData", profileData);
   const [profileData, setProfileData] = useState<any>();
 
@@ -111,7 +111,7 @@ const ProfileScreen = () => {
           borderRadius: sizes4C.small4C,
         }}
       >
-        {!profileData && <Text>Loading...</Text>}
+        {!profileData && <Spinner color={colors4C.purple4C} />}
         {profileData && (
           <>
             <View style={styles.imgWrap}>

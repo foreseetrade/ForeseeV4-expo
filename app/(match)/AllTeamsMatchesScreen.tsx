@@ -8,6 +8,7 @@ import {
   apiGetMatchesByStatus,
 } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
+import { Spinner } from "@gluestack-ui/themed";
 
 const AllTeamsMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
@@ -84,7 +85,7 @@ const AllTeamsMatchesScreen = (activeTabProp: number) => {
       </Tab>
 
       <ScrollView>
-        {loading && <Text>Loading...</Text>}
+        {loading && <Spinner color={colors4C.purple4C} />}
         {!loading &&
           data &&
           data.map((data: any, index) => (

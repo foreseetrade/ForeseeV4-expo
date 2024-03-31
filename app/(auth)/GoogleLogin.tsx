@@ -25,20 +25,6 @@ const GoogleLogin = () => {
   const navigation = useNavigation();
   const [url, setURL] = useState("");
 
-  // Set up Linking
-  useEffect(() => {
-    Linking.addEventListener("url", (url) => handleOpenURL(url.url));
-    Linking.getInitialURL().then((url: string | null) => {
-      if (url) {
-        handleOpenURL(url);
-      }
-    });
-    return () => {
-      if (Linking) {
-      }
-    };
-  }, []);
-
   const handleOpenURL = (url: string) => {
     console.log("url in GoogleLogin", url);
     //  Extract jwt and store it in Expostorage
@@ -72,24 +58,45 @@ const GoogleLogin = () => {
       }
     };
   });
+
+  // Set up Linking
   useEffect(() => {
-    navigation.setOptions({
-      headerTitle: "Foresee",
-      headerLeft: () => (
-        <Image
-          style={{ width: 64, height: 64 }}
-          source={foreseeLogo}
-          placeholder={imgBlurHash4C}
-          // contentFit="cover"
-          transition={8}
-        />
-      ),
+    Linking.addEventListener("url", (url) => handleOpenURL(url.url));
+    Linking.getInitialURL().then((url: string | null) => {
+      if (url) {
+        handleOpenURL(url);
+      }
     });
+    return () => {
+      if (Linking) {
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // diable header
+    navigation.setOptions({
+      headerShown: false,
+    });
+    // navigation.setOptions({
+    //   headerTitle: "Foresee",
+    //   headerLeft: () => (
+    //     <Image
+    //       style={{ width: 64, height: 64 }}
+    //       source={foreseeLogo}
+    //       placeholder={imgBlurHash4C}
+    //       // contentFit="cover"
+    //       transition={8}
+    //     />
+    //   ),
+    // });
   }, []);
 
   return (
     <>
       <View style={styles.container}>
+        <Text style={styles.text}>Welcome to Foresee</Text>
+
         <Image
           style={{ width: 240, height: 240 }}
           source={loginIllust}
@@ -98,11 +105,23 @@ const GoogleLogin = () => {
           transition={8}
         />
 
-        <Text style={styles.text}>
-          Quick Login to Foresee with your Google account
+        <Text
+          style={{
+            fontSize: 16,
+            textAlign: "center",
+          }}
+        >
+          Get started by creating an account
         </Text>
 
-        <Divider  style={{ width: "100%", marginBottom: 16 , marginTop: 32, opacity: 0.6 }} />
+        <Divider
+          style={{
+            width: "100%",
+            marginBottom: 16,
+            marginTop: 16,
+            opacity: 0.6,
+          }}
+        />
         <Pressable style={styles.btnWrap} onPress={handleGoogleLogin}>
           <Text style={styles.buttonText}>Login with Google</Text>
         </Pressable>
@@ -120,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 16,
-    padding: 16,
+    padding: 32,
     backgroundColor: colors4C.light4C,
   },
   btnWrap: {
@@ -144,7 +163,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors4C.blue4C,
     textAlign: "left",
-    fontSize: 14,
+    fontSize: 24,
     fontWeight: "500",
   },
 });

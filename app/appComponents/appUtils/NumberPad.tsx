@@ -15,6 +15,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import TopupCard from "../appCards/TopupCard";
 import WithdrawCard from "../appCards/WithdrawCard";
 import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
+import { Feather } from "@expo/vector-icons";
 
 const NumberPad = ({
   scope,
@@ -26,6 +27,7 @@ const NumberPad = ({
 }: any) => {
   const [displayValue, setDisplayValue] = useState("0");
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
   const [loading, setLoading] = useState(false);
@@ -50,7 +52,7 @@ const NumberPad = ({
         "Your prediction has been submitted, it will be approved only when we find another player with opposite stat"
       );
       // router.push("/(wallet)/FeedbackScreen");
-
+      setLoading(false);
       return;
     }
 
@@ -117,16 +119,64 @@ const NumberPad = ({
     { value: 1000, label: "+1000" },
   ];
 
-  useEffect(() => {
+  const fnHandleDisplayAmt = async () => {
     setExpoStorage("tradeAmt", displayValue);
+    const localWalBalance = await getExpoStorage("localWalBalance");
+
+    if (
+      parseInt(displayValue || "", 10) > parseInt(localWalBalance || "", 10)
+    ) {
+      setFeedbackMessage(
+        "Insufficient Balance. Please topup your wallet and try again"
+      );
+      setShowFeedback(true);
+    }
+    if (
+      parseInt(displayValue || "", 10) <= parseInt(localWalBalance || "", 10)
+    ) {
+      setFeedbackMessage("");
+      setShowFeedback(false);
+    }
+  };
+  useEffect(() => {
+    fnHandleDisplayAmt();
   }, [displayValue]);
 
   return (
     <View>
       <View style={styles.inputContainer}>
         <View style={styles.displayContainer}>
-          <Text style={styles.displayText}>{displayValue}</Text>
+          <Text style={styles.displayText}>₹ {displayValue}</Text>
         </View>
+        {feedbackMessage !== "" && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: sizes4C.small4C,
+              alignItems: "flex-start",
+              justifyContent: "center",
+              paddingHorizontal: sizes4C.small4C,
+            }}
+          >
+            <Feather
+              name="alert-triangle"
+              size={14}
+              style={{
+                marginTop: 4,
+              }}
+              color={colors4C.red4C}
+            />
+            <Text
+              style={{
+                color: colors4C.red4C,
+                fontSize: 14,
+              }}
+            >
+              {feedbackMessage}
+            </Text>
+          </View>
+        )}
 
         {/* Special buttons */}
         <View style={styles.rowContainer}>
@@ -163,7 +213,11 @@ const NumberPad = ({
         </View>
       </View>
 
-      <TouchableOpacity onPress={fnHandleConfirm} style={styles.confBtn}>
+      <TouchableOpacity
+        onPress={fnHandleConfirm}
+        disabled={showFeedback}
+        style={styles.confBtn}
+      >
         <Text style={styles.confBtnText}>
           {(btnText as string) || "Confirm"}
         </Text>
@@ -171,12 +225,12 @@ const NumberPad = ({
 
       <Actionsheet isOpen={showActionsheet} onClose={handleClose} zIndex={999}>
         <ActionsheetBackdrop />
-        <ActionsheetContent height={"auto"} zIndex={999}>
+        <ActionsheetContent height={"50%"} zIndex={999}>
           <ActionsheetDragIndicatorWrapper>
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
           {!loading && <FeedbackScreen />}
-          {loading && <Spinner />}
+          {loading && <Spinner color={colors4C.purple4C} />}
         </ActionsheetContent>
       </Actionsheet>
     </View>

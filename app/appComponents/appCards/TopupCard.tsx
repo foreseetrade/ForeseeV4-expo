@@ -262,7 +262,7 @@ const TopupCard = () => {
         </View>
       )}
 
-      {loading && <Spinner color="$indigo600" />}
+      {loading && <Spinner color={colors4C.purple4C} />}
     </>
   );
 };

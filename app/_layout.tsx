@@ -63,25 +63,26 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   return (
     <SafeAreaProvider>
-
-        <GluestackUIProvider config={config}>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            {/* <NavigationContainer
+      <GluestackUIProvider config={config}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          {/* <NavigationContainer
           independent={true}
           linking={linking}
           fallback={<Text>Loading..</Text>}
         > */}
 
-            <Stack initialRouteName="(auth)/GoogleLogin">
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack>
+          <Stack
+            initialRouteName="(auth)/GoogleLogin"
+            // screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
 
-            {/* </NavigationContainer> */}
-          </ThemeProvider>
-        </GluestackUIProvider>
-
+          {/* </NavigationContainer> */}
+        </ThemeProvider>
+      </GluestackUIProvider>
     </SafeAreaProvider>
   );
 }

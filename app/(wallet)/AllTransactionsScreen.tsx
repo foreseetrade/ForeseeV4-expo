@@ -83,6 +83,7 @@ const AllTransactionsScreen = () => {
     setLoading(true);
     const storedUserId = await getExpoStorage("localUserId");
     const storedEmail = await getExpoStorage("localEmail");
+    const extractedEmail = storedEmail?.replace(/^"(.*)"$/, "$1");
 
     let resData = [];
 
@@ -90,23 +91,26 @@ const AllTransactionsScreen = () => {
       const res = await apiGetUserTopups(parseInt(storedUserId || "", 10));
       resData = res?.data || [];
       resData.sort(
-        (a: any, b: any) => Date.parse(b.topupCreatedAt) - Date.parse(a.topupCreatedAt)
-      )
+        (a: any, b: any) =>
+          Date.parse(b.topupCreatedAt) - Date.parse(a.topupCreatedAt)
+      );
     } else if (activeTab === 1) {
       const res = await apiGetUserWithdraws(
         parseInt(utilRemoveDoubleQuotes(storedUserId || ""), 10)
       );
       resData = res?.data || [];
       resData.sort(
-        (a: any, b: any) => Date.parse(b.withdrawCreatedAt) - Date.parse(a.withdrawCreatedAt)
-      )
+        (a: any, b: any) =>
+          Date.parse(b.withdrawCreatedAt) - Date.parse(a.withdrawCreatedAt)
+      );
     } else if (activeTab === 2) {
-      const res = await apiGetPredictions(storedEmail as string);
+      const res = await apiGetPredictions(extractedEmail);
 
       console.log("Res GetPredictions", res?.data);
       resData = res?.data || [];
       resData.sort(
-        (a: any, b: any) => Date.parse(b.predCreatedAt) - Date.parse(a.predCreatedAt)
+        (a: any, b: any) =>
+          Date.parse(b.predCreatedAt) - Date.parse(a.predCreatedAt)
       );
 
       resData.filter((item: any) => {
@@ -193,7 +197,7 @@ const AllTransactionsScreen = () => {
                 predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
               />
             ))}
-          {loading && <Spinner />}
+          {loading && <Spinner color={colors4C.purple4C} />}
 
           {!loading && tabData.length == 0 && (
             <>
@@ -202,6 +206,8 @@ const AllTransactionsScreen = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "center",
+                  alignContent: "center",
+                  height: "100%",
                   gap: spacing4C.small4C,
                 }}
               >

@@ -5,7 +5,7 @@ import { Tab } from "@rneui/base";
 import { colors4C, sizes4C } from "../asthetics";
 import { apiGetMatchesByStatus } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
-import { ScrollView } from "@gluestack-ui/themed";
+import { ScrollView, Spinner } from "@gluestack-ui/themed";
 const AllMatchesScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
@@ -82,7 +82,7 @@ const AllMatchesScreen = () => {
         <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Live</Text>
       )} */}
       <ScrollView>
-        {loading && <Text>Loading...</Text>}
+        {loading && <Spinner color={colors4C.purple4C} />}
         {!loading &&
           data &&
           data.map((data: any, index) => (

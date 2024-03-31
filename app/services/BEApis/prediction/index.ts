@@ -1,7 +1,7 @@
 import apiInstance from "../apiConfig";
 
-export const apiGetPredictions = async (ipEmail: string) => {
-  const result = await apiInstance.get(`/prediction/user?userEmail=${ipEmail}`);
+export const apiGetPredictions = async (data: any) => {
+  const result = await apiInstance.get(`/prediction/user?userEmail=${data}`);
   return result;
 };
 

@@ -101,9 +101,29 @@ const PredictionCard = ({
       </View>
 
       {predAmt && (
-        <Text style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}>
-          ₹ {predAmt}
-        </Text>
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            gap: 16,
+          }}
+        >
+          <Text
+            style={{ ...styles.textStyle, fontWeight: "bold", fontSize: 20 }}
+          >
+            ₹ {predAmt}
+          </Text>
+          <Text
+            style={{
+              ...styles.textStyle,
+              fontSize: 12,
+              color: colors4C.green4C,
+            }}
+          >
+            Win Potential - ₹ {predAmt}
+          </Text>
+        </View>
       )}
     </View>
   );

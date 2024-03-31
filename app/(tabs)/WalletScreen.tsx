@@ -27,20 +27,32 @@ import { Image } from "expo-image";
 
 // @ts-ignore
 import emptyState from "../../assets/images/feedbacks/EmptyState.png";
+import { Spinner } from "@gluestack-ui/themed";
 const WalletScreen = () => {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
 
+  const [loading, setLoading] = useState(false);
+
   const [tabData, setTabData] = useState([]);
 
   const fnGetUserHistory = async () => {
+    setLoading(true);
+
     console.log("Trades");
     const storedEmail = await getExpoStorage("localEmail");
+    const extractedEmail = storedEmail?.replace(/^"(.*)"$/, "$1");
 
-    const res = await apiGetPredictions(storedEmail as string);
+    const res = await apiGetPredictions(extractedEmail as string);
     console.log("Res GetPredictions", res?.data);
+    res?.data.sort(
+      (a: any, b: any) =>
+        Date.parse(b.predCreatedAt) - Date.parse(a.predCreatedAt)
+    );
 
     setTabData(res?.data);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -63,7 +75,7 @@ const WalletScreen = () => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-evenly",
           gap: spacing4C.small4C,
           width: "100%",
         }}
@@ -107,7 +119,13 @@ const WalletScreen = () => {
           </View>
         </Pressable>
       </Link>
-      <ScrollView style={{}}>
+      <ScrollView
+        style={{
+          flex: 1,
+          backgroundColor: colors4C.white4C,
+          borderRadius: borderRadius4C.small4C,
+        }}
+      >
         {tabData.map((item: any, index: any) => (
           <PredictionCard
             key={index}
@@ -119,11 +137,13 @@ const WalletScreen = () => {
             predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
           />
         ))}
-        {tabData.length == 0 && (
+        {loading && <Spinner color={colors4C.purple4C} />}
+        {!loading && tabData.length == 0 && (
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
+              height: "100%",
               justifyContent: "center",
               gap: spacing4C.small4C,
             }}

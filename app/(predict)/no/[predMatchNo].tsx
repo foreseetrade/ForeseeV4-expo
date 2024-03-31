@@ -64,7 +64,7 @@ const TradeForMatchNo = () => {
         <Feather name="info" size={18} color={colors4C.purple4C} />
         <Text style={styles.infoText}>
           Matching happens only when we find another foresee player with
-          opposite{" "}
+          opposite stat{" "}
         </Text>
       </View>
 

@@ -4,10 +4,11 @@ import { useLocalSearchParams } from "expo-router";
 import { apiGetMatchByMatchNo } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
 import YesNoSlider from "../appComponents/appCards/YesorNoSlider";
-import { sizes4C } from "../asthetics";
+import { colors4C, sizes4C } from "../asthetics";
 import StatButton from "../appComponents/appButtons/StatButton";
 import MatchPredCard from "../appComponents/appCards/MatchPredCard";
 import { useNavigation } from "expo-router";
+import { Spinner } from "@gluestack-ui/themed";
 
 const MatchDynamicPage = () => {
   const { matchNo } = useLocalSearchParams();
@@ -39,7 +40,7 @@ const MatchDynamicPage = () => {
   return (
     <View style={styles.container}>
       <>
-      {loading && <Text>Loading</Text>}
+        {loading && <Spinner color={colors4C.purple4C} />}
         {matchFullData && !loading && (
           <>
             <MatchCard

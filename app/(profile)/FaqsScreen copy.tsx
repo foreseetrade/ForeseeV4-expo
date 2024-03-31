@@ -16,6 +16,7 @@ import {
 } from "@gluestack-ui/themed";
 import { useNavigation } from "expo-router";
 import { Feather } from "@expo/vector-icons";
+import { colors4C } from "../asthetics";
 // https://snyk.io/advisor/npm-package/react-native-faq
 const FaqsScreen = () => {
   const navigation = useNavigation();
@@ -86,11 +87,11 @@ const FaqsScreen = () => {
               <AccordionContent>
                 <AccordionContentText>{item.answer}</AccordionContentText>
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem>;
           })}
       </Accordion>
 
-      {isLoading && <Spinner />}
+      {isLoading && <Spinner color={colors4C.purple4C} />}
     </>
   );
 };

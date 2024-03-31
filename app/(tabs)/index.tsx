@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, ScrollView, View, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import TeamLogoCard from "../appComponents/appCards/TeamLogoCard";
 import SmallMatchCard from "../appComponents/appCards/SmallMatchCard";
@@ -16,10 +16,15 @@ import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
 import { router } from "expo-router";
 import { apiGetProfile } from "../services/BEApis/profile";
 import JWT from "expo-jwt";
+import { ButtonSpinner, Spinner } from "@gluestack-ui/themed";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
   const [trendingMatches, setTrendingMatches] = useState([]);
+  const [loading, setLoading] = useState({
+    recentMatches: false,
+    trendingMatches: false,
+  });
 
   const teamLogoCardsData = [
     "RCB",
@@ -39,9 +44,13 @@ const HomeScreen = () => {
   ));
 
   const fnGetTrendingMatches = async (): Promise<void> => {
+    setLoading({ ...loading, trendingMatches: true });
+
     const res = await apiGetTrendingMatches();
     // console.log("Res fnGetTrendingMatches", res?.data);
     setTrendingMatches(res?.data);
+
+    setLoading({ ...loading, trendingMatches: false });
   };
 
   const trendingMatchesJSX = trendingMatches.map((card: any, index) => (
@@ -56,11 +65,14 @@ const HomeScreen = () => {
   ));
 
   const fnGetRecentMatches = async (): Promise<void> => {
+    setLoading({ ...loading, recentMatches: true });
     const res = await apiGetMatchesByStatus("Upcoming");
     // console.log("Res fnGetRecentMatches", res);
     setRecentMatches(
       res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo)
     );
+
+    setLoading({ ...loading, recentMatches: false });
   };
 
   // Assuming recentMatches is a state variable of type RecentMatches
@@ -134,6 +146,7 @@ const HomeScreen = () => {
             horizontal
             contentContainerStyle={styles.smallCardContainer}
           >
+            {loading.trendingMatches && <Spinner color={colors4C.purple4C} />}
             {trendingMatchesJSX}
           </ScrollView>
           <SectionHeader
@@ -141,6 +154,7 @@ const HomeScreen = () => {
             navigateTo="/(match)/AllMatchesScreen"
           />
           <View style={{ flexDirection: "column", gap: sizes4C.small4C }}>
+            {loading.recentMatches && <Spinner color={colors4C.purple4C} />}
             {recentMatchesJSX}
           </View>
         </ScrollView>

@@ -8,13 +8,13 @@ import successFb from "../../assets/images/feedbacks/successTick.png";
 import { router, useNavigation } from "expo-router";
 
 const FeedbackScreen = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: "Success",
-    });
-  });
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: "Success",
+  //   });
+  // });
   return (
     <>
       {
@@ -26,13 +26,13 @@ const FeedbackScreen = () => {
             contentFit="cover"
             transition={8}
           />
-          <Text style={{ fontSize: 16 }}>
+          <Text style={{ fontSize: 14 }}>
             Your Trade request has been received, we will confirm this trade
             only when we get an opposite match
           </Text>
 
           <TouchableOpacity
-            onPress={() => router.push("/")}
+            onPress={() => router.replace("/")}
             style={styles.primaryBtn}
           >
             <Text style={styles.primaryBtnText}>Back to Home</Text>
@@ -53,11 +53,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: sizes4C.medium4C,
     gap: sizes4C.large4C,
+    width: "100%",
   },
   primaryBtn: {
     width: "100%",
     backgroundColor: colors4C.purple4C,
-    padding: 12,
+    padding: sizes4C.small4C,
     borderRadius: sizes4C.small4C,
   },
   primaryBtnText: {

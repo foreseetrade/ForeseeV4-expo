@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import { getAppInfo } from "../services/BEApis/appInfo";
 import { Spinner } from "@gluestack-ui/themed";
+import { colors4C } from "../asthetics";
 
 const AppInfoScreen = () => {
   const navigation = useNavigation();
@@ -30,10 +31,9 @@ const AppInfoScreen = () => {
 
   return (
     <View style={styles.container}>
-      {loading && <Spinner />}
+      {loading && <Spinner color={colors4C.purple4C} />}
       {!loading && <Text>{appInfo[0]?.appName}</Text>}
       {!loading && <Text>{appInfo[0]?.appVersion}</Text>}
-
     </View>
   );
 };
