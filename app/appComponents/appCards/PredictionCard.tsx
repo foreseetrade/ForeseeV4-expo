@@ -15,6 +15,7 @@ const PredictionCard = ({
   predStatus,
   predType,
   predAmt,
+  predAtValue,
   predTimestamp,
   predTeam,
   predTeamOpponent,
@@ -22,6 +23,7 @@ const PredictionCard = ({
   predStatus: string;
   predType: string;
   predAmt: string;
+  predAtValue: string;
   predTimestamp: string;
   predTeam: string;
   predTeamOpponent: string;
@@ -121,7 +123,8 @@ const PredictionCard = ({
               color: colors4C.green4C,
             }}
           >
-            Win Potential - ₹ {predAmt}
+            Win Potential - ₹{" "}
+            {`${(parseInt(predAmt, 10) / parseInt(predAtValue, 10)) * 9}`}
           </Text>
         </View>
       )}

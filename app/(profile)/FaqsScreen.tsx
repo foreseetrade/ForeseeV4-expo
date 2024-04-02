@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
   ChevronDownIcon,
   ChevronUpIcon,
+  ScrollView,
   Spinner,
 } from "@gluestack-ui/themed";
 import { useNavigation } from "expo-router";
@@ -44,52 +45,64 @@ const FaqsScreen = () => {
 
   return (
     <>
-      <Accordion
-        width="100%"
-        size="md"
-        variant="filled"
-        type="single"
-        isCollapsible={true}
-        isDisabled={false}
-      >
-        {faqsData.length > 0 &&
-          !isLoading &&
-          faqsData.map((item: any, index: number) => (
-            <AccordionItem key={index} value="a">
-              <AccordionHeader>
-                <AccordionTrigger>
-                  {({ isExpanded }) => {
-                    return (
-                      <>
-                        <AccordionTitleText>
-                          {item?.question}
-                        </AccordionTitleText>
-                        {isExpanded ? (
-                          <Feather name="chevron-up" size={24} color="black" />
-                        ) : (
-                          <Feather
-                            name="chevron-down"
-                            size={24}
-                            color="black"
-                          />
-                        )}
-                      </>
-                    );
-                  }}
-                </AccordionTrigger>
-              </AccordionHeader>
-              <AccordionContent>
-                <AccordionContentText>{item?.answer}</AccordionContentText>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-      </Accordion>
+      <ScrollView>
+        <Accordion
+          width="100%"
+          size="md"
+          variant="filled"
+          type="single"
+          isCollapsible={true}
+          isDisabled={false}
+        >
+          {faqsData.length > 0 &&
+            !isLoading &&
+            faqsData.map((item: any, index: number) => (
+              <AccordionItem key={index} value="a">
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => {
+                      return (
+                        <>
+                          <AccordionTitleText style={styles.accordionTitle} >
+                            {item?.question}
+                          </AccordionTitleText>
+                          {isExpanded ? (
+                            <Feather
+                              name="chevron-up"
+                              size={24}
+                              color="black"
+                            />
+                          ) : (
+                            <Feather
+                              name="chevron-down"
+                              size={24}
+                              color="black"
+                            />
+                          )}
+                        </>
+                      );
+                    }}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>{item?.answer}</AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+        </Accordion>
 
-      {isLoading && <Spinner color={colors4C.purple4C} />}
+        {isLoading && <Spinner color={colors4C.purple4C} />}
+      </ScrollView>
     </>
   );
 };
 
 export default FaqsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  accordionTitle :  {
+    // color: colors4C.blue4C,
+    fontSize: 14,
+    fontWeight: "600",
+  }
+});

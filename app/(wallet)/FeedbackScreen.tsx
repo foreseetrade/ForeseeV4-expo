@@ -1,13 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { colors4C, imgBlurHash4C, sizes4C } from "../asthetics";
 import { Image } from "expo-image";
 
 // @ts-ignore
 import successFb from "../../assets/images/feedbacks/successTick.png";
+// @ts-ignore
+import failureFb from "../../assets/images/feedbacks/failureTick.png";
 import { router, useNavigation } from "expo-router";
 
-const FeedbackScreen = () => {
+const FeedbackScreen = ({
+  isSuccess,
+  feedbackText,
+}: {
+  isSuccess: boolean;
+  feedbackText: string;
+}) => {
   // const navigation = useNavigation();
 
   // useEffect(() => {
@@ -19,18 +27,31 @@ const FeedbackScreen = () => {
     <>
       {
         <View style={styles.container}>
-          <Image
-            style={styles.image}
-            source={successFb}
-            placeholder={imgBlurHash4C}
-            contentFit="cover"
-            transition={8}
-          />
-          <Text style={{ fontSize: 14 }}>
-            Your Trade request has been received, we will confirm this trade
-            only when we get an opposite match
-          </Text>
+          {isSuccess && (
+            <>
+              <Image
+                style={styles.image}
+                source={successFb}
+                placeholder={imgBlurHash4C}
+                contentFit="cover"
+                transition={8}
+              />
+              <Text style={{ fontSize: 14 }}>{feedbackText}</Text>
+            </>
+          )}
 
+          {!isSuccess && (
+            <>
+              <Image
+                style={styles.image}
+                source={failureFb}
+                placeholder={imgBlurHash4C}
+                contentFit="cover"
+                transition={8}
+              />
+              <Text style={{ fontSize: 14 }}>{feedbackText}</Text>
+            </>
+          )}
           <TouchableOpacity
             onPress={() => router.replace("/")}
             style={styles.primaryBtn}

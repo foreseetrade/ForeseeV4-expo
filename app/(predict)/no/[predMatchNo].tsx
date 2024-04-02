@@ -72,11 +72,11 @@ const TradeForMatchNo = () => {
         <NumberPad
           predValue={tradeData?.matchTeamAOdds}
           predTeamName={tradeData?.matchTeamA}
-          predTeamOpponentName={tradeData?.matchTeamB}
+          predTeamOpponent={tradeData?.matchTeamB}
           predMatchNo={predMatchNo}
           scope="trade"
           btnText="Confirm"
-        />{" "}
+        />
       </View>
     </ScrollView>
   );
@@ -85,7 +85,7 @@ const TradeForMatchNo = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     gap: sizes4C.small4C,
     padding: sizes4C.medium4C,
   },

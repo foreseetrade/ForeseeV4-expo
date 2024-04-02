@@ -20,6 +20,14 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
   const insets = useSafeAreaInsets();
 
   const [profileData, setProfileData] = useState<any>(null);
+  const [localData, setLocalData] = useState<any>({
+    localWalBalance: null,
+    localPfpUrl: null,
+    localName: null,
+    localUserWins: null,
+    localEmail: null,
+    localUserId: null,
+  });
 
   const getProfileData = async () => {
     try {
@@ -42,6 +50,23 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
     }
   };
 
+  const getLocalProfileData = async () => {
+    try {
+      const walBalance = await getExpoStorage("localWalBalance");
+      const pfpUrl = await getExpoStorage("localPfpUrl");
+      const name = await getExpoStorage("localName");
+      const userWins = await getExpoStorage("localUserWins");
+      setLocalData({
+        userWalletBalance: walBalance,
+        userPfpUrl: pfpUrl,
+        userName: name,
+        userWins: userWins,
+      });
+    } catch (error) {
+      console.error("Error fetching Local profile data:", error);
+    }
+  };
+
   // Run getProfileData every 5s
   useEffect(() => {
     const interval = setInterval(getProfileData, 10000);
@@ -50,6 +75,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
 
   useEffect(() => {
     getProfileData();
+    getLocalProfileData();
   }, []);
 
   return (
@@ -77,9 +103,9 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
           <Image
             style={styles.image}
             source={
-              profileData?.userPfpUrl
+              localData?.userPfpUrl || profileData?.userPfpUrl
                 ? profileData?.userPfpUrl
-                : imgPlaceholderBlackWhite
+                : imgBlurHash4C
             }
             placeholder={imgPlaceholderBlackWhite}
             contentFit="cover"

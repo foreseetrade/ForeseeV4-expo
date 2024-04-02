@@ -99,10 +99,10 @@ const GoogleLogin = () => {
 
         <Image
           style={{ width: 240, height: 240 }}
-          source={loginIllust}
-          placeholder={imgBlurHash4C}
+          source={"https://ik.imagekit.io/quackmagic/auth/LoginIllust.png"}
+          // placeholder={imgBlurHash4C}
           // contentFit="cover"
-          transition={8}
+          transition={1}
         />
 
         <Text
@@ -112,6 +112,15 @@ const GoogleLogin = () => {
           }}
         >
           Get started by creating an account
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            textAlign: "left",
+          }}
+        >
+          By logging in You agree to Foresee's Privacy Policy, Terms and
+          Conditions
         </Text>
 
         <Divider

@@ -12,19 +12,19 @@ import {
   apiGetMatchesByStatus,
   apiGetTrendingMatches,
 } from "../services/BEApis/match";
-import { getExpoStorage, setExpoStorage } from "../services/expo-storage";
+import { getExpoStorage } from "../services/expo-storage";
 import { router } from "expo-router";
 import { apiGetProfile } from "../services/BEApis/profile";
-import JWT from "expo-jwt";
-import { ButtonSpinner, Spinner } from "@gluestack-ui/themed";
+import { Skeleton } from "@rneui/base";
+import CustomLinearGradient from "../styles/CustomLinearGrad";
+import SkelSmallMatchCard from "../appComponents/appSkeletons/SkelSmallMatchCard";
+import SkelMatchCard from "../appComponents/appSkeletons/SkelMatchCard";
 
 const HomeScreen = () => {
   const [recentMatches, setRecentMatches] = useState([]);
   const [trendingMatches, setTrendingMatches] = useState([]);
-  const [loading, setLoading] = useState({
-    recentMatches: false,
-    trendingMatches: false,
-  });
+  const [loadingTrendingMatches, setLoadingTrendingMatches] = useState(false);
+  const [loadingRecentMatches, setLoadingRecentMatches] = useState(false);
 
   const teamLogoCardsData = [
     "RCB",
@@ -44,13 +44,13 @@ const HomeScreen = () => {
   ));
 
   const fnGetTrendingMatches = async (): Promise<void> => {
-    setLoading({ ...loading, trendingMatches: true });
+    setLoadingTrendingMatches(true);
 
     const res = await apiGetTrendingMatches();
     // console.log("Res fnGetTrendingMatches", res?.data);
     setTrendingMatches(res?.data);
 
-    setLoading({ ...loading, trendingMatches: false });
+    setLoadingTrendingMatches(false);
   };
 
   const trendingMatchesJSX = trendingMatches.map((card: any, index) => (
@@ -65,14 +65,13 @@ const HomeScreen = () => {
   ));
 
   const fnGetRecentMatches = async (): Promise<void> => {
-    setLoading({ ...loading, recentMatches: true });
+    setLoadingRecentMatches(true);
     const res = await apiGetMatchesByStatus("Upcoming");
     // console.log("Res fnGetRecentMatches", res);
     setRecentMatches(
       res?.data?.sort((a: any, b: any) => a.matchNo - b.matchNo)
     );
-
-    setLoading({ ...loading, recentMatches: false });
+    setLoadingRecentMatches(false);
   };
 
   // Assuming recentMatches is a state variable of type RecentMatches
@@ -146,7 +145,13 @@ const HomeScreen = () => {
             horizontal
             contentContainerStyle={styles.smallCardContainer}
           >
-            {loading.trendingMatches && <Spinner color={colors4C.purple4C} />}
+            {loadingTrendingMatches && (
+              <View style={{ flexDirection: "row", gap: 8 }}>
+                <SkelSmallMatchCard />
+                <SkelSmallMatchCard />
+                <SkelSmallMatchCard />
+              </View>
+            )}
             {trendingMatchesJSX}
           </ScrollView>
           <SectionHeader
@@ -154,7 +159,8 @@ const HomeScreen = () => {
             navigateTo="/(match)/AllMatchesScreen"
           />
           <View style={{ flexDirection: "column", gap: sizes4C.small4C }}>
-            {loading.recentMatches && <Spinner color={colors4C.purple4C} />}
+            {/* {loadingRecentMatches && ( */}
+            {loadingRecentMatches && <SkelMatchCard />}
             {recentMatchesJSX}
           </View>
         </ScrollView>

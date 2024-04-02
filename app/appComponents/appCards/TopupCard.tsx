@@ -17,6 +17,7 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { apiNewTopup } from "@/app/services/BEApis/topup";
 import { getExpoStorage } from "@/app/services/expo-storage";
+import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 
 // @ts-ignore
 // import { Clipboard } from "@react-native-clipboard/clipboard";
@@ -34,6 +35,7 @@ const TopupCard = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [topupStatus, setTopupStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [stIsSuccess, setStIsSuccess] = useState(false);
   // const toast = useToast();
 
   const handleTopup = async () => {
@@ -58,8 +60,10 @@ const TopupCard = () => {
       setFeedbackMessage(
         "Topup Requested. Please wait for confirmation from our team"
       );
+      setStIsSuccess(true);
     } else {
       setTopupStatus(false);
+      setStIsSuccess(false);
       setFeedbackMessage("Topup Request Failed. Please try again later");
     }
 
@@ -258,7 +262,10 @@ const TopupCard = () => {
 
       {topupStatus && !loading && (
         <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackText}>{feedbackMessage}</Text>
+          <FeedbackScreen
+            isSuccess={stIsSuccess}
+            feedbackText={feedbackMessage}
+          />
         </View>
       )}
 
