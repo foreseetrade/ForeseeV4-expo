@@ -98,20 +98,30 @@ const GoogleLogin = () => {
         <Text style={styles.text}>Welcome to Foresee</Text>
 
         <Image
-          style={{ width: 240, height: 240 }}
-          source={loginIllust}
-          placeholder={imgBlurHash4C}
+          style={{ width: 240, height: 240, alignSelf: "center" }}
+          source={"https://ik.imagekit.io/quackmagic/auth/LoginIllust.png"}
+          // placeholder={imgBlurHash4C}
           // contentFit="cover"
-          transition={8}
+          transition={1}
         />
 
         <Text
           style={{
             fontSize: 16,
-            textAlign: "center",
+            textAlign: "left",
           }}
         >
           Get started by creating an account
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            textAlign: "left",
+            color: colors4C.gray4C,
+          }}
+        >
+          By logging in You agree to Foresee's Privacy Policy, Terms and
+          Conditions
         </Text>
 
         <Divider
@@ -137,7 +147,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
     gap: 16,
     padding: 32,
     backgroundColor: colors4C.light4C,

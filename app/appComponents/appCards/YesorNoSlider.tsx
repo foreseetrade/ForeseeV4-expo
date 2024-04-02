@@ -133,6 +133,9 @@ const styles = StyleSheet.create({
   slider: {
     zIndex: 1,
     resizeMode: "cover",
+    width: 64,
+    height: 64,
+    // backgroundColor: "red",
   },
   label: {
     fontSize: 14,

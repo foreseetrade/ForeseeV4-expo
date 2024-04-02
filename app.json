@@ -9,7 +9,7 @@
     "scheme": "foresee",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash/LogoRBG.png",
+      "image": "./assets/splash/splashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
@@ -22,6 +22,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/splash/LogoRBG.png",
+        "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "image": "./assets/splash/splashScreen.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.code4ai.foresee"

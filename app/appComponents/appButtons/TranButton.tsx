@@ -21,10 +21,16 @@ import {
 } from "@gluestack-ui/themed";
 import TopupCard from "../appCards/TopupCard";
 import WithdrawCard from "../appCards/WithdrawCard";
+import useActionSheet from "@/app/customHooks/useActionSheet";
 
-const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon, scope }: any) => {
-  const [showActionsheet, setShowActionsheet] = useState(false);
-  const handleClose = () => setShowActionsheet(!showActionsheet);
+const TranButton = ({
+  navigateTo,
+  btnText,
+  leftIcon,
+  rightIcon,
+  scope,
+}: any) => {
+  const { handleClose, showActionsheet, setShowActionsheet } = useActionSheet();
 
   return (
     <>
@@ -65,8 +71,8 @@ const TranButton = ({ navigateTo, btnText, leftIcon, rightIcon, scope }: any) =>
             <ActionsheetDragIndicatorWrapper>
               <ActionsheetDragIndicator />
             </ActionsheetDragIndicatorWrapper>
-            {scope === "topup" && <TopupCard />}
-            {scope === "withdraw" && <WithdrawCard />}
+            {scope === "topup" && <TopupCard handleClose={handleClose} />}
+            {scope === "withdraw" && <WithdrawCard handleClose={handleClose} />}
           </ActionsheetContent>
         </Actionsheet>
       </TouchableOpacity>

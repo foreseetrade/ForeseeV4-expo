@@ -13,6 +13,10 @@ import ActionSheet from "../appComponents/appCards/ActionSheet";
 
 import { utilRemoveDoubleQuotes } from "../appComponents/appUtils/functions/utilRemoveDoubleQuotes";
 import { Spinner } from "@gluestack-ui/themed";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
 
 const ProfileScreen = () => {
   // console.log("profileData", profileData);
@@ -42,6 +46,14 @@ const ProfileScreen = () => {
       ),
       cardText: "App Info",
       navigateTo: "(profile)/AppInfoScreen",
+    },
+    {
+      leftIcon: <Feather name="list" size={16} color={colors4C.blue4C} />,
+      rightIcon: (
+        <Feather name="chevron-right" size={16} color={colors4C.blue4C} />
+      ),
+      cardText: "Privacy Policy",
+      navigateTo: "(profile)/LegalsScreen",
     },
     {
       leftIcon: <Feather name="book" size={16} color={colors4C.blue4C} />,
@@ -104,72 +116,74 @@ const ProfileScreen = () => {
 
   return (
     <>
-      <View
-        style={{
-          // padding: sizes4C.small4C,
-          gap: sizes4C.small4C,
-          borderRadius: sizes4C.small4C,
-        }}
-      >
-        {!profileData && <Spinner color={colors4C.purple4C} />}
-        {profileData && (
-          <>
-            <View style={styles.imgWrap}>
-              <View style={styles.imageBg}>
-                <Image
-                  source={
-                    profileData?.userPfpUrl
-                      ? { uri: profileData?.userPfpUrl }
-                      : imgBlurHash4C
-                  }
-                  placeholder={imgBlurHash4C}
-                  contentFit="cover"
-                  transition={8}
-                  style={styles.imageStyle}
-                />
+      <GestureHandlerRootView>
+        <ScrollView
+          style={{
+            // padding: sizes4C.small4C,
+            gap: sizes4C.small4C,
+            borderRadius: sizes4C.small4C,
+          }}
+        >
+          {!profileData && <Spinner color={colors4C.purple4C} />}
+          {profileData && (
+            <>
+              <View style={styles.imgWrap}>
+                <View style={styles.imageBg}>
+                  <Image
+                    source={
+                      profileData?.userPfpUrl
+                        ? { uri: profileData?.userPfpUrl }
+                        : imgBlurHash4C
+                    }
+                    placeholder={imgBlurHash4C}
+                    contentFit="cover"
+                    transition={8}
+                    style={styles.imageStyle}
+                  />
 
-                <Text style={styles.textStyle}>{profileData?.userName}</Text>
-                <Text style={styles.textStyle}>{profileData?.userEmail}</Text>
+                  <Text style={styles.textStyle}>{profileData?.userName}</Text>
+                  <Text style={styles.textStyle}>{profileData?.userEmail}</Text>
+                </View>
               </View>
-            </View>
-          </>
-        )}
-        <View style={styles.statButtonContainer}>
-          {/* <Text>HomeScreen</Text> */}
-          {/* <MatchCard /> */}
-          {/* <MatchPredCard winPercentage={75} />  */}
-          {/* <NumberPad /> */}
-          <StatButton
-            navigateTo="(wallet)/AllTransactionsScreen"
-            btnStatText={profileData?.userWins}
-            leftIcon={
-              <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
-            }
-            btnText={"Trades Won"}
-            rightIcon={null}
-          />
-          <StatButton
-            btnStatText={profileData?.userWalletBalance}
-            navigateTo="(wallet)/"
-            leftIcon={
-              <Feather name="credit-card" size={16} color={colors4C.blue4C} />
-            }
-            btnText={"Wallet Balance"}
-            rightIcon={null}
-          />
-        </View>
-        <View style={styles.chevronsContainer}>
-          {cardData.map((data, index) => (
-            <CardWithChevron
-              key={index}
-              leftIcon={data.leftIcon}
-              rightIcon={data.rightIcon}
-              cardText={data.cardText}
-              navigateTo={data.navigateTo}
+            </>
+          )}
+          <View style={styles.statButtonContainer}>
+            {/* <Text>HomeScreen</Text> */}
+            {/* <MatchCard /> */}
+            {/* <MatchPredCard winPercentage={75} />  */}
+            {/* <NumberPad /> */}
+            <StatButton
+              navigateTo="(wallet)/AllTransactionsScreen"
+              btnStatText={profileData?.userWins}
+              leftIcon={
+                <Feather name="bar-chart" size={16} color={colors4C.blue4C} />
+              }
+              btnText={"Trades Won"}
+              rightIcon={null}
             />
-          ))}
-        </View>
-      </View>
+            <StatButton
+              btnStatText={profileData?.userWalletBalance}
+              navigateTo="(wallet)/"
+              leftIcon={
+                <Feather name="credit-card" size={16} color={colors4C.blue4C} />
+              }
+              btnText={"Wallet Balance"}
+              rightIcon={null}
+            />
+          </View>
+          <View style={styles.chevronsContainer}>
+            {cardData.map((data, index) => (
+              <CardWithChevron
+                key={index}
+                leftIcon={data.leftIcon}
+                rightIcon={data.rightIcon}
+                cardText={data.cardText}
+                navigateTo={data.navigateTo}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </GestureHandlerRootView>
     </>
   );
 };

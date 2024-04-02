@@ -16,6 +16,7 @@ import TopupCard from "../appCards/TopupCard";
 import WithdrawCard from "../appCards/WithdrawCard";
 import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 import { Feather } from "@expo/vector-icons";
+import useActionSheet from "@/app/customHooks/useActionSheet";
 
 const NumberPad = ({
   scope,
@@ -28,9 +29,11 @@ const NumberPad = ({
   const [displayValue, setDisplayValue] = useState("0");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
-  const [showActionsheet, setShowActionsheet] = useState(false);
-  const handleClose = () => setShowActionsheet(!showActionsheet);
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [confFeedback, setConfFeedback] = useState("");
+
+  const { handleClose, showActionsheet, setShowActionsheet } = useActionSheet();
 
   const fnHandleConfirm = async () => {
     setLoading(true);
@@ -51,14 +54,19 @@ const NumberPad = ({
       setFeedbackMessage(
         "Your prediction has been submitted, it will be approved only when we find another player with opposite stat"
       );
-      // router.push("/(wallet)/FeedbackScreen");
+      setIsSuccess(true);
+      setConfFeedback(
+        "Your Trade request has been received, we will confirm this trade only when we get an opposite match"
+      );
+      setLoading(false);
+      return;
+    } else {
+      setFeedbackMessage("Something went wrong. Please try again later");
+      setIsSuccess(false);
+      setConfFeedback("Something went wrong. Please try again later");
       setLoading(false);
       return;
     }
-
-    console.log("Res fnHandleConfirm", res);
-
-    setLoading(false);
   };
 
   const handleNumberPress = (number: number) => {
@@ -136,6 +144,10 @@ const NumberPad = ({
     ) {
       setFeedbackMessage("");
       setShowFeedback(false);
+    }
+    if (parseInt(displayValue || "", 10) === 0) {
+      setFeedbackMessage("Please enter a valid amount");
+      setShowFeedback(true);
     }
   };
   useEffect(() => {
@@ -229,7 +241,13 @@ const NumberPad = ({
           <ActionsheetDragIndicatorWrapper>
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
-          {!loading && <FeedbackScreen />}
+          {!loading && (
+            <FeedbackScreen
+              handleClose={handleClose}
+              isSuccess={isSuccess}
+              feedbackText={confFeedback}
+            />
+          )}
           {loading && <Spinner color={colors4C.purple4C} />}
         </ActionsheetContent>
       </Actionsheet>

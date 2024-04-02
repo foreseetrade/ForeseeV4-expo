@@ -22,6 +22,7 @@ import { Image } from "expo-image";
 // @ts-ignore
 import emptyState from "../../assets/images/feedbacks/EmptyState.png";
 import { Spinner } from "@gluestack-ui/themed";
+import SkelTransCard from "../appComponents/appSkeletons/SkelTransCard";
 const AllTransactionsScreen = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
@@ -191,13 +192,14 @@ const AllTransactionsScreen = () => {
                 key={index}
                 predAmt={item.predTotalValue}
                 predStatus={item.predStatus}
+                predAtValue={item.predValue}
                 predTeam={item.predTeamName}
                 predTeamOpponent={item.predTeamOpponent}
                 predType={"Prediction"}
                 predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
               />
             ))}
-          {loading && <Spinner color={colors4C.purple4C} />}
+          {loading && <SkelTransCard />}
 
           {!loading && tabData.length == 0 && (
             <>

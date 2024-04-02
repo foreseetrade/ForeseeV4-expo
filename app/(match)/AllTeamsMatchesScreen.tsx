@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Tab } from "@rneui/base";
+import { Skeleton, Tab } from "@rneui/base";
 import { colors4C, sizes4C } from "../asthetics";
 import {
   apiGetMatchByTeamName,
@@ -9,6 +9,8 @@ import {
 } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
 import { Spinner } from "@gluestack-ui/themed";
+import CustomLinearGradient from "../styles/CustomLinearGrad";
+import SkelMatchCard from "../appComponents/appSkeletons/SkelMatchCard";
 
 const AllTeamsMatchesScreen = (activeTabProp: number) => {
   const navigation = useNavigation();
@@ -85,7 +87,7 @@ const AllTeamsMatchesScreen = (activeTabProp: number) => {
       </Tab>
 
       <ScrollView>
-        {loading && <Spinner color={colors4C.purple4C} />}
+        {loading && <SkelMatchCard />}
         {!loading &&
           data &&
           data.map((data: any, index) => (

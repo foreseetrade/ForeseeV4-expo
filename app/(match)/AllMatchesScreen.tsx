@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Tab } from "@rneui/base";
+import { Skeleton, Tab } from "@rneui/base";
 import { colors4C, sizes4C } from "../asthetics";
 import { apiGetMatchesByStatus } from "../services/BEApis/match";
 import MatchCard from "../appComponents/appCards/MatchCard";
 import { ScrollView, Spinner } from "@gluestack-ui/themed";
+import CustomLinearGradient from "../styles/CustomLinearGrad";
+import SkelMatchCard from "../appComponents/appSkeletons/SkelMatchCard";
 const AllMatchesScreen = () => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
@@ -82,7 +84,7 @@ const AllMatchesScreen = () => {
         <Text style={{ color: colors4C.purple4C, fontSize: 12 }}>Live</Text>
       )} */}
       <ScrollView>
-        {loading && <Spinner color={colors4C.purple4C} />}
+        {loading && <SkelMatchCard />}
         {!loading &&
           data &&
           data.map((data: any, index) => (

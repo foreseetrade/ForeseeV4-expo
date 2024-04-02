@@ -17,11 +17,12 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { apiNewTopup } from "@/app/services/BEApis/topup";
 import { getExpoStorage } from "@/app/services/expo-storage";
+import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 
 // @ts-ignore
 // import { Clipboard } from "@react-native-clipboard/clipboard";
 
-const TopupCard = () => {
+const TopupCard = ({ handleClose }: { handleClose: Function }) => {
   const [topupDetails, setTopupDetails] = useState({
     topupAmount: "",
     topupRefId: "",
@@ -34,6 +35,7 @@ const TopupCard = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [topupStatus, setTopupStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [stIsSuccess, setStIsSuccess] = useState(false);
   // const toast = useToast();
 
   const handleTopup = async () => {
@@ -56,39 +58,23 @@ const TopupCard = () => {
       setLoading(false);
       setTopupStatus(true);
       setFeedbackMessage(
-        "Topup Requested. Please wait for confirmation from our team"
+        "Topup Requested. Please wait for confirmation from Foresee team"
       );
+      setStIsSuccess(true);
+      return;
     } else {
+      setLoading(false);
       setTopupStatus(false);
+      setStIsSuccess(false);
       setFeedbackMessage("Topup Request Failed. Please try again later");
+      return;
     }
-
-    setLoading(false);
   };
 
   const handleInputChange = (name: string, value: string) => {
     console.log(name, value);
     setTopupDetails({ ...topupDetails, [name]: value });
   };
-
-  // const showToast = () => {
-  //   toast.show({
-  //     placement: "top",
-  //     render: ({ id }) => {
-  //       const toastId = "toast-" + id;
-  //       return (
-  //         <Toast nativeID={toastId} action="attention" variant="solid">
-  //           <VStack space="xs">
-  //             <ToastTitle>Copied to Clipboard</ToastTitle>
-  //             {/* <ToastDescription>
-  //               You can now paste it in your browser
-  //             </ToastDescription> */}
-  //           </VStack>
-  //         </Toast>
-  //       );
-  //     },
-  //   });
-  // };
 
   return (
     <>
@@ -257,8 +243,19 @@ const TopupCard = () => {
       )}
 
       {topupStatus && !loading && (
-        <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackText}>{feedbackMessage}</Text>
+        <View
+          style={{
+            height: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <FeedbackScreen
+            handleClose={handleClose}
+            isSuccess={stIsSuccess}
+            feedbackText={feedbackMessage}
+          />
         </View>
       )}
 

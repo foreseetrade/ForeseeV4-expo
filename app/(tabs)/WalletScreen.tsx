@@ -28,6 +28,7 @@ import { Image } from "expo-image";
 // @ts-ignore
 import emptyState from "../../assets/images/feedbacks/EmptyState.png";
 import { Spinner } from "@gluestack-ui/themed";
+import SkelTransCard from "../appComponents/appSkeletons/SkelTransCard";
 const WalletScreen = () => {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const handleClose = () => setShowActionsheet(!showActionsheet);
@@ -132,12 +133,13 @@ const WalletScreen = () => {
             predAmt={item.predTotalValue}
             predStatus={item.predStatus}
             predTeam={item.predTeamName}
+            predAtValue={item.predValue}
             predTeamOpponent={item.predTeamOpponent}
             predType={"Prediction"}
             predTimestamp={utilXtimeAgo(item?.predCreatedAt)}
           />
         ))}
-        {loading && <Spinner color={colors4C.purple4C} />}
+        {loading && <SkelTransCard />}
         {!loading && tabData.length == 0 && (
           <View
             style={{
