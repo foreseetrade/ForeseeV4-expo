@@ -16,6 +16,7 @@ import TopupCard from "../appCards/TopupCard";
 import WithdrawCard from "../appCards/WithdrawCard";
 import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 import { Feather } from "@expo/vector-icons";
+import useActionSheet from "@/app/customHooks/useActionSheet";
 
 const NumberPad = ({
   scope,
@@ -28,11 +29,11 @@ const NumberPad = ({
   const [displayValue, setDisplayValue] = useState("0");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
-  const [showActionsheet, setShowActionsheet] = useState(false);
-  const handleClose = () => setShowActionsheet(!showActionsheet);
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [confFeedback, setConfFeedback] = useState("");
+
+  const { handleClose, showActionsheet, setShowActionsheet } = useActionSheet();
 
   const fnHandleConfirm = async () => {
     setLoading(true);
@@ -144,6 +145,10 @@ const NumberPad = ({
       setFeedbackMessage("");
       setShowFeedback(false);
     }
+    if (parseInt(displayValue || "", 10) === 0) {
+      setFeedbackMessage("Please enter a valid amount");
+      setShowFeedback(true);
+    }
   };
   useEffect(() => {
     fnHandleDisplayAmt();
@@ -237,7 +242,11 @@ const NumberPad = ({
             <ActionsheetDragIndicator />
           </ActionsheetDragIndicatorWrapper>
           {!loading && (
-            <FeedbackScreen isSuccess={isSuccess} feedbackText={confFeedback} />
+            <FeedbackScreen
+              handleClose={handleClose}
+              isSuccess={isSuccess}
+              feedbackText={confFeedback}
+            />
           )}
           {loading && <Spinner color={colors4C.purple4C} />}
         </ActionsheetContent>

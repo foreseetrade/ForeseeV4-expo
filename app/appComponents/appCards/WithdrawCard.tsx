@@ -14,7 +14,7 @@ import { getExpoStorage } from "@/app/services/expo-storage";
 import { apiNewWithdraw } from "@/app/services/BEApis/withdraw";
 import FeedbackScreen from "@/app/(wallet)/FeedbackScreen";
 
-const WithdrawCard = () => {
+const WithdrawCard = ({ handleClose }: { handleClose: Function }) => {
   const [withdrawDetails, setwithdrawDetails] = useState({
     withdrawAmount: "",
     withdrawRefId: "",
@@ -48,15 +48,16 @@ const WithdrawCard = () => {
       setWithdrawStatus(true);
       setStIsSuccess(true);
       setFeedbackMessage(
-        "Withdraw Requested. Please wait for confirmation from our team"
+        "Withdraw Requested. Please wait for confirmation from Foresee team"
       );
+      return;
     } else {
       setWithdrawStatus(false);
       setStIsSuccess(false);
       setFeedbackMessage("Withdraw Request Failed. Please try again later");
+      setLoading(false);
+      return;
     }
-
-    setLoading(false);
   };
 
   const handleInputChange = (name: string, value: string) => {
@@ -172,8 +173,19 @@ const WithdrawCard = () => {
       )}
 
       {withdrawStatus && !loading && (
-        <View style={styles.feedbackContainer}>
-          <FeedbackScreen isSuccess={stIsSuccess} feedbackText={feedbackMessage} />
+        <View
+          style={{
+            height: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <FeedbackScreen
+            handleClose={handleClose}
+            isSuccess={stIsSuccess}
+            feedbackText={feedbackMessage}
+          />
         </View>
       )}
 
@@ -236,6 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors4C.light4C,
     padding: sizes4C.small4C,
     borderRadius: sizes4C.small4C,
+    height: "50%",
   },
   feedbackText: {
     fontSize: 16,

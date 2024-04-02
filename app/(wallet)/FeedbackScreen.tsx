@@ -12,9 +12,11 @@ import { router, useNavigation } from "expo-router";
 const FeedbackScreen = ({
   isSuccess,
   feedbackText,
+  handleClose,
 }: {
   isSuccess: boolean;
   feedbackText: string;
+  handleClose: Function;
 }) => {
   // const navigation = useNavigation();
 
@@ -25,7 +27,7 @@ const FeedbackScreen = ({
   // });
   return (
     <>
-      {
+      <View style={{ height: "50%" }}>
         <View style={styles.container}>
           {isSuccess && (
             <>
@@ -49,17 +51,22 @@ const FeedbackScreen = ({
                 contentFit="cover"
                 transition={8}
               />
-              <Text style={{ fontSize: 14 }}>{feedbackText}</Text>
+              <Text style={{ fontSize: 14, color: colors4C.black4C }}>
+                {feedbackText}
+              </Text>
             </>
           )}
           <TouchableOpacity
-            onPress={() => router.replace("/")}
+            onPress={() => {
+              router.replace("/");
+              handleClose();
+            }}
             style={styles.primaryBtn}
           >
             <Text style={styles.primaryBtnText}>Back to Home</Text>
           </TouchableOpacity>
         </View>
-      }
+      </View>
     </>
   );
 };
@@ -68,18 +75,20 @@ export default FeedbackScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
     flexDirection: "column",
-    alignItems: "center",
     justifyContent: "center",
-    padding: sizes4C.medium4C,
+    alignItems: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    padding: sizes4C.small4C,
     gap: sizes4C.large4C,
     width: "100%",
   },
   primaryBtn: {
     width: "100%",
     backgroundColor: colors4C.purple4C,
-    padding: sizes4C.small4C,
+    padding: sizes4C.medium4C,
     borderRadius: sizes4C.small4C,
   },
   primaryBtnText: {

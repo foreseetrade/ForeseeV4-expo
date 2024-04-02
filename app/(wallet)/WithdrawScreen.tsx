@@ -30,7 +30,7 @@ const WithDrawScreen = () => {
       <View style={styles.infoContainer}>
         <Feather name="info" size={18} color={colors4C.purple4C} />
         <Text style={styles.infoText}>
-          Your funds are always safe with us and we value your time and timing
+          Your funds are always safe with us, we value your time and timing
         </Text>
       </View>
       <View style={styles.numberPadContainer}>

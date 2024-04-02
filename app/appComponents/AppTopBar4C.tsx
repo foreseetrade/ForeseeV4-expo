@@ -105,7 +105,7 @@ const AppTopBar4C = ({ isNumbersVisible }: { isNumbersVisible: boolean }) => {
             source={
               localData?.userPfpUrl || profileData?.userPfpUrl
                 ? profileData?.userPfpUrl
-                : imgBlurHash4C
+                : imgPlaceholderBlackWhite
             }
             placeholder={imgPlaceholderBlackWhite}
             contentFit="cover"
